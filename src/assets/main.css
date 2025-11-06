@@ -8,6 +8,10 @@
   margin: 0 auto;
 }
 
+button {
+  cursor: pointer;
+}
+
 a,
 .green {
   text-decoration: none;

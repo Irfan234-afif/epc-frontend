@@ -145,6 +145,9 @@ import QRView from '@/components/pages/home/QRView.vue';
 import { ref } from 'vue';
 import Modal from '@/components/ui/modal/Modal.vue';
 import Navbar from '@/components/ui/navbar/Navbar.vue';
+import { useAuth } from '@/components/lib/auth';
+
+const { state } = useAuth();
 
 const showModal = ref(false);
 const propertyModal = ref<{

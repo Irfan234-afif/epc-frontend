@@ -6,6 +6,7 @@ import Button from '@/components/ui/button/Button.vue'
 import { frappe } from '@/components/lib/frappe';
 import { useRouter } from 'vue-router';
 import Loader from '@/components/ui/loader/Loader.vue';
+import { useAuth } from '@/components/lib/auth';
 
 const router = useRouter()
 
@@ -14,24 +15,16 @@ const password = ref('admin');
 const showPassword = ref(false);
 const rememberMe = ref(false);
 const viewIcon = 'http://localhost:3845/assets/3eecf9e9e51cb40cff9a7e704a12eeed3ab52a90.svg';
-const isLoading = ref(false);
+const { state, login } = useAuth();
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
 const handleSubmit = async () => {
-    isLoading.value = true;
-    try {
-        const auth = frappe.auth();
-
-        const response = await auth.loginWithUsernamePassword({username: email.value, password: password.value});
-
+    const ok = await login(email.value, password.value);
+    if (ok) {
         router.replace('/');
-    } catch (error) {
-        
-    } finally {
-        isLoading.value = false;
     }
 };
 </script>
@@ -39,7 +32,7 @@ const handleSubmit = async () => {
 <template>
   <div class="bg-primary-dark min-w-screen min-h-screen flex items-center justify-center">
     <div class="min-h-screen flex flex-col">
-      <Loader v-if="isLoading" />
+      <Loader v-if="state.isLoading" />
       <nav class="w-full p-6 flex items-center">
         <div class="w-40">
           <CompanyLogo class="w-full h-auto text-white" />

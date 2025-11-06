@@ -74,9 +74,9 @@
                 <div>
                   <p class="text-lg font-bold py-2 mb-2">Contact IT Support</p>
                 </div>
-                <div>
+                <button @click="logout">
                   <p class="text-lg font-bold text-primary py-4">Sign Out</p>
-                </div>
+                </button>
               </div>
           
               <!-- <div class="p-6 border-t">
@@ -95,6 +95,9 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, watch } from "vue";
+import { useAuth } from "./lib/auth";
+
+const { logout } = useAuth();
 
 interface Props {
   show: boolean;
