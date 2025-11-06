@@ -1,32 +1,44 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
-import { frappe } from './frappe'
+import { createWebHistory, createRouter } from 'vue-router'
+import { frappe } from './components/lib/frappe'
+import { getCookie } from './components/lib/utils';
 
 import TheWelcome from './components/TheWelcome.vue';
 import Login from './components/pages/auth/Login.vue';
+import Home from './components/pages/home/Home.vue';
+import PurchaseHistory from './components/pages/purchase_history/PurchaseHistory.vue';
 
 
 const routes = [
     {
         path: '/',
-        component: () => TheWelcome,
+        name: 'Home',
+        component: () => Home,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/purchase-history',
+        name: 'PurchaseHistory',
+        component: () => PurchaseHistory,
         meta: { requiresAuth: true }
     },
     {
         path: '/login',
+        name: 'Login',
+        meta: { guest: true },
         component: () => Login
     }
 ];
 
 export const router = createRouter({
-    history: createMemoryHistory(),
+    history: createWebHistory(),
     routes
 });
 
 // Ganti sesuai sumber auth Anda (Pinia/Vuex/Cookies/LocalStorage)
 function isAuthenticated() {
-    const auth = frappe.auth();
-    // console.log("Auth frappe : ", auth.);
-    return auth.token != null;
+    console.log("Checking authentication status...", document.cookie);
+    console.log("!!getCookie('sid') :", !!getCookie('sid'));
+    return !!getCookie('user_id') && getCookie('user_id') !== 'Guest';
 }
 
 router.beforeEach((to, from, next) => {

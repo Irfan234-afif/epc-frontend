@@ -4,9 +4,7 @@ import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <main>
     <RouterView />
-  </main>
 </template>
 
 <style scoped>
