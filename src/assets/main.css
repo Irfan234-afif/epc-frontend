@@ -18,6 +18,9 @@ a,
   transition: 0.4s;
 }
 
+button {
+  transition: 0.4s;
+}
 .button-bg-primary {
   background-color: var(--color-primary);
   border-radius: 8px;
@@ -42,7 +45,7 @@ hr {
 
 
 @media (hover: hover) {
-  a:hover {
+  a:hover, button:hover {
     background-color: hsla(0, 0%, 7%, 0.103);
   }
 }

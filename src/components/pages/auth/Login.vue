@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import CompanyLogo from '@/components/icons/CompanyLogo.vue'
-import Input from '@/components/input/Input.vue'
+import Input from '@/components/ui/input/Input.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { frappe } from '@/components/lib/frappe';
 import { useRouter } from 'vue-router';
@@ -50,6 +50,7 @@ const handleSubmit = async () => {
               <Input 
                 v-model="email" 
                 placeholder="example@sosco.id"
+                variant="dark"
                 class="!bg-transparent !h-11 !text-white"
               />
             </div>
@@ -59,6 +60,7 @@ const handleSubmit = async () => {
                 :type="showPassword ? 'text' : 'password'"
                 v-model="password" 
                 placeholder="rsdcdcss74"
+                variant="dark"
                 class="!bg-transparent !h-11 !text-white"
               />
               <button 

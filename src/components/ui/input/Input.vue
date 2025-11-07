@@ -2,12 +2,25 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@/components/lib/utils'
 import { useVModel } from '@vueuse/core'
+import { inputVariants, type InputVariants } from '.'
 
-const props = defineProps<{
+interface Props {
   modelValue?: string | number
   defaultValue?: string | number
   class?: HTMLAttributes['class']
-}>()
+  variant?: InputVariants['variant']
+}
+
+// const props = defineProps<{
+//   modelValue?: string | number
+//   defaultValue?: string | number
+//   class?: HTMLAttributes['class']
+//   variant?: InputVariants['variant']
+// }>()
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'default',
+})
 
 const emits = defineEmits<{
   (e: 'update:modelValue', payload: string | number): void
@@ -29,8 +42,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
         'w-full h-11 px-4',
         'bg-transparent',
         'border border-solid rounded-md',
-        'border-white focus:border-[#cb8a2e] !focus:border-[#cb8a2e]',
-        'text-white text-base placeholder:text-white',
+        cn(inputVariants({ variant: props.variant })),
         'transition-all duration-200',
         'outline-none focus:outline-none',
         '[&:disabled]:opacity-50 [&:disabled]:cursor-not-allowed',

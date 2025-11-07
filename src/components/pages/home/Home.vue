@@ -10,38 +10,8 @@
         </div>
       </Navbar>
 
-      <div class="mt-8 relative">
-        <div class="bg-black text-white p-6 rounded-lg shadow-lg relative min-h-[218px] flex flex-col">
-          <div class="text-right">
-            <company-logo/>
-          </div>
-          
-          <div class="flex-1"></div> <!-- Spacer di sini -->
-          
-          <div>
-            <p class="text-sm tracking-widest">07-1234-3738-2828</p>
-          </div>
-
-          <div class="flex-1"></div> <!-- Spacer di sini -->
-          
-          <div class="flex justify-between items-end">
-            <div>
-              <p class="text-sm mt-4">Monthly Limit</p>
-              <p class="text-3xl font-bold tracking-wider">IDR 22.981.902</p>
-              <p class="text-xs mt-4">Expires in 17 days</p>
-            </div>
-            <div class="bg-white/10 p-2 rounded-lg" @click="openModal({
-              mode: 'qr',
-              width: 'xl',
-              data: {
-                code: '07-1234-3738-2828',
-              }
-            })">
-              <!-- <img src="http://localhost:3845/assets/f0734302df95667c9f2e775645c29045323ef63e.svg" alt="QR Code" class="w-10 h-10"> -->
-              <IconQR class="w-10 h-10"/>
-            </div>
-          </div>
-        </div>
+      <div class="mt-8">
+        <CardStack :cards="employeeCards" :isLoading="isLoadingCards" @qr-click="handleQRClick" />
       </div>
 
       <div class="mt-4 flex">
@@ -105,24 +75,24 @@
       </div>
 
       <div class="mt-8 space-y-4">
-        <div class="flex justify-between items-center">
+        <router-link to="/find-stores" class="flex justify-between items-center">
           <p class="text-lg font-bold">Find Stores Near You</p>
           <svg class="w-4 h-4" preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
           </svg>
-        </div>
+        </router-link>
         <div class="flex justify-between items-center">
           <p class="text-lg font-bold">Contact IT Support</p>
           <svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
           </svg>
         </div>
-        <div class="flex justify-between items-center">
+        <button class="flex justify-between items-center" @click="logout">
           <p class="text-lg font-bold text-[#cb8a2e]">Sign Out</p>
           <svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"  >
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   <Modal
@@ -142,12 +112,35 @@
 import CompanyLogo from '@/components/icons/CompanyLogo.vue';
 import IconQR from '@/components/icons/IconQR.vue';
 import QRView from '@/components/pages/home/QRView.vue';
-import { ref } from 'vue';
+import CardStack from '@/components/pages/home/CardStack.vue';
+import { ref, onMounted } from 'vue';
 import Modal from '@/components/ui/modal/Modal.vue';
 import Navbar from '@/components/ui/navbar/Navbar.vue';
 import { useAuth } from '@/components/lib/auth';
+import { fetchUserCards } from '@/components/lib/card';
+import { Card } from '@/components/pages/home/useCardStack';
 
-const { state } = useAuth();
+const { state, logout } = useAuth();
+
+// Employee cards data - fetched from API
+const employeeCards = ref<Card[]>([]);
+const isLoadingCards = ref(false);
+
+// Fetch cards from API on component mount
+onMounted(async () => {
+  isLoadingCards.value = true;
+  try {
+    const cards = await fetchUserCards();
+    employeeCards.value = cards;
+    console.log(employeeCards.value);
+  } catch (error) {
+    console.error('Failed to fetch employee cards:', error);
+    // Keep empty array on error
+    employeeCards.value = [];
+  } finally {
+    isLoadingCards.value = false;
+  }
+});
 
 const showModal = ref(false);
 const propertyModal = ref<{
@@ -170,5 +163,15 @@ function closeModal() {
 function openModal(property: Record<string, any>) {
     showModal.value = true;
     propertyModal.value = property;
+};
+
+function handleQRClick(card: { code: string }) {
+    openModal({
+        mode: 'qr',
+        width: 'xl',
+        data: {
+            code: card.code,
+        }
+    });
 };
 </script>

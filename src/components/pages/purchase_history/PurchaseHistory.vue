@@ -35,14 +35,17 @@
         <div class="p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="font-bold text-xl mb-1">September 2025</h2>
+                    <h2 class="font-bold text-xl mb-1">{{ formattedMonthYear }}</h2>
                     <p class="text-sm">
                         <span>0 Transaction(s) · </span>
                         <span class="font-bold">Total IDR 0</span>
                     </p>
                 </div>
                 <div>
-                    <button class="text-primary font-bold text-base">
+                    <button 
+                        @click="openMonthPicker"
+                        class="text-primary font-bold text-base"
+                    >
                         Change
                     </button>
                 </div>
@@ -140,10 +143,57 @@
 
             </div>
         </div>
+        
+        <!-- Month Picker Modal -->
+        <Modal
+            :show="showMonthPicker"
+            :maxWidth="'sm'"
+            @close="closeMonthPicker"
+        >
+            <template v-slot="{ propertyModal }">
+                <MonthPicker
+                    v-model="selectedDate"
+                    @done="closeMonthPicker"
+                />
+            </template>
+        </Modal>
     </div>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 import CompanyLogo from '@/components/icons/CompanyLogo.vue';
 import Navbar from '@/components/ui/navbar/Navbar.vue';
+import Modal from '@/components/ui/modal/Modal.vue';
+import MonthPicker from '@/components/pages/purchase_history/MonthPicker.vue';
+
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+
+const selectedDate = ref({ month: 8, year: 2025 }); // September 2025 (month is 0-indexed, but we'll use 1-indexed for display)
+const showMonthPicker = ref(false);
+
+const formattedMonthYear = computed(() => {
+    return `${months[selectedDate.value.month]} ${selectedDate.value.year}`;
+});
+
+const openMonthPicker = () => {
+    showMonthPicker.value = true;
+};
+
+const closeMonthPicker = () => {
+    showMonthPicker.value = false;
+};
 </script>
