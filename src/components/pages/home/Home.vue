@@ -138,7 +138,6 @@ onMounted(async () => {
   try {
     const cards = await fetchUserCards();
     employeeCards.value = cards;
-    console.log(employeeCards.value);
   } catch (error) {
     console.error('Failed to fetch employee cards:', error);
     // Keep empty array on error

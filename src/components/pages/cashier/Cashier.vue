@@ -145,6 +145,25 @@
               Employee QR Code <span class="text-red-500">*</span>
             </label>
             
+            <!-- Error message for QR expired -->
+            <div v-if="errorMessage" class="p-4 bg-gradient-to-r from-red-50 to-rose-50 rounded-xl border-2 border-red-300 mb-4 animate-fade-in-scale">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                </svg>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold text-red-800 mb-1">QR Code Expired</p>
+                  <p class="text-xs text-red-700">{{ errorMessage }}</p>
+                  <button
+                    @click="errorMessage = ''"
+                    class="mt-2 text-xs font-semibold text-red-700 hover:text-red-900 underline"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            </div>
+            
             <!-- Info message when mandatory fields not filled -->
             <div v-if="!canScanQR" class="p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border-2 border-amber-200 mb-4 animate-fade-in">
               <div class="flex items-start gap-3">
@@ -175,17 +194,17 @@
               </button>
               
               <!-- Divider -->
-              <!-- <div class="relative my-6">
+              <div class="relative my-6">
                 <div class="absolute inset-0 flex items-center">
                   <div class="w-full border-t-2 border-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
                 </div>
                 <div class="relative flex justify-center">
                   <span class="px-4 py-1 bg-white text-sm font-medium text-gray-500 rounded-full border-2 border-gray-200">or enter manually</span>
                 </div>
-              </div> -->
+              </div>
               
               <!-- Manual Input -->
-              <!-- <div class="space-y-3">
+              <div class="space-y-3">
                 <Input
                   v-model="manualQRInput"
                   type="text"
@@ -202,7 +221,7 @@
                 >
                   Use Manual QR Code
                 </button>
-              </div> -->
+              </div>
             </div>
             
             <!-- Processing state -->
@@ -271,6 +290,7 @@ const manualQRInput = ref('');
 
 // Transaction state
 const isProcessing = ref(false);
+const errorMessage = ref('');
 
 // Load showrooms on mount
 onMounted(async () => {
@@ -300,7 +320,9 @@ const canScanQR = computed(() => {
 });
 
 // Methods
+
 function openScanner() {
+  errorMessage.value = ''; // Clear error when opening scanner
   showScanner.value = true;
 }
 
@@ -332,6 +354,7 @@ async function handleSubmit() {
   if (!form.value.amount || !form.value.showroom || !form.value.title || !form.value.qrValue) return;
   
   isProcessing.value = true;
+  errorMessage.value = ''; // Clear previous error
   
   try {
     const result = await processTransaction({
@@ -358,17 +381,26 @@ async function handleSubmit() {
     }
   } catch (error: any) {
     console.error('Transaction error:', error);
-    // Navigate to result page with error
-    router.push({
-      name: 'TransactionResult',
-      params: {
-        id: 'error'
-      },
-      query: {
-        status: 'error',
-        message: error?.message || 'An error occurred while processing the transaction'
-      }
-    });
+    
+    // Check if this is a QR expired error
+    if (error?.exc_type === 'QRExpiredError') {
+      // Stay on the page and show error message
+      errorMessage.value = error?.message || 'QR code has expired. Please scan again.';
+      // Clear the QR value to allow re-scanning
+      form.value.qrValue = '';
+    } else {
+      // For other errors, navigate to result page
+      router.push({
+        name: 'TransactionResult',
+        params: {
+          id: 'error'
+        },
+        query: {
+          status: 'error',
+          message: error?.message || 'An error occurred while processing the transaction'
+        }
+      });
+    }
   } finally {
     isProcessing.value = false;
   }

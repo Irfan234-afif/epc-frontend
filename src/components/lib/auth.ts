@@ -2,6 +2,7 @@ import { reactive, readonly } from 'vue';
 import { frappe } from './frappe';
 import { getCookie } from './utils';
 import { Employee, LoggedInUser } from './types';
+import { initSocket } from './frappeSocket';
 
 const state = reactive<{
 	isLoading: boolean;
@@ -31,6 +32,7 @@ async function fetchLoggedInUser(): Promise<LoggedInUser | null> {
 			);
 		state.user = res?.message ?? null;
 		state.isAuthenticated = !!state.user;
+		initSocket();
 		return state.user;
 	} catch (error) {
 		state.user = null;
