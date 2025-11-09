@@ -1,5 +1,5 @@
 import { frappe } from './frappe';
-import { UserCardResponse } from './types';
+import { UserCardResponse, QRCodeResponse } from './types';
 import { Card } from '@/components/pages/home/useCardStack';
 
 /**
@@ -62,6 +62,27 @@ export async function fetchUserCards(): Promise<Card[]> {
 	} catch (error) {
 		console.error('Error fetching user cards:', error);
 		return [];
+	}
+}
+
+/**
+ * Generate QR code for a card
+ */
+export async function generateQRCode(cardCode: string): Promise<QRCodeResponse | null> {
+	try {
+		const res = await frappe
+			.call()
+			.post<{ message: QRCodeResponse }>(
+				'employeediscount.api.card.generate_qr_code',
+				{
+					epc_card: cardCode,
+				}
+			);
+		
+		return res?.message ?? null;
+	} catch (error) {
+		console.error('Error generating QR code:', error);
+		return null;
 	}
 }
 
