@@ -18,56 +18,56 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: () => Home,
+        component: Home,
         meta: { requiresAuth: true }
     },
     {
         path: '/purchase-history',
         name: 'PurchaseHistory',
-        component: () => PurchaseHistory,
+        component: PurchaseHistory,
         meta: { requiresAuth: true }
     },
     {
         path: '/notifications',
         name: 'Notification',
-        component: () => Notification,
+        component: Notification,
         meta: { requiresAuth: true }
     },
     {
         path: '/offers',
         name: 'Offers',
-        component: () => Offers,
+        component: Offers,
         meta: { requiresAuth: true }
     },
     {
         path: '/stamps',
         name: 'Stamps',
-        component: () => Stamps,
+        component: Stamps,
         meta: { requiresAuth: true }
     },
     {
         path: '/find-stores',
         name: 'FindStores',
-        component: () => FindStores,
+        component: FindStores,
         meta: { requiresAuth: true }
     },
     {
         path: '/cashier',
         name: 'Cashier',
-        component: () => Cashier,
+        component: Cashier,
         meta: { requiresAuth: true }
     },
     {
         path: '/cashier/transaction-result/:id',
         name: 'TransactionResult',
-        component: () => TransactionResult,
+        component: TransactionResult,
         meta: { requiresAuth: true }
     },
     {
         path: '/login',
         name: 'Login',
         meta: { guest: true },
-        component: () => Login
+        component: Login
     }
 ];
 
@@ -76,10 +76,8 @@ export const router = createRouter({
     routes
 });
 
-// Ganti sesuai sumber auth Anda (Pinia/Vuex/Cookies/LocalStorage)
+// Check authentication based on cookies
 function isAuthenticated() {
-    console.log("Checking authentication status...", document.cookie);
-    console.log("!!getCookie('sid') :", !!getCookie('sid'));
     return !!getCookie('user_id') && getCookie('user_id') !== 'Guest';
 }
 
