@@ -45,8 +45,29 @@ export async function processTransaction(data: TransactionRequest): Promise<Tran
 		return res?.message ?? null;
 	} catch (error: any) {
 		console.error('Error processing transaction:', error);
-		// Re-throw with error message for UI to handle
-		throw new Error(error?.exception || error?.message || 'Transaction failed');
+		
+		// Try to decode _server_messages for cleaner error message
+		let errorMessage = 'Transaction failed';
+		
+		if (error?._server_messages) {
+			try {
+				const serverMessages = JSON.parse(error._server_messages);
+				if (Array.isArray(serverMessages) && serverMessages.length > 0) {
+					const firstMessage = JSON.parse(serverMessages[0]);
+					errorMessage = firstMessage.message || errorMessage;
+				}
+			} catch (parseError) {
+				console.error('Failed to parse server messages:', parseError);
+				errorMessage = error?.exception || error?.message || errorMessage;
+			}
+		} else {
+			errorMessage = error?.exception || error?.message || errorMessage;
+		}
+		
+		// Re-throw with error type and clean message for UI to handle
+		const errorObj = new Error(errorMessage) as any;
+		errorObj.exc_type = error?.exc_type;
+		throw errorObj;
 	}
 }
 

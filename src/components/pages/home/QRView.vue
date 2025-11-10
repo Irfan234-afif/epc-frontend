@@ -30,12 +30,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, onBeforeMount, onBeforeUnmount } from 'vue';
+import { useRouter } from 'vue-router';
 import { generateQRCode } from '@/components/lib/card';
 import { QRCodeResponse } from '@/components/lib/types';
 import QRCode from 'qrcode';
+import { socket } from '@/components/lib/frappeSocket';
 
-defineEmits<{
+const router = useRouter();
+
+const emit = defineEmits<{
   (e: 'close'): void;
 }>();
 
@@ -107,6 +111,41 @@ async function loadQRCode() {
 }
 
 onMounted(() => {
+  console.log('QRView mounted');
+  console.log('Subscribing to transaction:', props.cardCode);
+  socket.emit('card_subscribe', props.cardCode);
+  socket.on('transaction_completed', (data) => {
+    console.log('Transaction completed:', data);
+    
+    // Close the dialog
+    emit('close');
+    
+    // Navigate to transaction result page
+    if (data) {
+      router.push({
+        name: 'EmployeeTransactionResult',
+        params: {
+          id: data
+        },
+        query: {
+          status: 'success',
+          message: data.message || 'Transaction completed successfully'
+        }
+      });
+    } else {
+      // If no transaction_id, show error
+      router.push({
+        name: 'EmployeeTransactionResult',
+        params: {
+          id: 'error'
+        },
+        query: {
+          status: 'error',
+          message: data.message || 'Transaction completed but no transaction ID received'
+        }
+      });
+    }
+  });
   // Generate QR code immediately when component opens
   loadQRCode();
   
@@ -114,6 +153,11 @@ onMounted(() => {
   refreshTimer.value = window.setInterval(() => {
     loadQRCode();
   }, 60000); // 60 seconds
+});
+
+onBeforeUnmount(() => {
+  console.log('QRView beforeMount');
+  socket.emit('card_unsubscribe', props.cardCode);
 });
 
 onUnmounted(() => {

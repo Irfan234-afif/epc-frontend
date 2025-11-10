@@ -12,6 +12,7 @@ import Stamps from './components/pages/stamps/Stamps.vue';
 import FindStores from './components/pages/find-stores/FindStores.vue';
 import Cashier from './components/pages/cashier/Cashier.vue';
 import TransactionResult from './components/pages/cashier/TransactionResult.vue';
+import EmployeeTransactionResult from './components/pages/home/EmployeeTransactionResult.vue';
 
 
 const routes = [
@@ -61,6 +62,12 @@ const routes = [
         path: '/cashier/transaction-result/:id',
         name: 'TransactionResult',
         component: TransactionResult,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/transaction-result/:id',
+        name: 'EmployeeTransactionResult',
+        component: () => EmployeeTransactionResult,
         meta: { requiresAuth: true }
     },
     {
