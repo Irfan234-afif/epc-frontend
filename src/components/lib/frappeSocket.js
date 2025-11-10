@@ -7,7 +7,10 @@ const socket = io(import.meta.env.VITE_BACKEND_SOCKET_URL, {
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
   reconnectionAttempts: 5,
-  timeout: 20000
+  timeout: 20000,
+  extraHeaders: {
+	'X-Frappe-Origin': import.meta.env.VITE_BACKEND_URL
+  }
 });
 
 async function initSocket(){
