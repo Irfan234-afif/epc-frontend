@@ -67,7 +67,7 @@ const routes = [
     {
         path: '/transaction-result/:id',
         name: 'EmployeeTransactionResult',
-        component: () => EmployeeTransactionResult,
+        component: EmployeeTransactionResult,
         meta: { requiresAuth: true }
     },
     {
