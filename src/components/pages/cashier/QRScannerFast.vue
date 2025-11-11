@@ -1,20 +1,20 @@
 <template>
-  <div class="flex flex-col items-center p-6 bg-white rounded-lg">
+  <div class="flex flex-col items-center p-6 bg-white rounded-lg w-full">
     <h2 class="text-2xl font-bold mb-4">Scan Employee QR Code</h2>
     
     <!-- Scanner Container -->
     <div v-if="!scannedValue" class="w-full max-w-md">
       <div class="mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
-        <p class="text-sm text-green-800 font-medium">⚡ Fast Scanner Active</p>
-        <p class="text-xs text-green-700 mt-1">Position QR code in view - detection is instant!</p>
+        <p class="text-sm text-green-800 font-medium">Scanner siap digunakan</p>
+        <p class="text-xs text-green-700 mt-1">Arahkan kode QR ke kotak tengah</p>
       </div>
       
-      <div class="relative rounded-lg overflow-hidden border-2 border-gray-300 mb-4">
-        <video ref="videoElement" class="w-full" playsinline></video>
+      <div class="relative rounded-lg overflow-hidden border-2 border-gray-300 mb-4 min-h-72 max-h-[40vh]">
+        <video ref="videoElement" class="w-full min-h-72 max-h-[40vh]" playsinline autoplay muted></video>
         
         <!-- Overlay box -->
-        <div class="absolute inset-0 pointer-events-none">
-          <div class="absolute inset-0 bg-black/40"></div>
+        <div class="absolute inset-0 pointer-events-none min-h-72 max-h-[40vh]">
+          <div class="absolute inset-0 bg-black/40 min-h-72 max-h-[40vh]"></div>
           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border-4 border-green-500 rounded-lg shadow-lg"></div>
         </div>
       </div>
@@ -88,37 +88,102 @@ const isScanning = ref(false);
 const error = ref<string>('');
 let qrScanner: QrScanner | null = null;
 
+function withTimeout<T>(promise: Promise<T>, ms: number, timeoutMessage = 'Camera start timed out'): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(timeoutMessage)), ms);
+    promise
+      .then((value) => {
+        clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
 async function startScanner() {
   try {
     if (!videoElement.value) {
       throw new Error('Video element not found');
     }
     
+    // Ensure mobile autoplay without user gesture (iOS/Android)
+    videoElement.value.setAttribute('playsinline', 'true');
+    videoElement.value.setAttribute('autoplay', 'true');
+    videoElement.value.muted = true;
+    
     isInitializing.value = true;
     error.value = '';
     
-    // Create QR Scanner with optimized settings
-    qrScanner = new QrScanner(
-      videoElement.value,
-      (result) => {
-        // Success callback - QR code detected
-        scannedValue.value = result.data;
-        stopScanner();
-      },
-      {
-        returnDetailedScanResult: true,
-        highlightScanRegion: false,
-        highlightCodeOutline: false,
-        maxScansPerSecond: 25, // High scan rate for instant detection
-        preferredCamera: 'environment', // Back camera
+    // Helper to create and start scanner with a given camera target
+    const createAndStart = async (
+      preferredCamera: QrScanner.FacingMode | QrScanner.DeviceId,
+      timeoutMs = 3000
+    ) => {
+      // Clean up any existing instance before re-creating
+      if (qrScanner) {
+        try { qrScanner.stop(); } catch {}
+        qrScanner = null;
       }
-    );
-    
-    // Start scanning
-    await qrScanner.start();
-    
+      qrScanner = new QrScanner(
+        videoElement.value!,
+        (result) => {
+          scannedValue.value = result.data;
+          stopScanner();
+        },
+        {
+          returnDetailedScanResult: true,
+          highlightScanRegion: false,
+          highlightCodeOutline: false,
+          maxScansPerSecond: 25,
+          preferredCamera
+        }
+      );
+      await withTimeout(qrScanner.start(), timeoutMs);
+    };
+
+    // After initial start, asynchronously switch to explicit back device if available
+    const switchToBackCameraIfAvailable = async () => {
+      if (!qrScanner) return;
+      try {
+        const camerasWithLabels = await QrScanner.listCameras(true);
+        console.log('Cameras with labels:', camerasWithLabels);
+        const backByLabelCamera = camerasWithLabels.find((c) => /0/i.test(c.label));
+        if (backByLabelCamera) {
+          console.log('Switching to back camera by label:', backByLabelCamera.id);
+          await qrScanner.setCamera(backByLabelCamera.id);
+          return backByLabelCamera.id;
+        }
+        const backByLabel = camerasWithLabels.find((c) => /back|rear|environment/i.test(c.label));
+        if (backByLabel) {
+          await qrScanner.setCamera(backByLabel.id);
+          return backByLabel.id;
+        }
+      } catch (e) {
+        console.warn('Could not switch to back camera:', e);
+        return null;
+      }
+    };
+
+    // First attempt: fast start using facingMode 'environment' (no enumeration yet)
+    try {
+      const backCameraId = await switchToBackCameraIfAvailable();
+      await createAndStart('environment', 3000);
+      isInitializing.value = false;
+      isScanning.value = true;
+      // Switch to explicit back device once labels are available (doesn't block UI)
+      return;
+    } catch (e) {
+      console.warn('Primary environment start failed quickly, trying user-facing fallback...', e);
+    }
+
+    // Fallback: start with user-facing quickly, then try switching to back once labels are available
+    await createAndStart('user', 3000);
     isInitializing.value = false;
     isScanning.value = true;
+    switchToBackCameraIfAvailable();
   } catch (err: any) {
     isInitializing.value = false;
     
