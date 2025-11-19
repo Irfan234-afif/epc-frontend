@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import './base.css';
 
+@theme {
+  --font-family-sans: 'Inter', sans-serif;
+}
+
 #app {
   /* max-width: 1280px;
   padding: 2rem;
