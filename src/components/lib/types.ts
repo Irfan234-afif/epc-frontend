@@ -5,6 +5,7 @@ export type LoggedInUser = {
 	full_name: string;
 	email: string;
 	employee?: Employee;
+	roles: string[];
 };
 
 export type UserCardResponse = {
