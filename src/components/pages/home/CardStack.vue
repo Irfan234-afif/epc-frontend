@@ -109,7 +109,7 @@
           <!-- Card number section with icons -->
           <div class="flex justify-between items-end card-info">
             <div class="card-details space-y-2">
-              <p class="text-xs tracking-[0.075rem] font-normal">EMPLOYEE CARD</p>
+              <p class="text-xs tracking-[0.075rem] font-normal">{{ card.epcType }}</p>
               <p class="text-[0.875rem] tracking-[0.1925rem] leading-normal font-normal">{{ card.code }}</p>
             </div>
             
