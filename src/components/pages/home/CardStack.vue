@@ -137,9 +137,9 @@
         
         <!-- Card belakang (index > 0) - hanya menampilkan logo di bagian bawah -->
         <div v-else class="relative h-full w-full">
-          <div v-if="card.logoUrl" class="absolute bottom-4 left-6 z-10">
+          <!-- <div v-if="card.logoUrl" class="absolute bottom-4 left-6 z-10">
             <img :src="card.logoUrl" :alt="card.logoAlt || 'Card Logo'" class="h-4 w-auto object-contain" />
-          </div>
+          </div> -->
         </div>
       </div>
     </transition-group>
