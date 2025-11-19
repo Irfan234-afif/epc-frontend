@@ -64,3 +64,20 @@ export type Transaction = {
 	from_balance: number;
 	to_balance: number;
 };
+
+export type TransactionListItem = {
+	name: string;
+	epc_card: string;
+	employee_name: string;
+	title: string;
+	total_amount: number;
+	description: string | null;
+	showroom: string;
+	showroom_name: string;
+	sbu: string;
+	sbu_logo: string;
+	date: string;
+	posting_time: string;
+	from_balance: number;
+	to_balance: number;
+};

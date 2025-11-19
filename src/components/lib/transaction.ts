@@ -1,5 +1,5 @@
 import { frappe } from './frappe';
-import { Showroom, Transaction, TransactionRequest, TransactionResponse } from './types';
+import { Showroom, Transaction, TransactionRequest, TransactionResponse, TransactionListItem } from './types';
 
 /**
  * Fetch list of showrooms from backend API
@@ -84,6 +84,59 @@ export async function getTransactionDetail(transactionId: string): Promise<Trans
 	} catch (error: any) {
 		console.error('Error fetching transaction detail:', error);
 		throw new Error(error?.exception || error?.message || 'Failed to fetch transaction details');
+	}
+}
+
+export async function getStoreName(store_id): Promise<string | null>  {
+	try {
+		const res = await frappe
+			.db()
+			.getDoc('Showroom', store_id);
+		return res?.showroom_name ?? null;
+	} catch (error) {
+		return null;
+	}
+}
+
+/**
+ * List transactions by card, year, and month
+ */
+export async function listTransactionsByCard(
+	cardId: string,
+	year: number,
+	month: number
+): Promise<TransactionListItem[]> {
+	try {
+		// Use the call API with params as query string
+		// Frappe SDK handles GET requests with query parameters
+		const method = 'employeediscount.api.transaction.list_transaction_by_card';
+		const params = {
+			card_id: cardId,
+			year: year.toString(),
+			month: month.toString(),
+		};
+		
+		// Build URL with query parameters
+		// @ts-ignore - import.meta.env is available in Vite
+		// const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+		// const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
+		// const queryString = new URLSearchParams(params).toString();
+		// const url = `${cleanBackendUrl}/api/method/${method}?${queryString}`;
+		
+		// // Use fetch directly since frappe.call().get() might not support query params easily
+		// const response = await fetch(url, {
+		// 	method: 'GET',
+		// 	credentials: 'include',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// });
+		const response = await frappe.call().get<{ message: TransactionListItem[] }>(method, params);
+		
+		return response?.message ?? [];
+	} catch (error) {
+		console.error('Error fetching transactions by card:', error);
+		return [];
 	}
 }
 

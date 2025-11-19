@@ -2,7 +2,7 @@ import { ref, computed, nextTick, watch } from 'vue';
 
 export interface Card {
   code: string;
-  limitType: string;
+  epcType: string;
   amount: string;
   expiresIn: number;
   bgColor: string;

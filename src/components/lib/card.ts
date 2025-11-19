@@ -37,7 +37,7 @@ function getLogoUrl(logoPath: string | null | undefined): string | undefined {
 function transformCardResponse(card: UserCardResponse): Card {
 	return {
 		code: card.name,
-		limitType: card.epc_type,
+		epcType: card.epc_type,
 		amount: formatIDR(card.current_balance),
 		expiresIn: card.days_remaining ?? 0,
 		bgColor: card.color,
