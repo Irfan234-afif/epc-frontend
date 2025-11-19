@@ -92,7 +92,15 @@ const routes = [
 
 export const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        // Selalu scroll ke atas saat pindah halaman
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { top: 0, behavior: 'smooth' };
+        }
+    }
 });
 
 // Check authentication based on cookies
