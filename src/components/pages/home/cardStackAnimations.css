@@ -15,7 +15,7 @@
 }
 
 .card-item:hover {
-  box-shadow: 0px 8px 24px 8px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Card States */
@@ -39,7 +39,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 10px;
+  border-radius: 0.75rem;
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.05) 0%,
@@ -76,32 +76,52 @@
   animation: logoSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
 }
 
-.content-exiting .card-code {
-  animation: codeSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards !important;
+.content-exiting .card-balance-label {
+  animation: labelSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards !important;
+}
+
+.content-exiting .card-amount {
+  animation: amountSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.075s forwards !important;
+}
+
+.content-exiting .card-expires {
+  animation: expiresSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards !important;
 }
 
 .content-exiting .card-info {
-  animation: infoSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards !important;
+  animation: infoSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.125s forwards !important;
 }
 
 .card-logo {
   animation: logoSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.25s both;
 }
 
-.card-code {
-  animation: codeSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+.card-balance-label {
+  animation: labelSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+.card-amount {
+  animation: amountSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.35s both;
+}
+
+.card-expires {
+  animation: expiresSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
 
 .card-info {
-  animation: infoSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.35s both;
+  animation: infoSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.45s both;
 }
 
 .card-details {
-  animation: detailsFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+  animation: detailsFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+}
+
+.card-swap {
+  animation: swapBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
 }
 
 .card-qr {
-  animation: qrBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s both;
+  animation: qrBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s both;
 }
 
 /* Shimmer Effect */
@@ -125,7 +145,7 @@
 
 /* Loading Skeleton Styles */
 .skeleton-card {
-  box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0.75rem 0.1875rem rgba(0,0,0,0.1);
   overflow: hidden;
   position: relative;
 }
@@ -196,7 +216,7 @@
     box-shadow: 0 0 0 rgba(203, 138, 46, 0);
   }
   50% {
-    box-shadow: 0 0 30px 10px rgba(203, 138, 46, 0.3);
+    box-shadow: 0 0 1.875rem 0.625rem rgba(203, 138, 46, 0.3);
   }
   100% {
     box-shadow: 0 0 0 rgba(203, 138, 46, 0);
@@ -225,7 +245,7 @@
 @keyframes logoSlideIn {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(1.25rem);
   }
   to {
     opacity: 1;
@@ -240,14 +260,14 @@
   }
   to {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(1.25rem);
   }
 }
 
 @keyframes codeSlideIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(0.625rem);
   }
   to {
     opacity: 1;
@@ -262,14 +282,14 @@
   }
   to {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-0.625rem);
   }
 }
 
 @keyframes infoSlideIn {
   from {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(0.9375rem);
   }
   to {
     opacity: 1;
@@ -284,14 +304,14 @@
   }
   to {
     opacity: 0;
-    transform: translateY(-15px);
+    transform: translateY(-0.9375rem);
   }
 }
 
 @keyframes detailsFadeIn {
   from {
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(-0.625rem);
   }
   to {
     opacity: 1;
@@ -310,6 +330,83 @@
   }
 }
 
+@keyframes swapBounce {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes labelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.625rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes labelSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-0.625rem);
+  }
+}
+
+@keyframes amountSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes amountSlideOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes expiresSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-0.625rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes expiresSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-0.625rem);
+  }
+}
+
 /* Keyframes - Effects */
 @keyframes shimmer {
   from {
@@ -323,7 +420,7 @@
 @keyframes hoverShine {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-1.25rem);
   }
   to {
     opacity: 1;

@@ -105,11 +105,16 @@ export function useCardStack(cards: () => Card[]) {
   };
 
   const getCardStyle = (index: number, totalCards: number) => {
+    const leftRem = 0.4375 + (index - 1) * 0.4375; // 0.4375rem = 7px
+    const topRem = 3.25 + (index - 1) * 0.375; // 3.25rem = 68px base, 0.375rem = 6px increment
+    const widthReduction = 0.875 + (index - 1) * 0.875; // 0.875rem = 14px
+    const heightRem = index === 0 ? 14 : 13 - (index - 1) * 0.375; // 14rem = 218px, 13rem = 208px
+    
     return {
-      left: index === 0 ? '0' : `${7 + (index - 1) * 7}px`,
-      top: index === 0 ? '0' : `${68 + (index - 1) * 6}px`,
-      width: index === 0 ? '100%' : `calc(100% - ${14 + (index - 1) * 14}px)`,
-      height: index === 0 ? '218px' : `${208 - (index - 1) * 6}px`,
+      left: index === 0 ? '0' : `${leftRem}rem`,
+      top: index === 0 ? '0' : `${topRem}rem`,
+      width: index === 0 ? '100%' : `calc(100% - ${widthReduction}rem)`,
+      height: `${heightRem}rem`,
       zIndex: totalCards - index
     };
   };

@@ -1,31 +1,77 @@
 <template>
-  <div class="flex flex-col items-center p-5 bg-gray-50 rounded-lg shadow-md">
-    <div class="text-center mb-4">
-      <h2 class="text-2xl font-bold mb-2">{{ qrCodeData?.card_name || cardCode || 'Loading...' }}</h2>
-      <p class="text-sm">{{ qrCodeData?.employee_name || 'Loading...' }}</p>
-    </div>
-    <div class="p-5 bg-gray-50 rounded-3xl shadow-sm mb-3">
-      <div v-if="isLoading" class="w-56 h-56 flex items-center justify-center">
-        <div class="text-gray-400">Generating QR Code...</div>
+  <div class="flex flex-col items-center p-5 bg-[#f8f8f8] rounded-lg">
+    <!-- Success View -->
+    <div v-if="isTransactionCompleted" class="w-full flex flex-col items-center">
+      <!-- Success Icon -->
+      <div class="w-[109px] h-[109px] mb-6 flex items-center justify-center">
+        <div class="w-full h-full rounded-full border-2 border-[#212121] flex items-center justify-center">
+          <svg class="w-12 h-12 text-[#212121]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
       </div>
-      <div v-else-if="qrCodeData && qrCodeImageUrl" class="w-56 h-56 flex items-center justify-center">
-        <img :src="qrCodeImageUrl" alt="QR Code" class="w-56 h-56 mix-blend-darken" />
-      </div>
-      <div v-else class="w-56 h-56 flex items-center justify-center">
-        <div class="text-red-500">Failed to generate QR Code</div>
-      </div>
+      
+      <!-- Title -->
+      <h2 class="text-[30px] font-bold text-[#212121] text-center mb-4">Payment Successful</h2>
+      
+      <!-- Store Name -->
+      <p v-if="storeName" class="text-base font-medium text-[#0f181f] text-center mb-4 tracking-[0.48px]">
+        {{ storeName }}
+      </p>
+      
+      <!-- Description -->
+      <p class="text-xs text-[#0f181f] text-center leading-[19px] tracking-[0.36px] mb-8 px-4" style="max-width: 268px;">
+        <span>Your payment of </span>
+        <span class="font-bold">{{ formatIDR(transactionData?.total_amount || 0) }}</span>
+        <span> was successful. You can view the details in your Purchase History. If you didn't make this transaction, please contact IT Support immediately.</span>
+      </p>
+      
+      <!-- Done Button -->
+      <button 
+        @click="handleDone"
+        class="bg-[#212121] text-white font-medium text-sm h-[45px] w-[253px] rounded-[5px] mb-4 tracking-[0.28px]"
+      >
+        Done
+      </button>
+      
+      <!-- View Purchase History Link -->
+      <button 
+        @click="goToPurchaseHistory"
+        class="text-xs font-bold text-[#0f181f] text-center cursor-pointer"
+      >
+        View Purchase History
+      </button>
     </div>
-    <!-- Countdown Timer -->
-    <div v-if="qrCodeData && qrCodeImageUrl && !isLoading" class="text-center mb-5">
-      <div class="inline-block bg-black/70 text-white px-4 py-2 rounded-full text-sm font-bold">
-        Refreshes in {{ countdownSeconds }}s
+    
+    <!-- QR Code View -->
+    <div v-else class="w-full flex flex-col items-center">
+      <div class="text-center mb-4">
+        <h2 class="text-2xl font-bold mb-2">{{ qrCodeData?.card_name || cardCode || 'Loading...' }}</h2>
+        <p class="text-sm">{{ qrCodeData?.employee_name || 'Loading...' }}</p>
       </div>
+      <div class="p-5 bg-gray-50 rounded-3xl shadow-sm mb-3">
+        <div v-if="isLoading" class="w-56 h-56 flex items-center justify-center">
+          <div class="text-gray-400">Generating QR Code...</div>
+        </div>
+        <div v-else-if="qrCodeData && qrCodeImageUrl" class="w-56 h-56 flex items-center justify-center">
+          <img :src="qrCodeImageUrl" alt="QR Code" class="w-56 h-56 mix-blend-darken" />
+        </div>
+        <div v-else class="w-56 h-56 flex items-center justify-center">
+          <div class="text-red-500">Failed to generate QR Code</div>
+        </div>
+      </div>
+      <!-- Countdown Timer -->
+      <div v-if="qrCodeData && qrCodeImageUrl && !isLoading" class="text-center mb-5">
+        <div class="inline-block px-4 py-2 rounded-full text-sm">
+          Auto refreshes in {{ countdownSeconds }}s
+        </div>
+      </div>
+      <div class="text-center text-gray-800 mb-5">
+        <p class="font-bold text-lg mb-2">Show Payment QR to Staff</p>
+        <p class="text-sm">Staff will scan this QR to apply your discount. Your balance will be updated after successful purchase.</p>
+      </div>
+      <button @click="$emit('close')" class="bg-gray-800 text-white font-bold py-3 w-64 rounded-md cursor-pointer">Close</button>
     </div>
-    <div class="text-center text-gray-800 mb-5">
-      <p class="font-bold text-lg mb-2">Show Payment QR to Staff</p>
-      <p class="text-sm">Staff will scan this QR to apply your discount. Your balance will be updated after successful purchase.</p>
-    </div>
-    <button @click="$emit('close')" class="bg-gray-800 text-white font-bold py-3 w-64 rounded-md cursor-pointer">Close</button>
   </div>
 </template>
 
@@ -33,9 +79,11 @@
 import { ref, onMounted, onUnmounted, onBeforeMount, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 import { generateQRCode } from '@/components/lib/card';
-import { QRCodeResponse } from '@/components/lib/types';
+import { QRCodeResponse, Transaction } from '@/components/lib/types';
 import QRCode from 'qrcode';
 import { socket } from '@/components/lib/frappeSocket';
+import { getTransactionDetail } from '@/components/lib/transaction';
+import { formatNumber } from '@/components/lib/utils';
 
 const router = useRouter();
 
@@ -53,6 +101,12 @@ const refreshTimer = ref<number | null>(null);
 const countdownTimer = ref<number | null>(null);
 const countdownSeconds = ref(60);
 const qrCodeImageUrl = ref<string | null>(null);
+
+// Transaction completion state
+const isTransactionCompleted = ref(false);
+const transactionData = ref<Transaction | null>(null);
+const isLoadingTransaction = ref(false);
+const storeName = ref<string>('');
 
 async function generateQRCodeImage(qrCodeString: string) {
   try {
@@ -110,42 +164,75 @@ async function loadQRCode() {
   }
 }
 
+async function handleTransactionCompleted(data: any) {
+  console.log('Transaction completed:', data);
+  
+  // Stop timers
+  if (refreshTimer.value !== null) {
+    clearInterval(refreshTimer.value);
+    refreshTimer.value = null;
+  }
+  if (countdownTimer.value !== null) {
+    clearInterval(countdownTimer.value);
+    countdownTimer.value = null;
+  }
+  
+  // Set transaction completed state
+  isTransactionCompleted.value = true;
+  isLoadingTransaction.value = true;
+  
+  try {
+    let transactionId: string;
+    
+    // Handle different data formats
+    if (typeof data === 'string') {
+      transactionId = data;
+    } else if (data && data.transaction_id) {
+      transactionId = data.transaction_id;
+    } else if (data && data.name) {
+      transactionId = data.name;
+    } else {
+      console.error('Invalid transaction data format:', data);
+      isLoadingTransaction.value = false;
+      return;
+    }
+    
+    // Fetch transaction details
+    const transaction = await getTransactionDetail(transactionId);
+    if (transaction) {
+      transactionData.value = transaction;
+      // Try to get store name from transaction data if available
+      // For now, we'll use a placeholder or fetch it separately if needed
+      storeName.value = 'Store'; // This can be enhanced later if store name is in transaction data
+    } else {
+      console.error('Failed to fetch transaction details');
+    }
+  } catch (error) {
+    console.error('Error handling transaction completion:', error);
+  } finally {
+    isLoadingTransaction.value = false;
+  }
+}
+
+function handleDone() {
+  emit('close');
+}
+
+function formatIDR(amount: number): string {
+  return `IDR ${formatNumber(amount)}`;
+}
+
+function goToPurchaseHistory() {
+  emit('close');
+  router.push('/purchase-history');
+}
+
 onMounted(() => {
   console.log('QRView mounted');
   console.log('Subscribing to transaction:', props.cardCode);
   socket.emit('card_subscribe', props.cardCode);
-  socket.on('transaction_completed', (data) => {
-    console.log('Transaction completed:', data);
-    
-    // Close the dialog
-    emit('close');
-    
-    // Navigate to transaction result page
-    if (data) {
-      router.push({
-        name: 'EmployeeTransactionResult',
-        params: {
-          id: data
-        },
-        query: {
-          status: 'success',
-          message: data.message || 'Transaction completed successfully'
-        }
-      });
-    } else {
-      // If no transaction_id, show error
-      router.push({
-        name: 'EmployeeTransactionResult',
-        params: {
-          id: 'error'
-        },
-        query: {
-          status: 'error',
-          message: data.message || 'Transaction completed but no transaction ID received'
-        }
-      });
-    }
-  });
+  socket.on('transaction_completed', handleTransactionCompleted);
+  
   // Generate QR code immediately when component opens
   loadQRCode();
   
@@ -156,7 +243,8 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  console.log('QRView beforeMount');
+  console.log('QRView beforeUnmount');
+  socket.off('transaction_completed', handleTransactionCompleted);
   socket.emit('card_unsubscribe', props.cardCode);
 });
 
