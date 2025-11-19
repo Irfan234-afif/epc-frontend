@@ -51,14 +51,14 @@
         </router-link>
       </div>
 
-      <div class="mt-8">
+      <div class="mt-8 space-y-2">
         <div class="flex justify-between items-center">
           <p class="text-lg font-bold">Latest Employee Offers</p>
           <svg class="w-4 h-4" preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, #CB8A2E)"/>
           </svg>
         </div>
-        <div class="mt-4 flex space-x-4 overflow-x-auto">
+        <div class="flex space-x-4 overflow-x-auto">
           <div class="bg-white rounded-lg shadow-lg w-64 flex-shrink-0">
             <img src="/event1.png" alt="Offer 1" class="w-full h-32 object-cover rounded-t-lg">
             <div class="p-4">
@@ -72,27 +72,21 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="mt-8 space-y-4">
-        <router-link to="/find-stores" class="flex justify-between items-center">
+        <router-link to="/find-stores" class="flex justify-between items-center py-4">
           <p class="text-lg font-bold">Find Stores Near You</p>
           <svg class="w-4 h-4" preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
           </svg>
         </router-link>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center py-4">
           <p class="text-lg font-bold">Contact IT Support</p>
           <svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
           </svg>
         </div>
-        <button @click="logout" class="w-full">
+        <button @click="logout" class="mt-6 w-full py-4 px-4 rounded-lg" style="box-shadow: 0 0 20px 0 rgba(0,0,0,0.10);">
           <div class="flex justify-between items-center">
             <p class="text-lg font-bold text-[#cb8a2e]">Sign Out</p>
-            <svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"  >
-              <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
-            </svg>
           </div>
         </button>
       </div>
