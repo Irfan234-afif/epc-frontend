@@ -144,7 +144,7 @@
                             {{ transaction.sbu }}
                         </h3>
                         <p class="text-muted text-[12px] text-[#9f9f9f]">
-                            {{ transaction.showroom || transaction.description || 'N/A' }}
+                            {{ transaction.showroom_name || transaction.description || 'N/A' }}
                         </p>
                     </div>
                     <div class="text-right">
