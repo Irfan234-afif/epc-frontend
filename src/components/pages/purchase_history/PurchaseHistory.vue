@@ -164,7 +164,7 @@
         <!-- Month Picker Modal -->
         <Modal
             :show="showMonthPicker"
-            :maxWidth="'sm'"
+            :maxWidth="'md'"
             @close="closeMonthPicker"
         >
             <template v-slot="{ propertyModal }">

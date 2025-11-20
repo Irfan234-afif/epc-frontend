@@ -72,6 +72,10 @@ const maxWidthClass = computed(() => {
 });
 </script>
 
+<style>
+
+</style>
+
 <template>
   <transition leave-active-class="duration-200">
     <div
@@ -106,7 +110,11 @@ const maxWidthClass = computed(() => {
       >
         <div
           v-show="show"
-          class="fixed bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-sm mx-auto"
+          :class="[
+            'fixed bg-white rounded-lg overflow-hidden shadow-xl transform transition-all mx-auto',
+            'w-[calc(100%-2rem)] sm:w-full',
+            maxWidthClass
+          ]"
         >
           <slot v-if="show" :propertyModal="property" />
         </div>
