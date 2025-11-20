@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "511bc528-6b53-4680-a92e-0c4d1c7b79f0",
+		"name": "Showrooms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49282895"
+	},
+	"item": [
+		{
+			"name": "Get List Showrooms",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/method/employeediscount.api.user.get_showrooms",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"method",
+								"employeediscount.api.user.get_showrooms"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.6 Python/3.11.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 08 Nov 2025 03:29:54 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "94"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sid=dce1c45e5586684781ccf9037ce9506de04b8d5cb740ddaa12d49b00; Expires=Sat, 15 Nov 2025 05:29:54 GMT; Max-Age=612000; HttpOnly; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "system_user=yes; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "full_name=Irfan%20Afifi; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_id=Administrator; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_image=; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": [\n        {\n            \"showroom_name\": \"Melissa Grand Indonesia\",\n            \"name\": \"SR-2025-00001\",\n            \"sbu\": \"Atmos\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Showrooms by SBU",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "qr_value",
+							"value": "eyJjYXJkX2lkIjogIjA3LTEyMzQtMzczOC0yODI4IiwgInRpbWVzdGFtcCI6IDE3NjI3NzMxODMuOTE3NjgzNCwgIm5vbmNlIjogIjZhNmJkYTQ1LWY1MTctNGY2MC05MjQ3LTkzOTkzZGUzYjJjOCIsICJzaWduYXR1cmUiOiAiY2NmNTUyMTg0NTc1ZmY5OTkxYzQyOGQ3ZTU3OTBiNTc1MTRhNDQ3NTQ3NDM4ZjlhNzM0YTU5NDIxYmFkY2I0NCJ9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/method/employeediscount.api.showrooms.get_showrooms_by_sbu?sbu=Melissa&latitude=-6.2062592&longitude=106.8302336",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"method",
+						"employeediscount.api.showrooms.get_showrooms_by_sbu"
+					],
+					"query": [
+						{
+							"key": "sbu",
+							"value": "Melissa"
+						},
+						{
+							"key": "latitude",
+							"value": "-6.2062592"
+						},
+						{
+							"key": "longitude",
+							"value": "106.8302336"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "qr_value",
+									"value": "eyJjYXJkX2lkIjogIjA3LTEyMzQtMzczOC0yODI4IiwgInRpbWVzdGFtcCI6IDE3NjI3NzMxODMuOTE3NjgzNCwgIm5vbmNlIjogIjZhNmJkYTQ1LWY1MTctNGY2MC05MjQ3LTkzOTkzZGUzYjJjOCIsICJzaWduYXR1cmUiOiAiY2NmNTUyMTg0NTc1ZmY5OTkxYzQyOGQ3ZTU3OTBiNTc1MTRhNDQ3NTQ3NDM4ZjlhNzM0YTU5NDIxYmFkY2I0NCJ9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/method/employeediscount.api.showrooms.get_showrooms_by_sbu?sbu=Melissa&latitude=-6.2062592&longitude=106.8302336",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"method",
+								"employeediscount.api.showrooms.get_showrooms_by_sbu"
+							],
+							"query": [
+								{
+									"key": "sbu",
+									"value": "Melissa"
+								},
+								{
+									"key": "latitude",
+									"value": "-6.2062592"
+								},
+								{
+									"key": "longitude",
+									"value": "106.8302336"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.6 Python/3.11.6"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 20 Nov 2025 04:57:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4122"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sid=f26652dc3d9c8aa19ef149dec76eea798b27a6626ba11c987a2ede97; Expires=Thu, 27 Nov 2025 06:57:11 GMT; Max-Age=612000; HttpOnly; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "system_user=yes; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "full_name=Irfan%20Afifi; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_id=Administrator; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_image=; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": {\n        \"data\": [\n            {\n                \"name\": \"SR-2025-00077\",\n                \"showroom_name\": \"Melissa Grand Indonesia\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -6.1955507,\n                \"longitude\": 106.8193637,\n                \"distance_km\": 1.69\n            },\n            {\n                \"name\": \"SR-2025-00070\",\n                \"showroom_name\": \"Melissa Pop Up Menara Jakarta\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -6.1504191,\n                \"longitude\": 106.8439368,\n                \"distance_km\": 6.39\n            },\n            {\n                \"name\": \"SR-2025-00069\",\n                \"showroom_name\": \"Melissa Sogo Kelapa Gading\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -6.1562557,\n                \"longitude\": 106.9055907,\n                \"distance_km\": 10.02\n            },\n            {\n                \"name\": \"SR-2025-00053\",\n                \"showroom_name\": \"Melissa Queen City Semarang\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -6.9728308,\n                \"longitude\": 110.4177354,\n                \"distance_km\": 405.34\n            },\n            {\n                \"name\": \"SR-2025-00067\",\n                \"showroom_name\": \"Melissa Palembang Icon\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -2.9786323,\n                \"longitude\": 104.7432208,\n                \"distance_km\": 426.97\n            },\n            {\n                \"name\": \"SR-2025-00054\",\n                \"showroom_name\": \"Melissa Pakuwon Jogja\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -7.7587075,\n                \"longitude\": 110.3942793,\n                \"distance_km\": 429.56\n            },\n            {\n                \"name\": \"SR-2025-00052\",\n                \"showroom_name\": \"Melissa Ambarukmo Plaza\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -7.7824055,\n                \"longitude\": 110.3986442,\n                \"distance_km\": 431.06\n            },\n            {\n                \"name\": \"SR-2025-00057\",\n                \"showroom_name\": \"Melissa Sogo Pakuwon Sby\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -7.2618711,\n                \"longitude\": 112.6868024,\n                \"distance_km\": 657.28\n            },\n            {\n                \"name\": \"SR-2025-00055\",\n                \"showroom_name\": \"Melissa Tunjungan Plaza V Surabaya\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -7.2618711,\n                \"longitude\": 112.6868024,\n                \"distance_km\": 657.28\n            },\n            {\n                \"name\": \"SR-2025-00056\",\n                \"showroom_name\": \"Melissa Galaxy Sby\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -7.2764943,\n                \"longitude\": 112.7778312,\n                \"distance_km\": 667.45\n            },\n            {\n                \"name\": \"SR-2025-00068\",\n                \"showroom_name\": \"Melissa Grand Mall Batam\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": 1.1355106,\n                \"longitude\": 104.0047651,\n                \"distance_km\": 874.55\n            },\n            {\n                \"name\": \"SR-2025-00058\",\n                \"showroom_name\": \"Melissa Beachwalk Bali\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -8.7171111,\n                \"longitude\": 115.1667675,\n                \"distance_km\": 960.51\n            },\n            {\n                \"name\": \"SR-2025-00059\",\n                \"showroom_name\": \"Melissa Sogo DSM Bali\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -8.7287106,\n                \"longitude\": 115.1647907,\n                \"distance_km\": 960.67\n            },\n            {\n                \"name\": \"SR-2025-00060\",\n                \"showroom_name\": \"Melissa Living World Bali\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -8.6354751,\n                \"longitude\": 115.2291926,\n                \"distance_km\": 964.6\n            },\n            {\n                \"name\": \"SR-2025-00061\",\n                \"showroom_name\": \"Melissa Icon Bali\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -8.6869324,\n                \"longitude\": 115.2606955,\n                \"distance_km\": 969.5\n            },\n            {\n                \"name\": \"SR-2025-00063\",\n                \"showroom_name\": \"Melissa TSM Makassar\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -5.1593721,\n                \"longitude\": 119.3917312,\n                \"distance_km\": 1394.73\n            },\n            {\n                \"name\": \"SR-2025-00064\",\n                \"showroom_name\": \"Melissa Watts Makassar\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -5.1580868,\n                \"longitude\": 119.4378395,\n                \"distance_km\": 1399.83\n            },\n            {\n                \"name\": \"SR-2025-00062\",\n                \"showroom_name\": \"Melissa Nipah Makasar\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": -5.1392814,\n                \"longitude\": 119.4453304,\n                \"distance_km\": 1400.85\n            },\n            {\n                \"name\": \"SR-2025-00065\",\n                \"showroom_name\": \"Melissa Sun Plaza Medan\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": 3.5832644,\n                \"longitude\": 98.6691272,\n                \"distance_km\": 1416.33\n            },\n            {\n                \"name\": \"SR-2025-00066\",\n                \"showroom_name\": \"Melissa Delipark Medan\",\n                \"sbu\": \"Melissa\",\n                \"logo\": \"/private/files/melissa.png\",\n                \"thumbnail\": null,\n                \"latitude\": 3.5940615,\n                \"longitude\": 98.6665769,\n                \"distance_km\": 1417.44\n            }\n        ],\n        \"total\": 44,\n        \"page_length\": 20,\n        \"page_start\": 0\n    }\n}"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "42911f6b-c38b-4b31-b396-ca9cc16432c7",
+		"name": "Transaction",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49282895"
+	},
+	"item": [
+		{
+			"name": "Process Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "qr_value",
+							"value": "eyJjYXJkX2lkIjogIjcwNy0wMDMtMDAzOSIsICJ0aW1lc3RhbXAiOiAxNzYyNTI3MDE5Ljc0MDg1NzQsICJub25jZSI6ICJjZTNjODdmYS00MzVkLTRjYjUtODJhNS02ODViMDM0NWViMzgiLCAic2lnbmF0dXJlIjogIjMwNTdjMGMwMDRlMjRmNGY3Mzc3YTc1ODI2MjFjYTRhYzYwODU2M2IwNGI1MzcwNzNjY2U1MDlkOWUyODk2ZjcifQ==",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "500000",
+							"type": "text"
+						},
+						{
+							"key": "showroom",
+							"value": "SR-2025-00001",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}api/method/employeediscount.api.card.process_transaction",
+					"host": [
+						"{{url}}api"
+					],
+					"path": [
+						"method",
+						"employeediscount.api.card.process_transaction"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "QR Expired",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "qr_value",
+									"value": "eyJjYXJkX2lkIjogIjcwNy0wMDMtMDAzOSIsICJ0aW1lc3RhbXAiOiAxNzYyNTI3MDE5Ljc0MDg1NzQsICJub25jZSI6ICJjZTNjODdmYS00MzVkLTRjYjUtODJhNS02ODViMDM0NWViMzgiLCAic2lnbmF0dXJlIjogIjMwNTdjMGMwMDRlMjRmNGY3Mzc3YTc1ODI2MjFjYTRhYzYwODU2M2IwNGI1MzcwNzNjY2U1MDlkOWUyODk2ZjcifQ==",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "500000",
+									"type": "text"
+								},
+								{
+									"key": "showroom",
+									"value": "SR-2025-00001",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}api/method/employeediscount.api.card.process_transaction",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"method",
+								"employeediscount.api.card.process_transaction"
+							]
+						}
+					},
+					"status": "EXPECTATION FAILED",
+					"code": 417,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.6 Python/3.11.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 07 Nov 2025 14:55:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2399"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sid=dce1c45e5586684781ccf9037ce9506de04b8d5cb740ddaa12d49b00; Expires=Fri, 14 Nov 2025 16:55:53 GMT; Max-Age=612000; HttpOnly; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "system_user=yes; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "full_name=Irfan%20Afifi; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_id=Administrator; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_image=; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"exception\": \"employeediscount.api.card.QRExpiredError: QR code has expired (age: 333 seconds)\",\n    \"exc_type\": \"QRExpiredError\",\n    \"_exc_source\": \"employeediscount (app)\",\n    \"exc\": \"[\\\"Traceback (most recent call last):\\\\n  File \\\\\\\"apps/frappe/frappe/app.py\\\\\\\", line 115, in application\\\\n    response = frappe.api.handle(request)\\\\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/frappe/frappe/api/__init__.py\\\\\\\", line 49, in handle\\\\n    data = endpoint(**arguments)\\\\n           ^^^^^^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/frappe/frappe/api/v1.py\\\\\\\", line 36, in handle_rpc_call\\\\n    return frappe.handler.handle()\\\\n           ^^^^^^^^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/frappe/frappe/handler.py\\\\\\\", line 52, in handle\\\\n    data = execute_cmd(cmd)\\\\n           ^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/frappe/frappe/handler.py\\\\\\\", line 85, in execute_cmd\\\\n    return frappe.call(method, **frappe.form_dict)\\\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/frappe/frappe/__init__.py\\\\\\\", line 1754, in call\\\\n    return fn(*args, **newargs)\\\\n           ^^^^^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/frappe/frappe/utils/typing_validations.py\\\\\\\", line 32, in wrapper\\\\n    return func(*args, **kwargs)\\\\n           ^^^^^^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/employeediscount/employeediscount/api/card.py\\\\\\\", line 269, in process_transaction\\\\n    raise e\\\\n  File \\\\\\\"apps/employeediscount/employeediscount/api/card.py\\\\\\\", line 267, in process_transaction\\\\n    card_info = validate_qr_code(qr_value)\\\\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^\\\\n  File \\\\\\\"apps/employeediscount/employeediscount/api/card.py\\\\\\\", line 194, in validate_qr_code\\\\n    frappe.throw(f\\\\\\\"QR code has expired (age: {int(age_seconds)} seconds)\\\\\\\", QRExpiredError)\\\\n  File \\\\\\\"apps/frappe/frappe/__init__.py\\\\\\\", line 609, in throw\\\\n    msgprint(\\\\n  File \\\\\\\"apps/frappe/frappe/__init__.py\\\\\\\", line 574, in msgprint\\\\n    _raise_exception()\\\\n  File \\\\\\\"apps/frappe/frappe/__init__.py\\\\\\\", line 525, in _raise_exception\\\\n    raise exc\\\\nemployeediscount.api.card.QRExpiredError: QR code has expired (age: 333 seconds)\\\\n\\\"]\",\n    \"_server_messages\": \"[\\\"{\\\\\\\"message\\\\\\\": \\\\\\\"QR code has expired (age: 333 seconds)\\\\\\\", \\\\\\\"title\\\\\\\": \\\\\\\"Message\\\\\\\", \\\\\\\"indicator\\\\\\\": \\\\\\\"red\\\\\\\", \\\\\\\"raise_exception\\\\\\\": 1, \\\\\\\"__frappe_exc_id\\\\\\\": \\\\\\\"6504423cd0bf4990b521094d503e8478295f44552ec47d39237f4394\\\\\\\"}\\\"]\"\n}"
+				},
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "qr_value",
+									"value": "eyJjYXJkX2lkIjogIjcwNy0wMDMtMDAzOSIsICJ0aW1lc3RhbXAiOiAxNzYyNTc0NTE1LjQ4NTUzNDIsICJub25jZSI6ICI2Y2I4ZjZiOC0yNjU4LTRkZWMtYjU2OC03MjE4NTcwOGQ5YjMiLCAic2lnbmF0dXJlIjogImI3MTgyYjY2YTVmNWUwOGMzZTBkNDJmOGVmOWY4NDA4NjAxZDFjMWI2MGExYzBjNzJiMDhjN2EyN2ViZmZjZTkifQ==",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "500000",
+									"type": "text"
+								},
+								{
+									"key": "showroom",
+									"value": "SR-2025-00001",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Pembelian Tas",
+									"description": "Optional",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Pembelian Tas 2 dengan paper bag",
+									"description": "Optional",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}api/method/employeediscount.api.card.process_transaction",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"method",
+								"employeediscount.api.card.process_transaction"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.6 Python/3.11.6"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 08 Nov 2025 04:02:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "234"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sid=dce1c45e5586684781ccf9037ce9506de04b8d5cb740ddaa12d49b00; Expires=Sat, 15 Nov 2025 06:02:03 GMT; Max-Age=612000; HttpOnly; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "system_user=yes; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "full_name=Irfan%20Afifi; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_id=Administrator; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_image=; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": {\n        \"success\": true,\n        \"transaction_id\": \"EPC-INV-2025-00008\",\n        \"card_id\": \"707-003-0039\",\n        \"employee_name\": \"Irfan Afifi\",\n        \"amount\": 500000,\n        \"from_balance\": 2700000,\n        \"to_balance\": 2200000,\n        \"message\": \"Transaction completed successfully\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Validate QR Code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "qr_value",
+							"value": "eyJjYXJkX2lkIjogIjA3LTEyMzQtMzczOC0yODI4IiwgInRpbWVzdGFtcCI6IDE3NjI3NzMxODMuOTE3NjgzNCwgIm5vbmNlIjogIjZhNmJkYTQ1LWY1MTctNGY2MC05MjQ3LTkzOTkzZGUzYjJjOCIsICJzaWduYXR1cmUiOiAiY2NmNTUyMTg0NTc1ZmY5OTkxYzQyOGQ3ZTU3OTBiNTc1MTRhNDQ3NTQ3NDM4ZjlhNzM0YTU5NDIxYmFkY2I0NCJ9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/method/employeediscount.api.transaction.validate_qr_code",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"method",
+						"employeediscount.api.transaction.validate_qr_code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Transaction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "qr_value",
+							"value": "eyJjYXJkX2lkIjogIjA3LTEyMzQtMzczOC0yODI4IiwgInRpbWVzdGFtcCI6IDE3NjI3NzMxODMuOTE3NjgzNCwgIm5vbmNlIjogIjZhNmJkYTQ1LWY1MTctNGY2MC05MjQ3LTkzOTkzZGUzYjJjOCIsICJzaWduYXR1cmUiOiAiY2NmNTUyMTg0NTc1ZmY5OTkxYzQyOGQ3ZTU3OTBiNTc1MTRhNDQ3NTQ3NDM4ZjlhNzM0YTU5NDIxYmFkY2I0NCJ9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/method/employeediscount.api.transaction.list_transaction_by_card?card_id=07-1234-3738-2828&year=2025&month=11",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"method",
+						"employeediscount.api.transaction.list_transaction_by_card"
+					],
+					"query": [
+						{
+							"key": "card_id",
+							"value": "07-1234-3738-2828"
+						},
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "month",
+							"value": "11"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "qr_value",
+									"value": "eyJjYXJkX2lkIjogIjA3LTEyMzQtMzczOC0yODI4IiwgInRpbWVzdGFtcCI6IDE3NjI3NzMxODMuOTE3NjgzNCwgIm5vbmNlIjogIjZhNmJkYTQ1LWY1MTctNGY2MC05MjQ3LTkzOTkzZGUzYjJjOCIsICJzaWduYXR1cmUiOiAiY2NmNTUyMTg0NTc1ZmY5OTkxYzQyOGQ3ZTU3OTBiNTc1MTRhNDQ3NTQ3NDM4ZjlhNzM0YTU5NDIxYmFkY2I0NCJ9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/method/employeediscount.api.transaction.list_transaction_by_card?card_id=07-1234-3738-2828&year=2025&month=11",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"method",
+								"employeediscount.api.transaction.list_transaction_by_card"
+							],
+							"query": [
+								{
+									"key": "card_id",
+									"value": "07-1234-3738-2828"
+								},
+								{
+									"key": "year",
+									"value": "2025"
+								},
+								{
+									"key": "month",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.6 Python/3.11.6"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 19 Nov 2025 06:58:54 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "340"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sid=814fd4e985aecb22c60d197018b0ed95d525c1ad5413195d539b1251; Expires=Wed, 26 Nov 2025 08:58:54 GMT; Max-Age=612000; HttpOnly; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "system_user=yes; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "full_name=Irfan%20Afifi; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_id=Administrator; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user_image=; Path=/; SameSite=Lax"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": [\n        {\n            \"name\": \"EPC-INV-2025-00001\",\n            \"epc_card\": \"07-1234-3738-2828\",\n            \"employee_name\": \"Irfan Afifi\",\n            \"title\": \"asdas\",\n            \"total_amount\": 650000,\n            \"description\": null,\n            \"showroom\": \"SR-2025-00001\",\n            \"sbu\": \"Melissa\",\n            \"sbu_logo\": \"/private/files/melissa.png\",\n            \"date\": \"2025-11-19\",\n            \"posting_time\": \"13:41:31\",\n            \"from_balance\": 5500000,\n            \"to_balance\": 4850000\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}
