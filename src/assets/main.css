@@ -50,9 +50,9 @@ hr {
 
 
 @media (hover: hover) {
-  a:hover, button:hover {
+  /* a:hover, button:hover {
     background-color: hsla(0, 0%, 7%, 0.103);
-  }
+  } */
 }
 
 @media (min-width: 1024px) {

@@ -18,7 +18,7 @@
                     <p class="font-bold text-base text-[#151515]">{{ selectedBrand?.name || 'Select Brand' }}</p>
                     <button 
                         @click="openBrandModal"
-                        class="text-[#cb8a2e] text-xs font-bold"
+                        class="text-[#cb8a2e] text-xs font-bold h-full px-4"
                     >
                         Change
                     </button>
@@ -27,58 +27,63 @@
         </div>
 
         <!-- Store List -->
-        <div class="px-6 mt-8 space-y-4">
-            <div 
-                v-for="(store, index) in stores" 
-                :key="index"
-                class="relative"
-            >
-                <!-- Store Image -->
-                <div class="h-96 w-full rounded-lg overflow-hidden relative">
-                    <img 
-                        :src="store.image" 
-                        :alt="store.name"
-                        class="w-full h-full object-cover rounded-lg"
-                    />
-                    
-                    <!-- Store Info Overlay -->
-                    <div class="absolute bottom-5 left-5 right-5">
-                        <div class="backdrop-blur-sm bg-[rgba(255,255,255,0.9)] h-24 rounded-lg shadow-md relative">
-                            <div class="flex items-start justify-between h-full px-5 pt-5 pb-5">
-                                <div class="flex-1">
-                                    <p class="font-bold text-sm text-[#212121] leading-tight mb-0">
-                                        {{ store.name }}
-                                    </p>
-                                    <p class="font-bold text-sm text-[#212121] leading-tight mb-0">
-                                        {{ store.location }}
-                                    </p>
+        <div class="px-6 mt-8">
+            <div v-if="isLoadingStores" class="flex items-center justify-center py-8">
+                <p class="text-[#151515]">Loading stores...</p>
+            </div>
+            <div v-else-if="stores.length === 0" class="flex items-center justify-center py-8">
+                <p class="text-[#151515]">No stores available</p>
+            </div>
+            <div v-else class="space-y-4">
+                <div 
+                    v-for="(store, index) in stores" 
+                    :key="store.name || index"
+                    class="relative"
+                >
+                    <!-- Store Image -->
+                    <div class="h-96 w-full rounded-lg overflow-hidden relative">
+                        <img 
+                            v-if="store.image"
+                            :src="store.image" 
+                            :alt="store.name"
+                            class="w-full h-full object-cover rounded-lg"
+                        />
+                        <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
+                            <p class="text-gray-400">No image</p>
+                        </div>
+                        
+                        <!-- Store Info Overlay -->
+                        <div class="absolute bottom-5 left-5 right-5">
+                            <div class="backdrop-blur-sm bg-[rgba(255,255,255,0.9)] h-24 rounded-lg shadow-md relative">
+                                <div class="flex items-start justify-between h-full px-5 pt-5 pb-5">
+                                    <div class="flex-1">
+                                        <p class="font-bold text-sm text-[#212121] leading-tight mb-0">
+                                            {{ store.showroom_name || store.name }}
+                                        </p>
+                                        <p class="font-bold text-sm text-[#212121] leading-tight mb-0">
+                                            {{ store.location }}
+                                        </p>
                                     <p class="font-normal text-xs text-[#212121] leading-tight mt-3">
-                                        {{ store.distance }} | {{ store.status }} • {{ store.hours }}
+                                        <span v-if="store.distance">{{ store.distance }} | </span>{{ store.status }} • {{ store.hours }}
                                     </p>
-                                </div>
-                                
-                                <!-- Action Buttons -->
-                                <div class="flex items-center gap-3 ml-4">
-                                    <button 
-                                        @click="handleCall(store.phone)"
-                                        class="w-8 h-8 flex items-center justify-center cursor-pointer mt-0.5"
-                                    >
-                                        <img 
-                                            src="http://localhost:3845/assets/73e7bfd179cf7837754c6675c06ad680f681c681.svg" 
-                                            alt="Call" 
-                                            class="w-full h-full"
-                                        />
-                                    </button>
-                                    <button 
-                                        @click="handleDirection(store)"
-                                        class="w-6 h-6 flex items-center justify-center cursor-pointer mt-1"
-                                    >
-                                        <img 
-                                            src="http://localhost:3845/assets/962250426a5adf0f47a0ed2e4d27da47f9c0f8e7.svg" 
-                                            alt="Direction" 
-                                            class="w-full h-full"
-                                        />
-                                    </button>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="flex items-center gap-1 ml-4">
+                                        <button 
+                                            v-if="store.phone"
+                                            @click="handleCall(store.phone)"
+                                            class="w-12 h-12 flex items-center justify-center cursor-pointer mt-0.5"
+                                        >
+                                            <IconPhone class="w-8 h-8" />
+                                        </button>
+                                        <button 
+                                            @click="handleDirection(store)"
+                                            class="w-12 h-12 flex items-center justify-center cursor-pointer mt-1"
+                                        >
+                                            <IconDirection class="w-6 h-6" />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -101,30 +106,114 @@
                 />
             </template>
         </Modal>
+
+        <!-- Location Permission Modal -->
+        <Modal
+            :show="showLocationModal"
+            :maxWidth="'sm'"
+            :closeable="false"
+            @close="closeLocationModal"
+        >
+            <template v-slot="{ propertyModal }">
+                <LocationPermissionModal
+                    @allow="handleLocationAllow"
+                    @skip="handleLocationSkip"
+                />
+            </template>
+        </Modal>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Navbar from '@/components/ui/navbar/Navbar.vue';
 import Modal from '@/components/ui/modal/Modal.vue';
 import BrandSelector from '@/components/pages/find-stores/BrandSelector.vue';
+import LocationPermissionModal from '@/components/pages/find-stores/LocationPermissionModal.vue';
 import { useRouter } from 'vue-router';
+import { type Brand } from '@/components/lib/brand';
+import { type Showroom, fetchShowroomsBySBU, getUserLocation } from '@/components/lib/showroom';
+import IconPhone from '@/components/icons/IconPhone.vue';
+import IconDirection from '@/components/icons/IconDirection.vue';
 
 const router = useRouter();
 
-interface Brand {
-    id: number;
-    name: string;
-    logo: string;
-}
+const LOCATION_PERMISSION_KEY = 'location_permission_asked';
 
 const showBrandModal = ref(false);
-const selectedBrand = ref<Brand | null>({
-    id: 1,
-    name: 'Fred Perry',
-    logo: 'http://localhost:3845/assets/9524e1ce4deeba62a8ef153c6df0dd1528eb20bf.png'
+const showLocationModal = ref(false);
+const selectedBrand = ref<Brand | null>(null);
+const stores = ref<Showroom[]>([]);
+const isLoadingStores = ref(false);
+const userLocation = ref<{ latitude: number; longitude: number } | null>(null);
+
+// Check if location permission has been asked before
+const hasAskedLocationPermission = (): boolean => {
+    try {
+        return localStorage.getItem(LOCATION_PERMISSION_KEY) === 'true';
+    } catch {
+        return false;
+    }
+};
+
+// Mark location permission as asked
+const markLocationPermissionAsked = (): void => {
+    try {
+        localStorage.setItem(LOCATION_PERMISSION_KEY, 'true');
+    } catch (error) {
+        console.error('Failed to save location permission status:', error);
+    }
+};
+
+// Get user location on mount
+onMounted(async () => {
+    // Check if we've asked for location permission before
+    const hasAsked = hasAskedLocationPermission();
+    
+    if (!hasAsked) {
+        // Show modal to ask for permission
+        showLocationModal.value = true;
+    } else {
+        // Try to get location silently
+        try {
+            const location = await getUserLocation();
+            userLocation.value = location;
+        } catch (error) {
+            console.error('Failed to get user location:', error);
+            userLocation.value = null;
+        }
+    }
+    
+    await loadStores();
 });
+
+// Watch for brand changes and reload stores
+watch(selectedBrand, async (newBrand) => {
+    if (newBrand) {
+        await loadStores();
+    }
+});
+
+const loadStores = async () => {
+    // if (!selectedBrand.value) {
+    //     stores.value = [];
+    //     return;
+    // }
+
+    isLoadingStores.value = true;
+    try {
+        const showrooms = await fetchShowroomsBySBU(
+            selectedBrand.value?.name,
+            userLocation.value
+        );
+        stores.value = showrooms;
+    } catch (error) {
+        console.error('Failed to load stores:', error);
+        stores.value = [];
+    } finally {
+        isLoadingStores.value = false;
+    }
+};
 
 const openBrandModal = () => {
     showBrandModal.value = true;
@@ -134,74 +223,39 @@ const closeBrandModal = () => {
     showBrandModal.value = false;
 };
 
-const handleBrandSelect = (brand: Brand) => {
+const handleBrandSelect = async (brand: Brand) => {
     selectedBrand.value = brand;
-    // TODO: Filter stores based on selected brand
-    // You can add logic here to filter stores by brand
+    await loadStores();
 };
 
-interface Store {
-    name: string;
-    location: string;
-    distance: string;
-    status: string;
-    hours: string;
-    image: string;
-    phone: string;
-    coordinates?: {
-        lat: number;
-        lng: number;
-    };
-}
+const handleLocationAllow = (location: { latitude: number; longitude: number }) => {
+    userLocation.value = location;
+    markLocationPermissionAsked();
+    showLocationModal.value = false;
+    // Reload stores with location
+    loadStores();
+};
 
-const stores = ref<Store[]>([
-    {
-        name: 'Fred Perry',
-        location: 'Grand Indonesia',
-        distance: '1.3 km',
-        status: 'Open',
-        hours: '10:00 - 22:00',
-        image: '/stores/store fred perry.png',
-        phone: '+62-21-12345678',
-        coordinates: { lat: -6.1944, lng: 106.8229 }
-    },
-    {
-        name: 'Fred Perry',
-        location: 'Plaza Indonesia',
-        distance: '1.5 km',
-        status: 'Open',
-        hours: '10:00 - 22:00',
-        image: '/stores/store fred perry 1.png',
-        phone: '+62-21-12345679',
-        coordinates: { lat: -6.1944, lng: 106.8229 }
-    },
-    {
-        name: 'Fred Perry',
-        location: 'Plaza Senayan',
-        distance: '2.9 km',
-        status: 'Open',
-        hours: '10:00 - 22:00',
-        image: '/stores/store fred perry 2.png',
-        phone: '+62-21-12345680',
-        coordinates: { lat: -6.2277, lng: 106.8003 }
-    },
-    {
-        name: 'Fred Perry',
-        location: 'Grand Indonesia',
-        distance: '1.3 km',
-        status: 'Open',
-        hours: '10:00 - 22:00',
-        image: '/stores/store fred perry 1.png',
-        phone: '+62-21-12345681',
-        coordinates: { lat: -6.1944, lng: 106.8229 }
-    }
-]);
+const handleLocationSkip = () => {
+    markLocationPermissionAsked();
+    showLocationModal.value = false;
+    userLocation.value = null;
+    // Reload stores without location
+    loadStores();
+};
+
+const closeLocationModal = () => {
+    // Don't allow closing without action
+    // User must choose Allow or Skip
+};
 
 const handleCall = (phone: string) => {
-    window.location.href = `tel:${phone}`;
+    if (phone) {
+        window.location.href = `tel:${phone}`;
+    }
 };
 
-const handleDirection = (store: Store) => {
+const handleDirection = (store: Showroom) => {
     if (store.coordinates) {
         // Open in Google Maps or default maps app
         const url = `https://www.google.com/maps/dir/?api=1&destination=${store.coordinates.lat},${store.coordinates.lng}`;
