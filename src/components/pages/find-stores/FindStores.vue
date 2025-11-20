@@ -57,13 +57,10 @@
                             <div class="backdrop-blur-sm bg-[rgba(255,255,255,0.9)] h-24 rounded-lg shadow-md relative">
                                 <div class="flex items-start justify-between h-full px-5 pt-5 pb-5">
                                     <div class="flex-1">
-                                        <p class="font-bold text-sm text-[#212121] leading-tight mb-0">
+                                        <p class="font-bold text-sm text-[#212121] leading-tight mb-0 line-clamp-2">
                                             {{ store.showroom_name || store.name }}
                                         </p>
-                                        <p class="font-bold text-sm text-[#212121] leading-tight mb-0">
-                                            {{ store.location }}
-                                        </p>
-                                    <p class="font-normal text-xs text-[#212121] leading-tight mt-3">
+                                    <p class="font-normal text-xs text-[#212121] leading-tight mt-3 line-clamp-1">
                                         <span v-if="store.distance">{{ store.distance }} | </span>{{ store.status }} • {{ store.hours }}
                                     </p>
                                     </div>

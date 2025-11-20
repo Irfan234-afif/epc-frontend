@@ -3,7 +3,7 @@ import { frappe } from './frappe';
 export interface Showroom {
 	name: string;
 	showroom_name: string;
-	location: string;
+	// location: string;
 	distance: string | null; // null if location permission not granted
 	status: string;
 	hours: string;
@@ -77,12 +77,12 @@ function formatDistance(distanceKm: number): string {
  */
 function transformShowroomResponse(showroom: ShowroomResponse, hasLocation: boolean = true): Showroom {
 	// Extract location from showroom_name (e.g., "Melissa Grand Indonesia" -> "Grand Indonesia")
-	const location = showroom.showroom_name.replace(new RegExp(`^${showroom.sbu}\\s*`, 'i'), '').trim() || showroom.showroom_name;
+	// const location = showroom.showroom_name.replace(new RegExp(`^${showroom.sbu}\\s*`, 'i'), '').trim() || showroom.showroom_name;
 	
 	return {
 		name: showroom.showroom_name,
 		showroom_name: showroom.showroom_name,
-		location: location,
+		// location: location,
 		distance: hasLocation ? formatDistance(showroom.distance_km) : null,
 		status: 'Open', // Default status, can be updated if API provides it
 		hours: '10:00 - 22:00', // Default hours, can be updated if API provides it
