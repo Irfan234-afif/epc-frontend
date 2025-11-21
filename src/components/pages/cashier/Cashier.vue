@@ -1,10 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-50 p-6 relative overflow-hidden">
-    <!-- Animated Background Circles -->
-    <div class="absolute top-0 left-0 w-96 h-96 bg-gray-200/30 rounded-full blur-3xl animate-blob"></div>
-    <div class="absolute top-0 right-0 w-96 h-96 bg-gray-300/20 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
-    <div class="absolute bottom-0 left-1/2 w-96 h-96 bg-gray-200/30 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
-    
     <div class="max-w-2xl mx-auto relative z-10">
       <!-- Header -->
       <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
@@ -265,7 +260,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Input from '@/components/ui/input/Input.vue';
 import Modal from '@/components/ui/modal/Modal.vue';
-import QRScannerFast from './QRScannerFast.vue';
+import QRScannerFast from './QRScanner.vue';
 import { fetchShowrooms, processTransaction } from '@/components/lib/transaction';
 import { Showroom } from '@/components/lib/types';
 

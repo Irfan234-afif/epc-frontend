@@ -1,5 +1,5 @@
 import { frappe } from './frappe';
-import { Showroom, Transaction, TransactionRequest, TransactionResponse, TransactionListItem } from './types';
+import { Showroom, Transaction, TransactionRequest, TransactionResponse, TransactionListItem, QRValidationResponse } from './types';
 
 /**
  * Fetch list of showrooms from backend API
@@ -35,10 +35,18 @@ export async function processTransaction(data: TransactionRequest): Promise<Tran
 			payload.description = data.description;
 		}
 		
+		if (data.from_amount !== undefined) {
+			payload.from_amount = data.from_amount.toString();
+		}
+		
+		if (data.to_amount !== undefined) {
+			payload.to_amount = data.to_amount.toString();
+		}
+		
 		const res = await frappe
 			.call()
 			.post<{ message: TransactionResponse }>(
-				'employeediscount.api.card.process_transaction',
+				'employeediscount.api.transaction.process_transaction',
 				payload
 			);
 		
@@ -138,5 +146,79 @@ export async function listTransactionsByCard(
 		console.error('Error fetching transactions by card:', error);
 		return [];
 	}
+}
+
+/**
+ * Validate QR code and get employee card information
+ */
+export async function validateQRCode(qrValue: string, showroom: string): Promise<QRValidationResponse | null> {
+	try {
+		const res = await frappe
+			.call()
+			.post<{ message: QRValidationResponse }>(
+				'employeediscount.api.transaction.get_employee_with_validation',
+				{
+					qr_value: qrValue,
+					showroom: showroom,
+				}
+			);
+		
+		return res?.message ?? null;
+	} catch (error: any) {
+		console.error('Error validating QR code:', error);
+		
+		// Try to decode _server_messages for cleaner error message
+		let errorMessage = 'QR code validation failed';
+		
+		if (error?._server_messages) {
+			try {
+				const serverMessages = JSON.parse(error._server_messages);
+				if (Array.isArray(serverMessages) && serverMessages.length > 0) {
+					const firstMessage = JSON.parse(serverMessages[0]);
+					errorMessage = firstMessage.message || errorMessage;
+				}
+			} catch (parseError) {
+				console.error('Failed to parse server messages:', parseError);
+				errorMessage = error?.exception || error?.message || errorMessage;
+			}
+		} else {
+			errorMessage = error?.exception || error?.message || errorMessage;
+		}
+		
+		// Re-throw with error type and clean message for UI to handle
+		const errorObj = new Error(errorMessage) as any;
+		errorObj.exc_type = error?.exc_type;
+		throw errorObj;
+	}
+}
+
+/**
+ * Submit Payment ID for a transaction
+ * TODO: Implement API call when endpoint is ready
+ */
+export async function submitPaymentID(
+	transactionId: string,
+	paymentId: string
+): Promise<{ success: boolean; message?: string }> {
+	// Validate input
+	if (!paymentId || paymentId.trim() === '') {
+		throw new Error('Payment ID is required');
+	}
+	
+	if (!transactionId || transactionId.trim() === '') {
+		throw new Error('Transaction ID is required');
+	}
+	
+	// TODO: Implement API call when endpoint is ready
+	// For now, just validate and return success
+	console.log('Payment ID submission:', { transactionId, paymentId });
+	
+	// Simulate API call delay
+	await new Promise(resolve => setTimeout(resolve, 500));
+	
+	return {
+		success: true,
+		message: 'Payment ID submitted successfully'
+	};
 }
 

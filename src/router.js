@@ -11,6 +11,8 @@ import Offers from './components/pages/offers/Offers.vue';
 import Stamps from './components/pages/stamps/Stamps.vue';
 import FindStores from './components/pages/find-stores/FindStores.vue';
 import Cashier from './components/pages/cashier/Cashier.vue';
+import CashierPortal from './components/pages/cashier/CashierPortal.vue';
+import CashierTransaction from './components/pages/cashier/CashierTransaction.vue';
 import TransactionResult from './components/pages/cashier/TransactionResult.vue';
 import EmployeeTransactionResult from './components/pages/home/EmployeeTransactionResult.vue';
 import ForbiddenPage from './components/pages/default/ForbiddenPage.vue';
@@ -56,7 +58,13 @@ const routes = [
     {
         path: '/cashier',
         name: 'Cashier',
-        component: Cashier,
+        component: CashierPortal,
+        meta: { requiresAuth: true, roles: ['Cashier'] }
+    },
+    {
+        path: '/cashier/transaction',
+        name: 'CashierTransaction',
+        component: CashierTransaction,
         meta: { requiresAuth: true, roles: ['Cashier'] }
     },
     {

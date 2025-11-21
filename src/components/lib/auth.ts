@@ -1,10 +1,11 @@
 import { reactive, readonly } from 'vue';
 import { frappe } from './frappe';
 import { getCookie } from './utils';
-import { Employee, LoggedInUser } from './types';
+import { Employee, LoggedInUser, Showroom } from './types';
 import { initSocket } from './frappeSocket';
 
 const ROLES_STORAGE_KEY = 'user_roles';
+const SHOWROOM_STORAGE_KEY = 'showroom';
 
 // localStorage helper functions
 function saveRolesToStorage(roles: string[]): void {
@@ -15,15 +16,24 @@ function saveRolesToStorage(roles: string[]): void {
 	}
 }
 
-function loadRolesFromStorage(): string[] {
+function saveToStorage(key: string, data: any): void {
 	try {
-		const stored = localStorage.getItem(ROLES_STORAGE_KEY);
-		return stored ? JSON.parse(stored) : [];
+		localStorage.setItem(key, JSON.stringify(data));
 	} catch (error) {
-		console.error('Failed to load roles from localStorage:', error);
-		return [];
+		console.error('Failed to save roles to localStorage:', error);
 	}
 }
+
+function loadFromStorage(key: string): any {
+	try {
+		const stored = localStorage.getItem(key);
+		return stored ? JSON.parse(stored) : null;
+	} catch (error) {
+		console.error('Failed to load from localStorage:', error);
+		return null;
+	}
+}
+
 
 function clearRolesFromStorage(): void {
 	try {
@@ -38,12 +48,14 @@ const state = reactive<{
 	isFetchingUser: boolean;
 	isAuthenticated: boolean;
 	user: LoggedInUser | null;
+	showroom: Showroom | null;
 	roles: string[];
 }>({
 	isLoading: false,
 	isFetchingUser: false,
 	isAuthenticated: false,
 	user: null,
+	showroom: null,
 	roles: [],
 });
 
@@ -68,7 +80,10 @@ async function fetchLoggedInUser(): Promise<LoggedInUser | null> {
 		state.user = res?.message ?? null;
 		state.isAuthenticated = !!state.user;
 		state.roles = res?.message?.roles ?? [];
+		state.showroom = res?.message?.showroom ?? null;
+		console.log(res?.message);
 		// Save roles to localStorage for instant access
+		saveToStorage(SHOWROOM_STORAGE_KEY, res?.message?.showroom ?? null);
 		saveRolesToStorage(state.roles);
 		initSocket();
 		return state.user;
@@ -112,7 +127,8 @@ async function logout(): Promise<void> {
 // Call on app start to hydrate state from session/cookies
 async function initAuth(): Promise<void> {
 	// Load roles from localStorage first (synchronous, instant)
-	state.roles = loadRolesFromStorage();
+	state.roles = loadFromStorage(ROLES_STORAGE_KEY) ?? [];
+	state.showroom = loadFromStorage(SHOWROOM_STORAGE_KEY) ?? null;
 	state.isFetchingUser = true;
 	// Then fetch fresh data from API in background
 	await fetchLoggedInUser();
