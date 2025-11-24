@@ -39,7 +39,7 @@
         </div>
 
         <!-- Debug: Manual QR Input -->
-        <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-lg p-4 max-w-md w-[500px]">
+        <!-- <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-lg p-4 max-w-md w-[500px]">
           <p class="text-xs text-white mb-2 font-medium">🔧 Debug Mode - Manual QR Input</p>
           <div class="flex gap-2 mb-2">
             <input 
@@ -58,7 +58,7 @@
             </button>
           </div>
           <p class="text-[10px] text-white/70">Press Enter to submit or click the button</p>
-        </div>
+        </div> -->
 
         <!-- Error Message -->
         <div v-if="errorMessage" class="absolute top-4 left-4 bg-red-600/90 backdrop-blur-md rounded-lg p-4 max-w-md">
