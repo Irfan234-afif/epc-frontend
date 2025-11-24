@@ -13,6 +13,7 @@ import FindStores from './components/pages/find-stores/FindStores.vue';
 import Cashier from './components/pages/cashier/Cashier.vue';
 import CashierPortal from './components/pages/cashier/CashierPortal.vue';
 import CashierTransaction from './components/pages/cashier/CashierTransaction.vue';
+import TransactionHistory from './components/pages/cashier/TransactionHistory.vue';
 import TransactionResult from './components/pages/cashier/TransactionResult.vue';
 import EmployeeTransactionResult from './components/pages/home/EmployeeTransactionResult.vue';
 import ForbiddenPage from './components/pages/default/ForbiddenPage.vue';
@@ -65,6 +66,12 @@ const routes = [
         path: '/cashier/transaction',
         name: 'CashierTransaction',
         component: CashierTransaction,
+        meta: { requiresAuth: true, roles: ['Cashier'] }
+    },
+    {
+        path: '/cashier/transaction-history',
+        name: 'CashierTransactionHistory',
+        component: TransactionHistory,
         meta: { requiresAuth: true, roles: ['Cashier'] }
     },
     {

@@ -1,5 +1,5 @@
 import { frappe } from './frappe';
-import { Showroom, Transaction, TransactionRequest, TransactionResponse, TransactionListItem, QRValidationResponse } from './types';
+import { Showroom, Transaction, TransactionRequest, TransactionResponse, TransactionListItem, QRValidationResponse, TransactionHistoryResponse } from './types';
 
 /**
  * Fetch list of showrooms from backend API
@@ -217,6 +217,117 @@ export async function submitPaymentID(
 		
 		// Try to decode _server_messages for cleaner error message
 		let errorMessage = 'QR code validation failed';
+		
+		if (error?._server_messages) {
+			try {
+				const serverMessages = JSON.parse(error._server_messages);
+				if (Array.isArray(serverMessages) && serverMessages.length > 0) {
+					const firstMessage = JSON.parse(serverMessages[0]);
+					errorMessage = firstMessage.message || errorMessage;
+				}
+			} catch (parseError) {
+				console.error('Failed to parse server messages:', parseError);
+				errorMessage = error?.exception || error?.message || errorMessage;
+			}
+		} else {
+			errorMessage = error?.exception || error?.message || errorMessage;
+		}
+		
+		// Re-throw with error type and clean message for UI to handle
+		const errorObj = new Error(errorMessage) as any;
+		errorObj.exc_type = error?.exc_type;
+		throw errorObj;
+	}
+}
+
+/**
+ * List transactions for cashier by showroom and QR value
+ */
+export async function listTransactionCashier(
+	showroom: string,
+	qrValue: string
+): Promise<TransactionHistoryResponse | null> {
+	try {
+		// @ts-ignore - import.meta.env is available in Vite
+		const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+		const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
+		const method = 'employeediscount.api.transaction.list_transaction_cashier';
+		const url = `${cleanBackendUrl}/api/method/${method}?showroom=${encodeURIComponent(showroom)}`;
+		
+		// Create FormData for the request body
+		const formData = new FormData();
+		formData.append('qr_value', qrValue);
+		
+		// Use fetch directly since this is a GET request with formdata body (non-standard)
+		const response = await fetch(url, {
+			method: 'GET',
+			credentials: 'include',
+			body: formData,
+		});
+		
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		
+		const data = await response.json();
+		return data?.message ?? null;
+	} catch (error: any) {
+		console.error('Error fetching transaction history for cashier:', error);
+		
+		// Try to decode _server_messages for cleaner error message
+		let errorMessage = 'Failed to fetch transaction history';
+		
+		if (error?._server_messages) {
+			try {
+				const serverMessages = JSON.parse(error._server_messages);
+				if (Array.isArray(serverMessages) && serverMessages.length > 0) {
+					const firstMessage = JSON.parse(serverMessages[0]);
+					errorMessage = firstMessage.message || errorMessage;
+				}
+			} catch (parseError) {
+				console.error('Failed to parse server messages:', parseError);
+				errorMessage = error?.exception || error?.message || errorMessage;
+			}
+		} else {
+			errorMessage = error?.exception || error?.message || errorMessage;
+		}
+		
+		// Re-throw with error type and clean message for UI to handle
+		const errorObj = new Error(errorMessage) as any;
+		errorObj.exc_type = error?.exc_type;
+		throw errorObj;
+	}
+}
+
+/**
+ * List transaction history for cashier by showroom only (for transaction history page)
+ */
+export async function listTransactionHistoryByShowroom(
+	showroom: string,
+	year: number | null = null,
+	month: number | null = null,
+	epc_type: string | null = null
+): Promise<TransactionHistoryResponse | null> {
+	try {
+		// @ts-ignore - import.meta.env is available in Vite
+		// const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+		// const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
+		const method = 'employeediscount.api.transaction.list_transaction_cashier';
+		// const url = `${cleanBackendUrl}/api/method/${method}?showroom=${encodeURIComponent(showroom)}`;
+		
+		// // Create FormData for the request body (qr_value can be empty for listing all transactions)
+		// const formData = new FormData();
+		// formData.append('qr_value', '');
+		
+		// Use fetch directly since this is a GET request with formdata body (non-standard)
+		const response = await frappe.call().get<{ message: TransactionHistoryResponse }>(method, { showroom: showroom, year: year, month: month, epc_type: epc_type });
+		
+		return response?.message ?? null;
+	} catch (error: any) {
+		console.error('Error fetching transaction history by showroom:', error);
+		
+		// Try to decode _server_messages for cleaner error message
+		let errorMessage = 'Failed to fetch transaction history';
 		
 		if (error?._server_messages) {
 			try {

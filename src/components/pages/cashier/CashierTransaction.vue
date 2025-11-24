@@ -128,6 +128,14 @@
           >
             Finish
           </button>
+
+          <!-- Error Message -->
+          <div v-if="errorMessage" class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-600 text-sm">
+            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+            </svg>
+            <span>{{ errorMessage }}</span>
+          </div>
         </template>
 
         <!-- Normal State: Transaction Input -->
@@ -310,14 +318,14 @@ const balancePercentage = computed(() => {
   const { current_limit } = employeeData.value.card_info;
   // Use to_balance if transaction success, otherwise use current_balance
   const balance = transactionSuccess.value && transactionData.value 
-    ? transactionData.value.to_balance 
+    ? transactionData.value.current_balance 
     : employeeData.value.card_info.current_balance;
   return (balance / current_limit) * 100;
 });
 
 const updatedBalance = computed(() => {
   if (transactionSuccess.value && transactionData.value) {
-    return transactionData.value.to_balance;
+    return transactionData.value.current_balance;
   }
   return employeeData.value?.card_info.current_balance ?? 0;
 });
@@ -519,10 +527,12 @@ async function confirmProceed() {
   try {
     const result = await processTransaction({
       qr_value: qrValue.value,
-      amount: Number(posAmount.value),
+      amount: Number(netDeducted.value),
       showroom: showroom,
       title: `POS Transaction - ${employeeData.value.employee_info.name}`,
-      description: `Discount: ${calculatedDiscount.value}, Net: ${netDeducted.value}`
+      description: `Discount: ${calculatedDiscount.value}, Net: ${netDeducted.value}`,
+      from_amount: Number(posAmount.value),   
+      to_amount: Number(netDeducted.value),
     });
     
     if (result && result.transaction_id) {
@@ -537,6 +547,9 @@ async function confirmProceed() {
         clearInterval(timerInterval);
         timerInterval = null;
       }
+
+      // clear session
+      clearSession();
     } else {
       throw new Error('Transaction failed');
     }
@@ -592,16 +605,20 @@ async function handleFinish() {
   // Submit payment ID if provided
   if (paymentId.value.trim() && transactionData.value) {
     try {
+      isProcessing.value = true;
       await submitPaymentID(transactionData.value.transaction_id, paymentId.value.trim());
+      isProcessing.value = false;
+      router.replace({ name: 'Cashier' });
     } catch (error: any) {
       console.error('Failed to submit payment ID:', error);
-      // Continue anyway, payment ID is optional
+      errorMessage.value = error?.message || 'An error occurred while submitting the payment ID';
+      isProcessing.value = false;
     }
   }
   
   // Clear session and navigate back to cashier portal
-  clearSession();
-  router.push({ name: 'Cashier' });
+  // clearSession();
+  // router.push({ name: 'Cashier' });
 }
 
 // Load from session on mount

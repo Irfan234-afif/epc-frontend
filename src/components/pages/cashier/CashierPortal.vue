@@ -20,7 +20,7 @@
         
         <!-- Bottom Actions -->
         <div class="flex items-end justify-center gap-12 w-full max-w-4xl pb-8">
-          <button disabled class="bg-transparent border-none text-white text-sm font-medium cursor-not-allowed opacity-70 p-4 transition-opacity" style="text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
+          <button @click="goToTransactionHistory" class="bg-transparent border-none text-white text-sm font-medium cursor-pointer p-4 transition-opacity hover:opacity-80" style="text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);">
             <span>Transaction History</span>
           </button>
           
@@ -39,7 +39,7 @@
         </div>
 
         <!-- Debug: Manual QR Input -->
-        <!-- <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-lg p-4 max-w-md w-[500px]">
+        <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-lg p-4 max-w-md w-[500px]">
           <p class="text-xs text-white mb-2 font-medium">🔧 Debug Mode - Manual QR Input</p>
           <div class="flex gap-2 mb-2">
             <input 
@@ -58,7 +58,7 @@
             </button>
           </div>
           <p class="text-[10px] text-white/70">Press Enter to submit or click the button</p>
-        </div> -->
+        </div>
 
         <!-- Error Message -->
         <div v-if="errorMessage" class="absolute top-4 left-4 bg-red-600/90 backdrop-blur-md rounded-lg p-4 max-w-md">
@@ -175,6 +175,10 @@ async function handleManualQR() {
     errorMessage.value = error?.message || 'Failed to validate QR code';
     console.error('QR validation error:', error);
   }
+}
+
+function goToTransactionHistory() {
+  router.push({ name: 'CashierTransactionHistory' });
 }
 </script>
 

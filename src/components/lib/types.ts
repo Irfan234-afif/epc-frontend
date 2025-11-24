@@ -54,8 +54,9 @@ export type TransactionResponse = {
 	card_id: string;
 	employee_name: string;
 	amount: number;
-	from_balance: number;
-	to_balance: number;
+	from_amount: number;
+	to_amount: number;
+	current_balance: number;
 	message: string;
 };
 
@@ -71,6 +72,7 @@ export type Transaction = {
 export type TransactionListItem = {
 	name: string;
 	epc_card: string;
+	epc_type: string;
 	employee_name: string;
 	title: string;
 	total_amount: number;
@@ -111,4 +113,14 @@ export type QRValidationResponse = {
 	card_info: QRValidationCardInfo;
 	employee_info: QRValidationEmployeeInfo;
 	cashier_timeout: number;
+};
+
+export type TransactionCountByEPCType = {
+	name: string;
+	count: number;
+};
+
+export type TransactionHistoryResponse = {
+	transactions: TransactionListItem[];
+	transaction_count_by_epc_type: TransactionCountByEPCType[];
 };
