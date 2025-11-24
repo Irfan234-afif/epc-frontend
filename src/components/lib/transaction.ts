@@ -200,25 +200,43 @@ export async function submitPaymentID(
 	transactionId: string,
 	paymentId: string
 ): Promise<{ success: boolean; message?: string }> {
-	// Validate input
-	if (!paymentId || paymentId.trim() === '') {
-		throw new Error('Payment ID is required');
+	try {
+		const res = await frappe
+			.call()
+			.post<{ message: { success: boolean; message?: string } }>(
+				'employeediscount.api.transaction.input_payment_id',
+				{
+					transaction_id: transactionId,
+					payment_id: paymentId,
+				}
+			);
+		
+		return res?.message ?? null;
+	} catch (error: any) {
+		console.error('Error validating QR code:', error);
+		
+		// Try to decode _server_messages for cleaner error message
+		let errorMessage = 'QR code validation failed';
+		
+		if (error?._server_messages) {
+			try {
+				const serverMessages = JSON.parse(error._server_messages);
+				if (Array.isArray(serverMessages) && serverMessages.length > 0) {
+					const firstMessage = JSON.parse(serverMessages[0]);
+					errorMessage = firstMessage.message || errorMessage;
+				}
+			} catch (parseError) {
+				console.error('Failed to parse server messages:', parseError);
+				errorMessage = error?.exception || error?.message || errorMessage;
+			}
+		} else {
+			errorMessage = error?.exception || error?.message || errorMessage;
+		}
+		
+		// Re-throw with error type and clean message for UI to handle
+		const errorObj = new Error(errorMessage) as any;
+		errorObj.exc_type = error?.exc_type;
+		throw errorObj;
 	}
-	
-	if (!transactionId || transactionId.trim() === '') {
-		throw new Error('Transaction ID is required');
-	}
-	
-	// TODO: Implement API call when endpoint is ready
-	// For now, just validate and return success
-	console.log('Payment ID submission:', { transactionId, paymentId });
-	
-	// Simulate API call delay
-	await new Promise(resolve => setTimeout(resolve, 500));
-	
-	return {
-		success: true,
-		message: 'Payment ID submitted successfully'
-	};
 }
 
