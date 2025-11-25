@@ -124,3 +124,11 @@ export type TransactionHistoryResponse = {
 	transactions: TransactionListItem[];
 	transaction_count_by_epc_type: TransactionCountByEPCType[];
 };
+
+export type NewsResponse = {
+	name: string;
+	title: string;
+	short_description: string;
+	description: string;
+	thumbnail: string;
+};

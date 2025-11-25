@@ -58,17 +58,12 @@
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, #CB8A2E)"/>
           </svg>
         </div>
-        <div class="flex space-x-4 overflow-x-auto">
-          <div class="bg-white rounded-lg shadow-lg w-64 flex-shrink-0">
-            <img src="/event1.png" alt="Offer 1" class="w-full h-32 object-cover rounded-t-lg">
+        <div class="flex space-x-4 overflow-x-auto gap-4">
+          <div v-for="news in news" :key="news.name">
+            <img :src="news.thumbnail" alt="News Thumbnail" class="w-full h-32 object-cover rounded-t-lg"></img>
             <div class="p-4">
-              <p class="text-sm">Exclusive deals for employees only at Fuglen Coffee ASHTA. First timer visit employee only.</p>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg shadow-lg w-64 flex-shrink-0">
-            <img src="/event2.png" alt="Offer 2" class="w-full h-32 object-cover rounded-t-lg">
-            <div class="p-4">
-              <p class="text-sm">LAST DROP 60% OFF! Get Melissa’s last stock in selected store.</p>
+              <p class="text-sm">{{ news.title }}</p>
+              <p class="text-sm">{{ news.short_description }}</p>
             </div>
           </div>
         </div>
@@ -119,11 +114,14 @@ import Navbar from '@/components/ui/navbar/Navbar.vue';
 import { useAuth } from '@/components/lib/auth';
 import { fetchUserCards } from '@/components/lib/card';
 import { Card } from '@/components/pages/home/useCardStack';
+import { getNews } from '@/components/lib/news';
+import { NewsResponse } from '@/components/lib/types';
 
 const { state, logout } = useAuth();
 
 // Employee cards data - fetched from API
 const employeeCards = ref<Card[]>([]);
+const news = ref<NewsResponse[]>([]);
 const isLoadingCards = ref(false);
 
 // Fetch cards from API on component mount
@@ -173,4 +171,9 @@ function handleQRClick(card: { code: string }) {
         }
     });
 };
+
+onMounted(async () => {
+  news.value = await getNews();
+  console.log(news);
+});
 </script>
