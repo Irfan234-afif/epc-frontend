@@ -10,8 +10,8 @@ import { useAuth } from '@/components/lib/auth';
 
 const router = useRouter()
 
-const email = ref('administrator');
-const password = ref('admin');
+const email = ref('');
+const password = ref('');
 const showPassword = ref(false);
 const rememberMe = ref(false);
 const viewIcon = 'http://localhost:3845/assets/3eecf9e9e51cb40cff9a7e704a12eeed3ab52a90.svg';
