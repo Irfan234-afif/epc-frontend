@@ -151,6 +151,63 @@ function userHomePage(): string {
 	}
 }
 
+export interface UpdatePasswordResult {
+	success: boolean;
+	message: string;
+}
+
+async function updatePassword(
+	newPassword: string
+): Promise<UpdatePasswordResult> {
+	try {
+		const res = await frappe
+			.call()
+			.post<{ message: { success?: boolean; message?: string } }>(
+				'employeediscount.api.user.update_password',
+				{
+					pwd: newPassword,
+				}
+			);
+
+		if (res?.message?.success !== false) {
+			return {
+				success: true,
+				message: res?.message?.message || 'Password updated successfully!',
+			};
+		} else {
+			return {
+				success: false,
+				message: res?.message?.message || 'Failed to update password',
+			};
+		}
+	} catch (error: any) {
+		console.error('Error updating password:', error);
+
+		// Try to decode _server_messages for cleaner error message
+		let errorMsg = 'Failed to update password. Please try again.';
+
+		if (error?._server_messages) {
+			try {
+				const serverMessages = JSON.parse(error._server_messages);
+				if (Array.isArray(serverMessages) && serverMessages.length > 0) {
+					const firstMessage = JSON.parse(serverMessages[0]);
+					errorMsg = firstMessage.message || errorMsg;
+				}
+			} catch (parseError) {
+				console.error('Failed to parse server messages:', parseError);
+				errorMsg = error?.exception || error?.message || errorMsg;
+			}
+		} else {
+			errorMsg = error?.exception || error?.message || errorMsg;
+		}
+
+		return {
+			success: false,
+			message: errorMsg,
+		};
+	}
+}
+
 export function useAuth() {
 	return {
 		isFetchingUser: state.isFetchingUser,
@@ -160,6 +217,7 @@ export function useAuth() {
 		fetchLoggedInUser,
 		initAuth,
 		userHomePage,
+		updatePassword,
 	};
 }
 

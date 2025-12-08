@@ -18,6 +18,7 @@ import TransactionResult from './components/pages/cashier/TransactionResult.vue'
 import EmployeeTransactionResult from './components/pages/home/EmployeeTransactionResult.vue';
 import ForbiddenPage from './components/pages/default/ForbiddenPage.vue';
 import LoadingPage from './components/pages/default/LoadingPage.vue';
+import Settings from './components/pages/settings/Settings.vue';
 
 const routes = [
     {
@@ -54,6 +55,12 @@ const routes = [
         path: '/find-stores',
         name: 'FindStores',
         component: FindStores,
+        meta: { requiresAuth: true, roles: ['Employee'] }
+    },
+    {
+        path: '/settings',
+        name: 'Settings',
+        component: Settings,
         meta: { requiresAuth: true, roles: ['Employee'] }
     },
     {
