@@ -63,7 +63,7 @@
       <!-- Countdown Timer -->
       <div v-if="qrCodeData && qrCodeImageUrl && !isLoading" class="text-center mb-5">
         <div class="inline-block px-4 py-2 rounded-full text-sm">
-          Auto refreshes in {{ countdownSeconds }}s
+          Auto refreshes in {{ formatDuration(countdownSeconds) }}
         </div>
       </div>
       <div class="text-center text-gray-800 mb-5">
@@ -84,9 +84,10 @@ import QRCode from 'qrcode';
 import { socket } from '@/components/lib/frappeSocket';
 import { getTransactionDetail } from '@/components/lib/transaction';
 import { formatNumber } from '@/components/lib/utils';
+import { useAuth } from '@/components/lib/auth';
 
 const router = useRouter();
-
+const { state } = useAuth();
 const emit = defineEmits<{
   (e: 'close'): void;
 }>();
@@ -99,7 +100,8 @@ const qrCodeData = ref<QRCodeResponse | null>(null);
 const isLoading = ref(false);
 const refreshTimer = ref<number | null>(null);
 const countdownTimer = ref<number | null>(null);
-const countdownSeconds = ref(60);
+  const qrTimeout = parseInt(state.epc_setting?.qr_timeout) ?? 60;
+const countdownSeconds = ref(qrTimeout);
 const qrCodeImageUrl = ref<string | null>(null);
 
 // Transaction completion state
@@ -125,7 +127,7 @@ async function generateQRCodeImage(qrCodeString: string) {
 
 function startCountdown() {
   // Reset countdown to 60 seconds
-  countdownSeconds.value = 60;
+  countdownSeconds.value = qrTimeout;
   
   // Clear existing countdown timer if any
   if (countdownTimer.value !== null) {
@@ -136,7 +138,7 @@ function startCountdown() {
   countdownTimer.value = window.setInterval(() => {
     countdownSeconds.value--;
     if (countdownSeconds.value <= 0) {
-      countdownSeconds.value = 60;
+      countdownSeconds.value = qrTimeout;
     }
   }, 1000); // Update every second
 }
@@ -222,6 +224,28 @@ function formatIDR(amount: number): string {
   return `IDR ${formatNumber(amount)}`;
 }
 
+function formatDuration(seconds: number): string {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+  
+  const parts: string[] = [];
+  
+  if (hours > 0) {
+    parts.push(`${hours} ${hours === 1 ? 'hour' : 'hours'}`);
+  }
+  
+  if (minutes > 0) {
+    parts.push(`${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`);
+  }
+  
+  if (secs > 0 || parts.length === 0) {
+    parts.push(`${secs} ${secs === 1 ? 'second' : 'seconds'}`);
+  }
+  
+  return parts.join(' ');
+}
+
 function goToPurchaseHistory() {
   emit('close');
   router.push('/purchase-history');
@@ -239,7 +263,7 @@ onMounted(() => {
   // Set up 60-second interval to refresh QR code
   refreshTimer.value = window.setInterval(() => {
     loadQRCode();
-  }, 60000); // 60 seconds
+  }, qrTimeout * 1000); // qrTimeout seconds
 });
 
 onBeforeUnmount(() => {

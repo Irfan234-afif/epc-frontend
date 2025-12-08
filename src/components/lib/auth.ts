@@ -1,11 +1,12 @@
 import { reactive, readonly } from 'vue';
 import { frappe } from './frappe';
 import { getCookie } from './utils';
-import { Employee, LoggedInUser, Showroom } from './types';
+import { Employee, EPCSetting, LoggedInUser, Showroom } from './types';
 import { initSocket } from './frappeSocket';
 
 const ROLES_STORAGE_KEY = 'user_roles';
 const SHOWROOM_STORAGE_KEY = 'showroom';
+const EPC_SETTING_STORAGE_KEY = 'epc_setting';
 
 // localStorage helper functions
 function saveRolesToStorage(roles: string[]): void {
@@ -50,6 +51,7 @@ const state = reactive<{
 	user: LoggedInUser | null;
 	showroom: Showroom | null;
 	roles: string[];
+	epc_setting: EPCSetting | null;
 }>({
 	isLoading: false,
 	isFetchingUser: false,
@@ -57,6 +59,7 @@ const state = reactive<{
 	user: null,
 	showroom: null,
 	roles: [],
+	epc_setting: null,
 });
 
 async function fetchLoggedInUser(): Promise<LoggedInUser | null> {
@@ -81,9 +84,10 @@ async function fetchLoggedInUser(): Promise<LoggedInUser | null> {
 		state.isAuthenticated = !!state.user;
 		state.roles = res?.message?.roles ?? [];
 		state.showroom = res?.message?.showroom ?? null;
-		console.log(res?.message);
+		state.epc_setting = res?.message?.epc_setting ?? null;
 		// Save roles to localStorage for instant access
 		saveToStorage(SHOWROOM_STORAGE_KEY, res?.message?.showroom ?? null);
+		saveToStorage(EPC_SETTING_STORAGE_KEY, res?.message?.epc_setting ?? null);
 		saveRolesToStorage(state.roles);
 		initSocket();
 		return state.user;
@@ -129,9 +133,11 @@ async function initAuth(): Promise<void> {
 	// Load roles from localStorage first (synchronous, instant)
 	state.roles = loadFromStorage(ROLES_STORAGE_KEY) ?? [];
 	state.showroom = loadFromStorage(SHOWROOM_STORAGE_KEY) ?? null;
+	state.epc_setting = loadFromStorage(EPC_SETTING_STORAGE_KEY) ?? null;
 	state.isFetchingUser = true;
 	// Then fetch fresh data from API in background
 	await fetchLoggedInUser();
+	console.log(state.epc_setting);
 	state.isFetchingUser = false;
 }
 

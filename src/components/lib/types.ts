@@ -7,6 +7,7 @@ export type LoggedInUser = {
 	email: string;
 	employee?: Employee;
 	roles: string[];
+	epc_setting: EPCSetting;
 };
 
 export type UserCardResponse = {
@@ -37,6 +38,11 @@ export type Showroom = {
 	showroom_name: string;
 	sbu: string;
 };
+
+export type EPCSetting = {
+	cashier_timeout: string;
+	qr_timeout: string;
+}
 
 export type TransactionRequest = {
 	qr_value: string;
