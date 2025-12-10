@@ -143,7 +143,7 @@ export type NewsResponse = {
 export type EPCType = {
 	name: string;
 	default_limit: number;
-	discount: []
+	discount: EPCTypeDiscount[]
 }
 
 export type EPCTypeDiscount = {

@@ -1,5 +1,5 @@
 import { frappe } from './frappe';
-import { UserCardResponse, QRCodeResponse } from './types';
+import { UserCardResponse, QRCodeResponse, EPCType } from './types';
 import { Card } from '@/components/pages/home/useCardStack';
 
 /**
@@ -86,3 +86,22 @@ export async function generateQRCode(cardCode: string): Promise<QRCodeResponse |
 	}
 }
 
+export async function getCardTypes(): Promise<EPCType[]> {
+	try {
+		const result: EPCType[] = [];
+		const types = await frappe.db().getDocList('EPC Type', {
+			fields: ['name'],
+		})
+
+		for (const typeName of types) {
+			const epcType = await frappe.db().getDoc('EPC Type', typeName.name);
+			result.push(epcType);
+		}
+		console.log(result);
+		return result;
+		
+	} catch (error) {
+		console.error('Error fetching card types:', error);
+		return [];
+	}
+}
