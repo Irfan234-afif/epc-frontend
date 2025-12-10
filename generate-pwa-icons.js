@@ -11,7 +11,7 @@ async function generatePWAIcons() {
   try {
     const sharp = await import('sharp');
     const publicDir = join(process.cwd(), 'public');
-    const sourceLogo = join(publicDir, 'logo.png');
+    const sourceLogo = join(publicDir, 'icon.png');
     const output192 = join(publicDir, 'pwa-192x192.png');
     const output512 = join(publicDir, 'pwa-512x512.png');
 

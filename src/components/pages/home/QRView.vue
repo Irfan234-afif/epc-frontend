@@ -43,6 +43,28 @@
       </button>
     </div>
     
+    <!-- Processing Payment View -->
+    <div v-else-if="isProcessingPayment" class="w-full flex flex-col items-center">
+      <!-- Loading Animation -->
+      <div class="mb-8 flex items-center justify-center my-12">
+        <div class="flex space-x-2">
+          <div class="w-3 h-3 bg-[#212121] rounded-full animate-dot-bounce" style="animation-delay: 0s"></div>
+          <div class="w-3 h-3 bg-[#212121] rounded-full animate-dot-bounce" style="animation-delay: 0.2s"></div>
+          <div class="w-3 h-3 bg-[#212121] rounded-full animate-dot-bounce" style="animation-delay: 0.4s"></div>
+        </div>
+      </div>
+      
+      <!-- Title -->
+      <h2 class="text-[22px] font-semibold text-[#212121] text-center mb-4">
+        Finalizing Payment
+      </h2>
+      
+      <!-- Description -->
+      <p class="text-xs text-[#0f181f] text-center leading-[19px] tracking-[0.36px] px-4" style="max-width: 268px;">
+        Please wait while the cashier verifies your payment details. Keep this screen open to ensure a seamless transaction.
+      </p>
+    </div>
+    
     <!-- QR Code View -->
     <div v-else class="w-full flex flex-col items-center">
       <div class="text-center mb-4">
@@ -104,6 +126,9 @@ const countdownTimer = ref<number | null>(null);
 const countdownSeconds = ref(qrTimeout);
 const qrCodeImageUrl = ref<string | null>(null);
 
+// Processing payment state
+const isProcessingPayment = ref(false);
+
 // Transaction completion state
 const isTransactionCompleted = ref(false);
 const transactionData = ref<Transaction | null>(null);
@@ -145,6 +170,8 @@ function startCountdown() {
 
 async function loadQRCode() {
   if (!props.cardCode) return;
+  // Stop generating QR code if payment is being processed
+  if (isProcessingPayment.value) return;
   
   isLoading.value = true;
   try {
@@ -166,6 +193,23 @@ async function loadQRCode() {
   }
 }
 
+function handleQRCodeValidated(data: any) {
+  console.log('QR code validated:', data);
+  
+  // Stop timers
+  if (refreshTimer.value !== null) {
+    clearInterval(refreshTimer.value);
+    refreshTimer.value = null;
+  }
+  if (countdownTimer.value !== null) {
+    clearInterval(countdownTimer.value);
+    countdownTimer.value = null;
+  }
+  
+  // Set processing payment state
+  isProcessingPayment.value = true;
+}
+
 async function handleTransactionCompleted(data: any) {
   console.log('Transaction completed:', data);
   
@@ -179,7 +223,8 @@ async function handleTransactionCompleted(data: any) {
     countdownTimer.value = null;
   }
   
-  // Set transaction completed state
+  // Set transaction completed state (processing will be automatically hidden)
+  isProcessingPayment.value = false;
   isTransactionCompleted.value = true;
   isLoadingTransaction.value = true;
   
@@ -255,6 +300,7 @@ onMounted(() => {
   console.log('QRView mounted');
   console.log('Subscribing to transaction:', props.cardCode);
   socket.emit('card_subscribe', props.cardCode);
+  socket.on('qr_code_validated', handleQRCodeValidated);
   socket.on('transaction_completed', handleTransactionCompleted);
   
   // Generate QR code immediately when component opens
@@ -262,12 +308,16 @@ onMounted(() => {
   
   // Set up 60-second interval to refresh QR code
   refreshTimer.value = window.setInterval(() => {
-    loadQRCode();
+    // Only refresh QR code if not processing payment
+    if (!isProcessingPayment.value) {
+      loadQRCode();
+    }
   }, qrTimeout * 1000); // qrTimeout seconds
 });
 
 onBeforeUnmount(() => {
   console.log('QRView beforeUnmount');
+  socket.off('qr_code_validated', handleQRCodeValidated);
   socket.off('transaction_completed', handleTransactionCompleted);
   socket.emit('card_unsubscribe', props.cardCode);
 });
@@ -285,3 +335,20 @@ onUnmounted(() => {
   }
 });
 </script>
+
+<style scoped>
+@keyframes dot-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+.animate-dot-bounce {
+  animation: dot-bounce 1.4s infinite ease-in-out;
+}
+</style>
