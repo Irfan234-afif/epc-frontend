@@ -3,7 +3,7 @@
         <div class="w-full px-6 py-8 rounded-b-xl">
             <Navbar>
                 <div class="flex items-center justify-between w-full">
-                    <h2 class="font-bold text-xl">
+                    <h2 class="font-semibold text-xl">
                         Notifications [ 0 ]
                     </h2>
                 </div>

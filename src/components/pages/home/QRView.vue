@@ -12,7 +12,7 @@
       </div>
       
       <!-- Title -->
-      <h2 class="text-[30px] font-bold text-[#212121] text-center mb-4">Payment Successful</h2>
+      <h2 class="text-[30px] font-semibold text-[#212121] text-center mb-4">Payment Successful</h2>
       
       <!-- Store Name -->
       <p v-if="storeName" class="text-base font-medium text-[#0f181f] text-center mb-4 tracking-[0.48px]">
@@ -22,7 +22,7 @@
       <!-- Description -->
       <p class="text-xs text-[#0f181f] text-center leading-[19px] tracking-[0.36px] mb-8 px-4" style="max-width: 268px;">
         <span>Your payment of </span>
-        <span class="font-bold">{{ formatIDR(transactionData?.total_amount || 0) }}</span>
+        <span class="font-semibold">{{ formatIDR(transactionData?.total_amount || 0) }}</span>
         <span> was successful. You can view the details in your Purchase History. If you didn't make this transaction, please contact IT Support immediately.</span>
       </p>
       
@@ -37,7 +37,7 @@
       <!-- View Purchase History Link -->
       <button 
         @click="goToPurchaseHistory"
-        class="text-xs font-bold text-[#0f181f] text-center cursor-pointer"
+        class="text-xs font-semibold text-[#0f181f] text-center cursor-pointer"
       >
         View Purchase History
       </button>
@@ -46,7 +46,7 @@
     <!-- QR Code View -->
     <div v-else class="w-full flex flex-col items-center">
       <div class="text-center mb-4">
-        <h2 class="text-2xl font-bold mb-2">{{ qrCodeData?.card_name || cardCode || 'Loading...' }}</h2>
+        <h2 class="text-2xl font-semibold mb-2">{{ qrCodeData?.card_name || cardCode || 'Loading...' }}</h2>
         <p class="text-sm">{{ qrCodeData?.epc_type || 'Loading...' }}</p>
       </div>
       <div class="p-5 bg-gray-50 rounded-3xl shadow-sm mb-3">
@@ -67,10 +67,10 @@
         </div>
       </div>
       <div class="text-center text-gray-800 mb-5">
-        <p class="font-bold text-lg mb-2">Show QR to Pay</p>
+        <p class="font-semibold text-lg mb-2">Show QR to Pay</p>
         <p class="text-sm">Staff will scan this QR to complete your payment. Your employee discount will be applied automatically.</p>
       </div>
-      <button @click="$emit('close')" class="border active:bg-gray-800 active:text-white hover:bg-gray-800 hover:text-white font-bold py-3 w-64 rounded-md cursor-pointer">Close</button>
+      <button @click="$emit('close')" class="border active:bg-gray-800 active:text-white hover:bg-gray-800 hover:text-white font-semibold py-3 w-64 rounded-md cursor-pointer">Close</button>
     </div>
   </div>
 </template>

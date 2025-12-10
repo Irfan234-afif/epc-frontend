@@ -12,7 +12,7 @@
           <div class="relative inline-block mb-6">
             <div class="w-20 h-20 border-4 border-gray-200 border-t-gray-800 rounded-full animate-spin"></div>
           </div>
-          <h2 class="text-2xl font-bold text-gray-800 mb-2">Loading Transaction...</h2>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-2">Loading Transaction...</h2>
           <p class="text-gray-600">Please wait</p>
         </div>
       </div>
@@ -35,7 +35,7 @@
               <div class="absolute top-2 -right-6 w-3 h-3 bg-green-300 rounded-full animate-confetti-4"></div>
             </div>
             
-            <h2 class="text-4xl font-bold text-green-600 mb-3 animate-fade-in-up">Transaction Successful!</h2>
+            <h2 class="text-4xl font-semibold text-green-600 mb-3 animate-fade-in-up">Transaction Successful!</h2>
             <p class="text-gray-600 mb-8 text-lg animate-fade-in-up animation-delay-200">{{ message || 'Transaction successful' }}</p>
             
             <div class="glass-inner rounded-2xl p-6 text-left space-y-3 mb-8 animate-fade-in-up animation-delay-400">
@@ -46,11 +46,11 @@
                   </svg>
                   Transaction ID
                 </span>
-                <span class="text-sm font-bold text-gray-900 font-mono">{{ transactionData.name }}</span>
+                <span class="text-sm font-semibold text-gray-900 font-mono">{{ transactionData.name }}</span>
               </div>
               <div class="flex justify-between items-center py-2">
                 <span class="text-sm font-medium text-gray-600">Employee</span>
-                <span class="text-sm font-bold text-gray-900">{{ transactionData.employee_name }}</span>
+                <span class="text-sm font-semibold text-gray-900">{{ transactionData.employee_name }}</span>
               </div>
               <div class="flex justify-between items-center py-2">
                 <span class="text-sm font-medium text-gray-600">Card ID</span>
@@ -58,7 +58,7 @@
               </div>
               <div class="flex justify-between items-center pt-4 pb-2 border-t-2 border-gray-200">
                 <span class="text-sm font-semibold text-gray-600">Amount</span>
-                <span class="text-xl font-bold text-gray-900">{{ formatCurrency(transactionData.total_amount) }}</span>
+                <span class="text-xl font-semibold text-gray-900">{{ formatCurrency(transactionData.total_amount) }}</span>
               </div>
               <div class="flex justify-between items-center py-2">
                 <span class="text-sm font-medium text-gray-600">Previous Balance</span>
@@ -66,7 +66,7 @@
               </div>
               <div class="flex justify-between items-center pt-2 pb-4 border-b-2 border-gray-200">
                 <span class="text-sm font-semibold text-gray-600">New Balance</span>
-                <span class="text-2xl font-bold text-green-600">{{ formatCurrency(transactionData.to_balance) }}</span>
+                <span class="text-2xl font-semibold text-green-600">{{ formatCurrency(transactionData.to_balance) }}</span>
               </div>
             </div>
             
@@ -74,13 +74,13 @@
             <div class="space-y-3 animate-fade-in-up animation-delay-600">
               <button
                 @click="goToHome"
-                class="w-full bg-gray-800 text-white font-bold py-5 rounded-xl hover:bg-gray-900 transition-all duration-300 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98]"
+                class="w-full bg-gray-800 text-white font-semibold py-5 rounded-xl hover:bg-gray-900 transition-all duration-300 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 Back to Home
               </button>
               <button
                 @click="goToPurchaseHistory"
-                class="w-full bg-white text-gray-800 font-bold py-5 rounded-xl border-2 border-gray-800 hover:bg-gray-50 transition-all duration-300 text-lg shadow-md hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                class="w-full bg-white text-gray-800 font-semibold py-5 rounded-xl border-2 border-gray-800 hover:bg-gray-50 transition-all duration-300 text-lg shadow-md hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 View Purchase History
               </button>
@@ -98,7 +98,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </div>
-            <h2 class="text-4xl font-bold text-red-600 mb-3 animate-fade-in-up">Transaction Failed</h2>
+            <h2 class="text-4xl font-semibold text-red-600 mb-3 animate-fade-in-up">Transaction Failed</h2>
             <div class="bg-red-50 rounded-2xl p-6 mb-8 animate-fade-in-up animation-delay-200">
               <p class="text-red-800">{{ message || 'An error occurred while processing the transaction' }}</p>
             </div>
@@ -106,7 +106,7 @@
             <div class="space-y-3 animate-fade-in-up animation-delay-400">
               <button
                 @click="goToHome"
-                class="w-full bg-gray-800 text-white font-bold py-5 rounded-xl hover:bg-gray-900 transition-all duration-300 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98]"
+                class="w-full bg-gray-800 text-white font-semibold py-5 rounded-xl hover:bg-gray-900 transition-all duration-300 text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 Back to Home
               </button>
@@ -123,7 +123,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
           </div>
-          <h2 class="text-2xl font-bold text-gray-800 mb-4">No Transaction Data</h2>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-4">No Transaction Data</h2>
           <p class="text-gray-600 mb-6">Redirecting to home...</p>
         </div>
       </div>

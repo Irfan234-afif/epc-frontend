@@ -2,7 +2,7 @@
     <div class="bg-[#f8f8f8] rounded-lg w-full">
         <div class="p-6">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="font-bold text-2xl text-[#151515]">
+                <h2 class="font-semibold text-2xl text-[#151515]">
                     Select brands
                 </h2>
                 <button 

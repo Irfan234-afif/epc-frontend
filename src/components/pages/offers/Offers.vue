@@ -2,7 +2,7 @@
     <div class="bg-[#f8f8f8] min-h-screen pb-32">
         <div class="shadow-xl w-full px-6 py-8 rounded-b-xl bg-[#f8f8f8]">
             <Navbar>
-                <h2 class="font-bold text-xl">
+                <h2 class="font-semibold text-xl">
                     Employee Offers
                 </h2>
             </Navbar>
@@ -11,7 +11,7 @@
                 <button 
                     @click="activeTab = 'ongoing'"
                     :class="[
-                        'h-[31px] rounded-[5px] px-4 text-xs font-bold tracking-[0.24px]',
+                        'h-[31px] rounded-[5px] px-4 text-xs font-semibold tracking-[0.24px]',
                         activeTab === 'ongoing' 
                             ? 'bg-[#cb8a2e] text-white' 
                             : 'border border-black text-black'
@@ -22,7 +22,7 @@
                 <button 
                     @click="activeTab = 'used'"
                     :class="[
-                        'h-[31px] rounded-[5px] px-4 text-xs font-bold tracking-[0.24px]',
+                        'h-[31px] rounded-[5px] px-4 text-xs font-semibold tracking-[0.24px]',
                         activeTab === 'used' 
                             ? 'bg-[#cb8a2e] text-white' 
                             : 'border border-black text-black'
@@ -59,7 +59,7 @@
         </div>
 
         <div class="fixed bottom-0 left-0 right-0 bg-[#f8f8f8] shadow-[0px_0px_19.4px_13px_rgba(0,0,0,0.1)] rounded-tl-[10px] rounded-tr-[10px] px-6 py-4">
-            <p class="text-center text-base font-bold text-[#151515]">
+            <p class="text-center text-base font-semibold text-[#151515]">
                 Have a code? 
                 <span class="underline cursor-pointer" @click="openCodeInput">
                     Type your code here.

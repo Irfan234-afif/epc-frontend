@@ -2,13 +2,13 @@
   <div class="p-6">
     <div class="shadow-xl w-full px-6 py-8 rounded-b-xl">
       <Navbar>
-        <h2 class="font-bold text-xl">Settings</h2>
+        <h2 class="font-semibold text-xl">Settings</h2>
       </Navbar>
     </div>
 
     <div class="mt-8">
       <div class="bg-white rounded-lg shadow-lg p-6">
-        <h3 class="text-lg font-bold mb-6">Update Password</h3>
+        <h3 class="text-lg font-semibold mb-6">Update Password</h3>
         
         <form @submit.prevent="handleSubmit" class="space-y-4">
 
@@ -138,7 +138,7 @@
           <Button
             type="submit"
             :disabled="isLoading || !isFormValid"
-            class="w-full !border-none !rounded !h-11 !text-white !font-bold !text-base !tracking-wider disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full !border-none !rounded !h-11 !text-white !font-semibold !text-base !tracking-wider disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span v-if="isLoading">Updating...</span>
             <span v-else>Update Password</span>

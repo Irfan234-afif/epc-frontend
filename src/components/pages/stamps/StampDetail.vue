@@ -14,7 +14,7 @@
             <div class="px-[23px] py-6">
                 <!-- Title -->
                 <div class="mb-6">
-                    <h2 class="text-base font-bold text-[#212121] leading-[23px]">
+                    <h2 class="text-base font-semibold text-[#212121] leading-[23px]">
                         {{ stamp.description }}
                     </h2>
                 </div>
@@ -54,7 +54,7 @@
                 <!-- Close Button -->
                 <button
                     @click="$emit('close')"
-                    class="w-full border border-black text-black font-bold text-base tracking-[0.32px] h-[45px] rounded-[5px]"
+                    class="w-full border border-black text-black font-semibold text-base tracking-[0.32px] h-[45px] rounded-[5px]"
                 >
                     Close
                 </button>

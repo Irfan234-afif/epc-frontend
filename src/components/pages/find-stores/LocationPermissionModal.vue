@@ -9,7 +9,7 @@
             </div>
             
             <!-- Title -->
-            <h2 class="font-bold text-xl text-[#151515] mb-2">
+            <h2 class="font-semibold text-xl text-[#151515] mb-2">
                 Enable Location Access
             </h2>
             
@@ -23,14 +23,14 @@
                 <button
                     @click="handleAllow"
                     :disabled="isRequesting"
-                    class="bg-[#cb8a2e] text-white font-bold py-3 px-6 rounded-lg transition-all hover:bg-[#b87a26] disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="bg-[#cb8a2e] text-white font-semibold py-3 px-6 rounded-lg transition-all hover:bg-[#b87a26] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {{ isRequesting ? 'Requesting...' : 'Allow Location' }}
                 </button>
                 <button
                     @click="handleSkip"
                     :disabled="isRequesting"
-                    class="bg-transparent text-[#151515] font-bold py-3 px-6 rounded-lg border border-[#e0e0e0] transition-all hover:bg-[#f8f8f8] disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="bg-transparent text-[#151515] font-semibold py-3 px-6 rounded-lg border border-[#e0e0e0] transition-all hover:bg-[#f8f8f8] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Skip for Now
                 </button>

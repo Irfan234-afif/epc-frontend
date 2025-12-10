@@ -5,7 +5,7 @@
             <div class="px-6 pt-8 pb-4">
                 <Navbar>
                     <div class="flex items-center justify-between w-full">
-                        <h2 class="font-bold text-2xl text-[#151515]">
+                        <h2 class="font-semibold text-2xl text-[#151515]">
                             Find stores
                         </h2>
                     </div>
@@ -15,10 +15,10 @@
             <!-- Search Bar -->
             <div class="px-6 mt-4">
                 <div class="bg-white h-11 rounded shadow-sm flex items-center justify-between px-4">
-                    <p class="font-bold text-base text-[#151515]">{{ selectedBrand?.name || 'Select Brand' }}</p>
+                    <p class="font-semibold text-base text-[#151515]">{{ selectedBrand?.name || 'Select Brand' }}</p>
                     <button 
                         @click="openBrandModal"
-                        class="text-[#cb8a2e] text-xs font-bold h-full px-4"
+                        class="text-[#cb8a2e] text-xs font-semibold h-full px-4"
                     >
                         Change
                     </button>
@@ -57,7 +57,7 @@
                             <div class="backdrop-blur-sm bg-[rgba(255,255,255,0.9)] h-24 rounded-lg shadow-md relative">
                                 <div class="flex items-start justify-between h-full px-5 pt-5 pb-5">
                                     <div class="flex-1">
-                                        <p class="font-bold text-sm text-[#212121] leading-tight mb-0 line-clamp-2">
+                                        <p class="font-semibold text-sm text-[#212121] leading-tight mb-0 line-clamp-2">
                                             {{ store.showroom_name || store.name }}
                                         </p>
                                     <p class="font-normal text-xs text-[#212121] leading-tight mt-3 line-clamp-1">

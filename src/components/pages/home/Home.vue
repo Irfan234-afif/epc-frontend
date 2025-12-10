@@ -10,7 +10,7 @@
               </svg>
             </div>
             <div class="ml-4">
-            <p class="text-xl font-bold text-gray-800">Hello, {{ state.user?.full_name?.split(' ')[0] }}</p>
+            <p class="text-xl font-semibold text-gray-800">Hello, {{ state.user?.full_name?.split(' ')[0] }}</p>
             <p class="text-sm text-gray-600 mt-1">Employee</p>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 34" fill="none" class="w-10 h-10 mx-auto">
               <path d="M16.3018 33.3333C12.3004 33.3333 8.78934 32.1056 5.7685 29.65C2.74767 27.1944 0.840724 24.0472 0.0476686 20.2083C-0.0384426 19.9014 -0.00788669 19.6174 0.139336 19.3563C0.286558 19.0951 0.517808 18.9437 0.833086 18.9021C1.12892 18.8604 1.38934 18.925 1.61434 19.0958C1.83795 19.2667 1.99697 19.5097 2.09142 19.825C2.8442 23.1361 4.54281 25.8681 7.18725 28.0208C9.8317 30.1736 12.8699 31.25 16.3018 31.25C20.3643 31.25 23.8102 29.8354 26.6393 27.0062C29.4685 24.1771 30.8838 20.7306 30.8852 16.6667C30.8866 12.6028 29.4713 9.15625 26.6393 6.32708C23.8074 3.49792 20.3616 2.08333 16.3018 2.08333C14.1449 2.08333 12.1185 2.53889 10.2227 3.45C8.32684 4.35972 6.65322 5.61319 5.20184 7.21042H9.32892C9.62475 7.21042 9.87267 7.31042 10.0727 7.51042C10.2727 7.71042 10.372 7.95833 10.3706 8.25417C10.3692 8.55 10.2699 8.79722 10.0727 8.99583C9.87545 9.19444 9.62753 9.29375 9.32892 9.29375H3.40184C2.92545 9.29375 2.52614 9.13264 2.20392 8.81042C1.8817 8.48819 1.72059 8.08889 1.72059 7.6125V1.68333C1.72059 1.3875 1.82059 1.14028 2.02059 0.941667C2.22059 0.743056 2.46781 0.643056 2.76225 0.641667C3.0567 0.640278 3.30392 0.740278 3.50392 0.941667C3.70392 1.14306 3.80392 1.39028 3.80392 1.68333V5.61667C5.41503 3.84861 7.30253 2.47083 9.46642 1.48333C11.6303 0.495833 13.9088 0.00138889 16.3018 0C18.6143 0 20.7803 0.434722 22.7998 1.30417C24.8192 2.17361 26.5838 3.36389 28.0935 4.875C29.6032 6.38611 30.7935 8.15 31.6643 10.1667C32.5352 12.1833 32.9699 14.3493 32.9685 16.6646C32.9671 18.9799 32.5324 21.1465 31.6643 23.1646C30.7963 25.1826 29.606 26.9479 28.0935 28.4604C26.581 29.9729 24.8164 31.1625 22.7998 32.0292C20.7831 32.8958 18.6185 33.3306 16.3018 33.3333ZM17.4623 16.2333L23.7123 22.4833C23.9067 22.6778 24.0109 22.9167 24.0248 23.2C24.0386 23.4847 23.9345 23.7375 23.7123 23.9583C23.49 24.1806 23.2449 24.2917 22.9768 24.2917C22.706 24.2917 22.4602 24.1806 22.2393 23.9583L15.8852 17.6042C15.7032 17.4236 15.5734 17.2333 15.4956 17.0333C15.4178 16.8333 15.3789 16.6271 15.3789 16.4146V7.29167C15.3789 6.99583 15.4789 6.74861 15.6789 6.55C15.8789 6.35 16.1268 6.25 16.4227 6.25C16.7185 6.25 16.9657 6.35 17.1643 6.55C17.3629 6.75 17.4623 6.99722 17.4623 7.29167V16.2333Z" fill="black"/>
             </svg>
-            <p class="text-sm font-bold mt-4">History</p>
+            <p class="text-sm font-semibold mt-4">History</p>
           </div>
         </router-link>
         <router-link to="/offers" class="text-center flex-1 disabled opacity-50 cursor-not-allowed pointer-events-none" @click.prevent>
@@ -37,7 +37,7 @@
               <path d="M26.0029 13.5018L13.5029 26.0018" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             
-            <p class="text-sm font-bold mt-4">Coming Soon</p>
+            <p class="text-sm font-semibold mt-4">Coming Soon</p>
           </div>
         </router-link>
         <router-link to="/stamps" class="text-center flex-1 disabled opacity-50 cursor-not-allowed pointer-events-none" @click.prevent>
@@ -52,14 +52,14 @@
               </g>
             </svg>
   
-            <p class="text-sm font-bold mt-4">Coming Soon</p>
+            <p class="text-sm font-semibold mt-4">Coming Soon</p>
           </div>
         </router-link>
       </div>
 
       <div class="mt-4 space-y-2">
         <div class="flex justify-between items-center">
-          <p class="text-lg font-bold">Latest Employee Offers</p>
+          <p class="text-lg font-semibold">Latest Employee Offers</p>
           <svg class="w-4 h-4" preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, #CB8A2E)"/>
           </svg>
@@ -74,20 +74,20 @@
           </div>
         </div>
         <router-link to="/find-stores" class="flex justify-between items-center py-4">
-          <p class="text-lg font-bold">Find Stores Near You</p>
+          <p class="text-lg font-semibold">Find Stores Near You</p>
           <svg class="w-4 h-4" preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
           </svg>
         </router-link>
         <div class="flex justify-between items-center py-4">
-          <p class="text-lg font-bold">Contact IT Support</p>
+          <p class="text-lg font-semibold">Contact IT Support</p>
           <svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, black)"/>
           </svg>
         </div>
         <button @click="logout" class="mt-6 w-full py-4 px-4 rounded-lg" style="box-shadow: 0 0 20px 0 rgba(0,0,0,0.10);">
           <div class="flex justify-between items-center">
-            <p class="text-lg font-bold text-[#cb8a2e]">Sign Out</p>
+            <p class="text-lg font-semibold text-[#cb8a2e]">Sign Out</p>
           </div>
         </button>
       </div>

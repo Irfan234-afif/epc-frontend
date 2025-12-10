@@ -10,7 +10,7 @@
             </svg>
           </div>
           <div>
-            <h1 class="text-3xl font-bold text-gray-800 mb-1">Cashier Portal</h1>
+            <h1 class="text-3xl font-semibold text-gray-800 mb-1">Cashier Portal</h1>
             <p class="text-gray-600">Process employee discount transactions</p>
           </div>
         </div>
@@ -24,7 +24,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
           </div>
-          <h2 class="text-2xl font-bold text-gray-800">Transaction Details</h2>
+          <h2 class="text-2xl font-semibold text-gray-800">Transaction Details</h2>
         </div>
         
         <form @submit.prevent="handleSubmit" class="space-y-4">
@@ -178,7 +178,7 @@
                 type="button"
                 @click="openScanner"
                 :disabled="!canScanQR"
-                class="w-full bg-gray-800 text-white font-bold py-5 rounded-xl hover:bg-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] group"
+                class="w-full bg-gray-800 text-white font-semibold py-5 rounded-xl hover:bg-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] group"
               >
                 <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,7 +212,7 @@
                   type="button"
                   @click="setManualQR"
                   :disabled="!canScanQR || !manualQRInput"
-                  class="w-full bg-gray-600 text-white font-bold py-4 rounded-xl hover:bg-gray-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transform hover:scale-[1.01] active:scale-[0.99]"
+                  class="w-full bg-gray-600 text-white font-semibold py-4 rounded-xl hover:bg-gray-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transform hover:scale-[1.01] active:scale-[0.99]"
                 >
                   Use Manual QR Code
                 </button>
@@ -227,7 +227,7 @@
                   <div class="w-12 h-12 bg-gray-800 rounded-full animate-pulse"></div>
                 </div>
               </div>
-              <p class="text-xl font-bold text-gray-800 mt-6 mb-2">Processing Transaction...</p>
+              <p class="text-xl font-semibold text-gray-800 mt-6 mb-2">Processing Transaction...</p>
               <p class="text-sm text-gray-500">Please wait while we process your request</p>
               <div class="flex justify-center gap-1 mt-4">
                 <div class="w-2 h-2 bg-gray-600 rounded-full animate-bounce" style="animation-delay: 0ms"></div>

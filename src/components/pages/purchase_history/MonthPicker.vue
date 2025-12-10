@@ -18,7 +18,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
       </button>
-      <h2 class="text-primary font-bold text-[30px]">{{ selectedYear }}</h2>
+      <h2 class="text-primary font-semibold text-[30px]">{{ selectedYear }}</h2>
       <button
         @click="incrementYear"
         class="p-2 hover:bg-gray-200 rounded-full transition-colors flex items-center justify-center"
@@ -47,7 +47,7 @@
           'text-base tracking-[0.32px] py-2',
           getMonthAlignment(index),
           selectedMonth === index 
-            ? 'text-primary font-bold' 
+            ? 'text-primary font-semibold' 
             : 'text-[#212121] font-semibold'
         ]"
       >

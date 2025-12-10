@@ -22,7 +22,7 @@
           
           <!-- Employee Details -->
           <div class="flex-1 h-full flex flex-col justify-center">
-            <h2 class="text-[20px] font-bold text-[#151515] mb-1 leading-tight">
+            <h2 class="text-[20px] font-semibold text-[#151515] mb-1 leading-tight">
               <div>{{ employeeData?.employee_info.name }}</div>
             </h2>
             <p class="text-[12px] font-normal text-[#151515] mb-1">{{ employeeData?.employee_info.designation || 'Staff' }}{{ employeeData?.employee_info.department ? ' - ' + employeeData.employee_info.department : '' }}</p>
@@ -44,7 +44,7 @@
         <!-- Balance Section -->
         <div class="p-4 lg:p-6">
           <p class="text-[14px] font-normal text-[#151515] mb-2">{{ transactionSuccess ? 'Updated Remaining Balance' : 'Current Remaining Balance' }}</p>
-          <p class="text-[35px] font-bold mb-3 text-neutral-700" style="color: #cb8a2e;">{{ formatCurrency(updatedBalance) }}</p>
+          <p class="text-[35px] font-semibold mb-3 text-neutral-700" style="color: #cb8a2e;">{{ formatCurrency(updatedBalance) }}</p>
           <div class="h-[3px] bg-[#efeeec] rounded-full overflow-hidden mb-2">
             <div class="h-full transition-all duration-300 bg-[#cb8a2e]" :style="{ width: balancePercentage + '%' }"></div>
           </div>
@@ -58,7 +58,7 @@
         <template v-if="transactionSuccess && transactionData">
           <!-- Transaction Details Header -->
           <div class="mb-6">
-            <h3 class="text-[14px] font-bold text-[#151515] mb-6">Transaction Details</h3>
+            <h3 class="text-[14px] font-semibold text-[#151515] mb-6">Transaction Details</h3>
             
             <!-- Transaction Date/Time -->
             <div class="flex justify-between items-center mb-4">
@@ -100,7 +100,7 @@
               </button>
             </div>
             <div class="bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] px-4 py-3 min-h-[50px] flex items-center">
-              <p class="text-[24px] font-bold flex-1 text-center" style="color: #cb8a2e;">{{ transactionData.transaction_id }}</p>
+              <p class="text-[24px] font-semibold flex-1 text-center" style="color: #cb8a2e;">{{ transactionData.transaction_id }}</p>
             </div>
           </div>
 
@@ -116,7 +116,7 @@
                 v-model="paymentId"
                 type="text"
                 placeholder="Enter Payment ID"
-                class="w-full border-none bg-transparent text-[24px] font-bold text-[#151515] outline-none placeholder:opacity-20 placeholder:text-black"
+                class="w-full border-none bg-transparent text-[24px] font-semibold text-[#151515] outline-none placeholder:opacity-20 placeholder:text-black"
               />
             </div>
           </div>
@@ -143,7 +143,7 @@
           <!-- Session Timer -->
           <div class="mb-6 lg:mb-8">
             <div class="border-[0.5px] border-black rounded-[10px] p-4 lg:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 lg:gap-4 mb-2 min-h-[70px]">
-              <div class="text-[35px] font-bold text-neutral-700">{{ formattedTimer }}</div>
+              <div class="text-[35px] font-semibold text-neutral-700">{{ formattedTimer }}</div>
               <p class="text-[10px] font-normal text-[#151515] leading-[14px] max-w-xs">
                 Session expires in {{ Math.ceil(remainingSeconds / 60) }} minutes. Transaction will be cancelled automatically.
               </p>
@@ -156,11 +156,11 @@
             <div>
               <label class="block text-[14px] font-normal text-[#151515] mb-2">Input POS Final Transaction Amount</label>
               <div class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] min-h-[50px] lg:min-h-[70px]">
-                <span class="text-[24px] font-bold text-neutral-700 min-w-[50px] lg:min-w-[60px]">IDR</span>
+                <span class="text-[24px] font-semibold text-neutral-700 min-w-[50px] lg:min-w-[60px]">IDR</span>
                 <input 
                   v-model="posAmountDisplay" 
                   type="text" 
-                  class="flex-1 border-none bg-transparent text-[24px] font-bold text-neutral-700 text-right outline-none placeholder-gray-300"
+                  class="flex-1 border-none bg-transparent text-[24px] font-semibold text-neutral-700 text-right outline-none placeholder-gray-300"
                   placeholder="0"
                   @input="handlePosAmountInput"
                   @blur="handlePosAmountBlur"
@@ -172,8 +172,8 @@
             <div>
               <label class="block text-[14px] font-normal text-[#151515] mb-2">Calculated Benefits Discount</label>
               <div class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] min-h-[50px] lg:min-h-[70px]">
-                <span class="text-[24px] font-bold text-neutral-700 min-w-[50px] lg:min-w-[60px]">IDR</span>
-                <span class="flex-1 text-[24px] font-bold text-neutral-700 text-right">{{ formatNumber(calculatedDiscount) }}</span>
+                <span class="text-[24px] font-semibold text-neutral-700 min-w-[50px] lg:min-w-[60px]">IDR</span>
+                <span class="flex-1 text-[24px] font-semibold text-neutral-700 text-right">{{ formatNumber(calculatedDiscount) }}</span>
               </div>
             </div>
 
@@ -181,8 +181,8 @@
             <div>
               <label class="block text-[14px] font-normal text-[#151515] mb-2">Net Amount Deducted from EPC</label>
               <div class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] min-h-[50px] lg:min-h-[70px]" style="border: 1px solid #cb8a2e;">
-                <span class="text-[24px] font-bold min-w-[50px] lg:min-w-[60px]" style="color: #cb8a2e;">IDR</span>
-                <span class="flex-1 text-[24px] font-bold text-right" style="color: #cb8a2e;">{{ formatNumber(netDeducted) }}</span>
+                <span class="text-[24px] font-semibold min-w-[50px] lg:min-w-[60px]" style="color: #cb8a2e;">IDR</span>
+                <span class="flex-1 text-[24px] font-semibold text-right" style="color: #cb8a2e;">{{ formatNumber(netDeducted) }}</span>
               </div>
             </div>
           </div>
@@ -232,7 +232,7 @@
     >
       <div class="bg-[#f8f8f8] p-8 rounded-lg min-h-[311px] ">
         <!-- Title -->
-        <h3 class="text-[20px] font-bold text-[#333333] text-center mb-4 leading-[28px]">
+        <h3 class="text-[20px] font-semibold text-[#333333] text-center mb-4 leading-[28px]">
           The Employee's limit will be deducted by 
           <span style="color: #cb8a2e;">IDR {{ formatNumber(netDeducted) }}</span>. 
           Confirm transaction?

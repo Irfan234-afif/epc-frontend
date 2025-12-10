@@ -17,7 +17,7 @@
           </p>
           <button 
             @click="showMonthPicker = true"
-            class="font-bold text-[12px] text-primary"
+            class="font-semibold text-[12px] text-primary"
           >
             Change
           </button>
@@ -27,7 +27,7 @@
       <!-- Total Transactions -->
       <div class="px-8 mb-4">
         <p class="font-semibold text-[12px] text-[#151515] mb-2">Total Transactions</p>
-        <p class="font-bold text-[24px] text-primary">
+        <p class="font-semibold text-[24px] text-primary">
           {{ formatIDR(totalAmount) }}
         </p>
       </div>
@@ -46,7 +46,7 @@
                 ]"
             >
                 <p :class="[
-                'font-bold text-[24px]',
+                'font-semibold text-[24px]',
                 selectedFilter === value.name ? 'text-primary' : 'text-primary'
                 ]">
                 {{ value.count }}
@@ -160,7 +160,7 @@
               </p>
             </div>
             <div class="flex-1 text-center">
-              <p class="font-bold text-[12px] text-[#212121]">
+              <p class="font-semibold text-[12px] text-[#212121]">
                 {{ formatIDR(transaction.total_amount) }}
               </p>
             </div>

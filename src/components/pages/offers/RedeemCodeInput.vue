@@ -1,7 +1,7 @@
 <template>
     <div class="bg-[#f8f8f8] rounded-tl-[10px] rounded-tr-[10px] shadow-[0px_0px_19.4px_13px_rgba(0,0,0,0.1)] w-full">
         <div class="p-6 pb-8">
-            <p class="text-center text-base font-bold text-[#151515] mb-4">
+            <p class="text-center text-base font-semibold text-[#151515] mb-4">
                 Type your code
             </p>
             

@@ -2,7 +2,7 @@
     <div class="bg-[#f8f8f8] min-h-screen pb-32">
         <div class="shadow-xl w-full px-6 py-8 rounded-b-xl bg-[#f8f8f8]">
             <Navbar>
-                <h2 class="font-bold text-[22px] text-[#151515]">
+                <h2 class="font-semibold text-[22px] text-[#151515]">
                     707STAMP
                 </h2>
             </Navbar>
@@ -17,7 +17,7 @@
                 <button 
                     @click="activeTab = 'ongoing'"
                     :class="[
-                        'h-[31px] rounded-[5px] px-4 text-xs font-bold tracking-[0.24px]',
+                        'h-[31px] rounded-[5px] px-4 text-xs font-semibold tracking-[0.24px]',
                         activeTab === 'ongoing' 
                             ? 'bg-[#cb8a2e] text-white' 
                             : 'border border-black text-black'
@@ -28,7 +28,7 @@
                 <button 
                     @click="activeTab = 'used'"
                     :class="[
-                        'h-[31px] rounded-[5px] px-4 text-xs font-bold tracking-[0.24px]',
+                        'h-[31px] rounded-[5px] px-4 text-xs font-semibold tracking-[0.24px]',
                         activeTab === 'used' 
                             ? 'bg-[#cb8a2e] text-white' 
                             : 'border border-black text-black'
@@ -39,7 +39,7 @@
                 <button 
                     @click="activeTab = 'upcoming'"
                     :class="[
-                        'h-[31px] rounded-[5px] px-4 text-xs font-bold tracking-[0.24px]',
+                        'h-[31px] rounded-[5px] px-4 text-xs font-semibold tracking-[0.24px]',
                         activeTab === 'upcoming' 
                             ? 'bg-[#cb8a2e] text-white' 
                             : 'border border-black text-black'
@@ -50,7 +50,7 @@
             </div>
 
             <div class="mt-6 flex items-center justify-between">
-                <p class="text-base font-bold text-[#212121]">
+                <p class="text-base font-semibold text-[#212121]">
                     View redeemed e-voucher
                 </p>
                 <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,12 +80,12 @@
                         </p>
                     </div>
                     <div class="flex items-center justify-between mt-4">
-                        <p class="text-xs font-bold text-black">
+                        <p class="text-xs font-semibold text-black">
                             Total Stamp: {{ stamp.currentStamps }} of {{ stamp.totalStamps }}
                         </p>
                         <p 
                             :class="[
-                                'text-[10px] font-bold text-right',
+                                'text-[10px] font-semibold text-right',
                                 stamp.status === 'ongoing' ? 'text-[#cb8a2e]' : 'text-black'
                             ]"
                         >

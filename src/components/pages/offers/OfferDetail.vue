@@ -24,7 +24,7 @@
             <div class="p-6">
                 <!-- Title and Expiry -->
                 <div class="mb-4">
-                    <h2 class="text-xl font-bold text-[#151515] mb-2">
+                    <h2 class="text-xl font-semibold text-[#151515] mb-2">
                         {{ offer.title }}
                     </h2>
                     <p class="text-[10px] text-black text-right mb-4">
@@ -40,7 +40,7 @@
                     
                     <!-- Terms & Conditions -->
                     <div v-if="offer.terms" class="mt-4">
-                        <h3 class="text-xs font-bold text-[#151515] mb-2">Terms & Conditions:</h3>
+                        <h3 class="text-xs font-semibold text-[#151515] mb-2">Terms & Conditions:</h3>
                         <ul class="text-xs text-[#212121] leading-[17px] list-disc list-inside space-y-1">
                             <li v-for="(term, index) in offer.terms" :key="index">
                                 {{ term }}

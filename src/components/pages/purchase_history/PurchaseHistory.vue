@@ -2,7 +2,7 @@
     <div>
         <div class="shadow-xl w-full px-6 py-8 rounded-b-xl">
             <Navbar>
-                <h2 class="font-bold text-xl">
+                <h2 class="font-semibold text-xl">
                     Purchase History
                 </h2>
             </Navbar>
@@ -59,7 +59,7 @@
             <!-- Balance Display -->
             <div v-else-if="selectedCard" class="mt-8 text-center">
                 <p class="text-[#151515] text-[14px] mb-2">Remaining Balance</p>
-                <h2 class="font-bold text-[35px] text-primary">{{ animatedBalance }}</h2>
+                <h2 class="font-semibold text-[35px] text-primary">{{ animatedBalance }}</h2>
                 
                 <div class="h-[6px] mb-8 mt-6">
                     <div class="relative w-full">
@@ -81,16 +81,16 @@
         <div class="px-6 py-8">
             <div class="flex items-start justify-between">
                 <div>
-                    <h2 class="font-bold text-xl mb-1">{{ formattedMonthYear }}</h2>
+                    <h2 class="font-semibold text-xl mb-1">{{ formattedMonthYear }}</h2>
                     <p class="text-sm">
                         <span>{{ transactions.length }} Transaction(s) · </span>
-                        <span class="font-bold">Total {{ formattedTotalAmount }}</span>
+                        <span class="font-semibold">Total {{ formattedTotalAmount }}</span>
                     </p>
                 </div>
                 <div>
                     <button 
                         @click="openMonthPicker"
-                        class="text-primary font-bold text-base"
+                        class="text-primary font-semibold text-base"
                     >
                         Change
                     </button>
@@ -148,7 +148,7 @@
                         </p>
                     </div>
                     <div class="text-right">
-                        <p class="font-bold text-[14px] text-[#212121] tracking-[0.28px]">
+                        <p class="font-semibold text-[14px] text-[#212121] tracking-[0.28px]">
                             {{ formatIDR(transaction.total_amount) }}
                         </p>
                         <p class="text-muted text-[12px] text-[#9f9f9f]">

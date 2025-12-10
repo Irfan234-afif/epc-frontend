@@ -53,7 +53,7 @@ const handleSubmit = async () => {
 
       <div class="flex-1 flex items-center justify-center p-6">
         <div class="w-full max-w-sm space-y-8">
-          <h1 class="font-helvetica font-bold text-4xl leading-[2.8rem] text-white tracking-tight">
+          <h1 class="font-helvetica font-semibold text-4xl leading-[2.8rem] text-white tracking-tight">
             Employee Discount Access Portal
           </h1>
           
@@ -129,7 +129,7 @@ const handleSubmit = async () => {
 
             <Button 
               type="submit"
-              class="w-full !bg-[#cb8a2e] !border-none !rounded !h-11 !text-white !font-bold !text-base !tracking-wider"
+              class="w-full !bg-[#cb8a2e] !border-none !rounded !h-11 !text-white !font-semibold !text-base !tracking-wider"
             >
               Sign in
             </Button>
@@ -156,7 +156,7 @@ const handleSubmit = async () => {
           </form>
 
           <div class="space-y-3">
-            <a href="#" class="block text-[#cb8a2e] font-helvetica font-bold text-sm no-underline">
+            <a href="#" class="block text-[#cb8a2e] font-helvetica font-semibold text-sm no-underline">
               Forgot password?
             </a>
             <p class="text-white font-helvetica text-xs leading-normal max-w-[18rem]">
