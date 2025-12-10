@@ -2,11 +2,11 @@
     <div class="flex items-start justify-between">
         <slot/>
         <div class="flex items-center">
-            <router-link to="/notifications" class="px-3 pt-2 rounded">
+            <router-link to="/notifications" class="px-3 pt-1 h-full rounded">
                 <IconNotification class="w-5 h-5 cursor-pointer"/>
             </router-link>
-            <button @click="showSideMenu = true" class="pl-3 pt-2 rounded">
-                <IconMenu class="w-4 h-4 cursor-pointer"/>
+            <button @click="showSideMenu = true" class="pl-3 pt-1 h-full rounded">
+                <IconMenu class="w-5 h-5 cursor-pointer"/>
             </button>
         </div>
     </div>
