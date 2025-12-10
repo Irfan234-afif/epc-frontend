@@ -160,7 +160,7 @@
                 <input 
                   v-model="posAmountDisplay" 
                   type="text" 
-                  class="flex-1 border-none bg-transparent text-[24px] font-semibold text-neutral-700 text-right outline-none placeholder-gray-300"
+                  class="w-full flex-1 border-none bg-transparent text-[24px] font-semibold text-neutral-700 text-right outline-none placeholder-gray-300"
                   placeholder="0"
                   @input="handlePosAmountInput"
                   @blur="handlePosAmountBlur"
