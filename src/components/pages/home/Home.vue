@@ -1,15 +1,17 @@
 <template>
     <div class="p-6">
       <Navbar>
-        <div class="flex items-center">
+        <div class="flex items-center w-full">
             <!-- <img class="w-16 h-16 rounded-full" src="/avatar.png" alt="User Avatar"> -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                <path
-                    d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z" />
-            </svg>
+            <div class="rounded-full bg-gray-200 p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 640 640">
+                  <path
+                      d="M240 192C240 147.8 275.8 112 320 112C364.2 112 400 147.8 400 192C400 236.2 364.2 272 320 272C275.8 272 240 236.2 240 192zM448 192C448 121.3 390.7 64 320 64C249.3 64 192 121.3 192 192C192 262.7 249.3 320 320 320C390.7 320 448 262.7 448 192zM144 544C144 473.3 201.3 416 272 416L368 416C438.7 416 496 473.3 496 544L496 552C496 565.3 506.7 576 520 576C533.3 576 544 565.3 544 552L544 544C544 446.8 465.2 368 368 368L272 368C174.8 368 96 446.8 96 544L96 552C96 565.3 106.7 576 120 576C133.3 576 144 565.3 144 552L144 544z" />
+              </svg>
+            </div>
             <div class="ml-4">
             <p class="text-xl font-bold text-gray-800">Hello, {{ state.user?.full_name?.split(' ')[0] }}</p>
-            <!-- <p class="text-sm text-gray-600">UI/UX Designer - Marketing</p> -->
+            <p class="text-sm text-gray-600 mt-1">Employee</p>
             </div>
         </div>
       </Navbar>
@@ -18,7 +20,7 @@
         <CardStack :cards="employeeCards" :isLoading="isLoadingCards" @qr-click="handleQRClick" />
       </div>
 
-      <div class="mt-4 flex">
+      <div class="mt-4 flex justify-between">
         <router-link to="/purchase-history" class="text-center flex-1">
           <div class="text-center p-4">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 34" fill="none" class="w-10 h-10 mx-auto">
@@ -55,14 +57,14 @@
         </router-link>
       </div>
 
-      <div class="mt-8 space-y-2">
+      <div class="mt-4 space-y-2">
         <div class="flex justify-between items-center">
           <p class="text-lg font-bold">Latest Employee Offers</p>
           <svg class="w-4 h-4" preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="Vector" d="M0 8C0 9.58225 0.469192 11.129 1.34824 12.4446C2.22729 13.7602 3.47672 14.7855 4.93853 15.391C6.40034 15.9965 8.00887 16.155 9.56072 15.8463C11.1126 15.5376 12.538 14.7757 13.6569 13.6569C14.7757 12.538 15.5376 11.1126 15.8463 9.56072C16.155 8.00887 15.9965 6.40034 15.391 4.93853C14.7855 3.47672 13.7602 2.22729 12.4446 1.34824C11.129 0.469192 9.58225 0 8 0C5.87827 0 3.84344 0.842854 2.34315 2.34315C0.842854 3.84344 0 5.87827 0 8ZM3.42857 7.42857H10.3714L7.18286 4.22457L8 3.42857L12.5714 8L8 12.5714L7.18286 11.756L10.3714 8.57143H3.42857V7.42857Z" fill="var(--fill-0, #CB8A2E)"/>
           </svg>
         </div>
-        <div class="flex space-x-4 overflow-x-auto gap-4 py-4">
+        <div class="flex space-x-4 overflow-x-auto gap-2 py-4 px-2 -mx-2 scrollbar-hide">
           <div v-for="news in news" :key="news.name" class="bg-white rounded-lg shadow-lg w-64 flex-shrink-0">
             <img :src="news.thumbnail" alt="News Thumbnail" class="w-full h-32 object-cover rounded-t-lg"></img>
             <div class="p-4">
@@ -108,8 +110,6 @@
 </template>
 
 <script setup lang="ts">
-import CompanyLogo from '@/components/icons/CompanyLogo.vue';
-import IconQR from '@/components/icons/IconQR.vue';
 import QRView from '@/components/pages/home/QRView.vue';
 import CardStack from '@/components/pages/home/CardStack.vue';
 import { ref, onMounted } from 'vue';

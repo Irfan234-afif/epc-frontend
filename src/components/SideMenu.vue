@@ -24,62 +24,47 @@
           leave-from-class="translate-x-0"
           leave-to-class="translate-x-full"
         >
-          <div v-show="show" class="fixed right-0 h-full bg-white shadow-xl transform transition-all" :class="maxWidthClass">
-            <div class="h-full flex flex-col">
-              <div class="p-6 border-b">
-                <div class="flex items-center">
-                  <!-- <img class="w-16 h-16 rounded-full" src="/avatar.png" alt="User Avatar"> -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                      <path
-                          d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z" />
+          <div v-show="show" class="fixed right-0 h-full bg-white shadow-xl transform transition-all min-w-[300px]" :class="maxWidthClass">
+            <div class="h-full flex flex-col items-end p-6">
+              <div class="flex">
+                <router-link to="/notifications" class="p-3 rounded">
+                    <IconNotification class="w-5 h-5 cursor-pointer"/>
+                </router-link>
+                <button class="p-3 rounded" type="button" @click="close()">
+                  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.25 10.25C20.25 15.775 15.775 20.25 10.25 20.25C4.725 20.25 0.25 15.775 0.25 10.25C0.25 4.725 4.725 0.25 10.25 0.25C15.775 0.25 20.25 4.725 20.25 10.25ZM19.625 10.25C19.625 15.425 15.425 19.625 10.25 19.625C5.075 19.625 0.875 15.425 0.875 10.25C0.875 5.075 5.075 0.875 10.25 0.875C15.425 0.875 19.625 5.075 19.625 10.25Z" fill="black" stroke="black" stroke-width="0.5"/>
+                    <path d="M6.85553 13.9271L13.9272 6.85547M13.9272 13.9271L6.85553 6.85547" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <div class="ml-4">
-                    <p class="text-xl font-bold text-gray-800">Hello, {{ state.user?.full_name?.split(' ')[0] }}</p>
-                    <!-- <p class="text-sm text-gray-600">UI/UX Designer - Marketing</p> -->
-                  </div>
-                </div>
+
+                </button>
               </div>
-          
-              <nav class="flex-1 p-6 space-y-2">
-                <router-link to="/" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-md">
+              <nav class="flex-1 space-y-2 mt-12">
+                <router-link to="/" class="flex items-center justify-end p-3 hover:bg-gray-100 rounded-md">
                   Home
                 </router-link>
-                <hr>
-                <router-link to="/history" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-md">
-                  History
+                <router-link to="/purchase-history" class="flex items-center justify-end p-3 hover:bg-gray-100 rounded-md">
+                  Purchase history
                 </router-link>
-                <hr>
-                <router-link to="/offers" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-md">
-                  Offers
+                <router-link to="/benefits" class="flex items-center justify-end p-3 hover:bg-gray-100 rounded-md">
+                  Your EPC Benefits
                 </router-link>
-                <hr>
-                <router-link to="/stamps" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-md">
-                  707Stamp
+                <router-link to="/profile" class="flex items-center justify-end p-3 hover:bg-gray-100 rounded-md">
+                  Your Profile
                 </router-link>
-                <hr>
-                <router-link to="/profile" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-md">
-                  Profile
-                </router-link>
-                <hr>
-                <router-link to="/settings" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-md">
-                  Settings
-                </router-link>
-                <hr>
-                <router-link to="/help" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-md">
-                  Help
-                </router-link>
-                <hr>
               </nav>
 
-              <div class="mb-4 p-6">
-                <div>
-                  <p class="text-lg font-bold py-2">User Setting</p>
-                </div>
-                <div>
-                  <p class="text-lg font-bold py-2 mb-2">Contact IT Support</p>
-                </div>
-                <button @click="logout">
-                  <p class="text-lg font-bold text-primary py-4">Sign Out</p>
+              <div class="mb-4 flex flex-col items-end">
+                <router-link to="/settings">
+                  <p class="font-semibold py-2 text-right">User Setting</p>
+                </router-link>
+                <router-link to="/find-stores" class="flex justify-between items-center py-4">
+                  <p class="font-semibold">Find Stores Near You</p>
+                </router-link>
+                <!-- <div>
+                  <p class="font-semibold py-2 mb-2 text-right">Contact IT Support</p>
+                </div> -->
+                <button @click="logout" class="mt-6 py-3 px-8 rounded-xl" style="box-shadow: 0 0 20px 0 rgba(0,0,0,0.20);">
+                  <p class="font-semibold text-[#cb8a2e]">Sign Out</p>
                 </button>
               </div>
           
@@ -100,6 +85,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, watch } from "vue";
 import { useAuth } from "./lib/auth";
+import IconNotification from "./icons/IconNotification.vue";
 
 const { logout, state } = useAuth();
 

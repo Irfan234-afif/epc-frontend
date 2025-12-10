@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#f8f8f8] p-6" @click.stop>
+  <div class="bg-[#f8f8f8] p-8" @click.stop>
     <!-- Year Display with Arrows -->
     <div class="flex items-center justify-between mb-8">
       <button

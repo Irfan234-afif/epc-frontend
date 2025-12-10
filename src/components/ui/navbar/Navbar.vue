@@ -1,11 +1,11 @@
 <template>
-    <div class="flex items-center justify-between">
+    <div class="flex items-start justify-between">
         <slot/>
         <div class="flex items-center">
-            <router-link to="/notifications" class="p-3 rounded">
+            <router-link to="/notifications" class="px-3 pt-2 rounded">
                 <IconNotification class="w-5 h-5 cursor-pointer"/>
             </router-link>
-            <button @click="showSideMenu = true" class="p-3 rounded">
+            <button @click="showSideMenu = true" class="pl-3 pt-2 rounded">
                 <IconMenu class="w-4 h-4 cursor-pointer"/>
             </button>
         </div>

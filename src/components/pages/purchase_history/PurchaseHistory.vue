@@ -57,11 +57,11 @@
             </div>
 
             <!-- Balance Display -->
-            <div v-else-if="selectedCard" class="my-12 text-center">
+            <div v-else-if="selectedCard" class="mt-8 text-center">
                 <p class="text-[#151515] text-[14px] mb-2">Remaining Balance</p>
                 <h2 class="font-bold text-[35px] text-primary">{{ animatedBalance }}</h2>
                 
-                <div class="h-[6px] mb-4 mt-6">
+                <div class="h-[6px] mb-8 mt-6">
                     <div class="relative w-full">
                         <div class="absolute bg-[#EFEEEC] h-[6px] w-full"></div>
                         <div 
@@ -71,15 +71,15 @@
                     </div>
                 </div>
 
-                <div class="text-center mb-4">
+                <div class="text-center">
                     <p class="text-[#212121] text-[12px]">
-                        The balance resets on the 1<span class="text-[7.74px]">st</span> of every month.
+                        The balance resets on the 1<span class="text-[7.74px]" style="vertical-align: top;">st</span> of every month.
                     </p>
                 </div>
             </div>
         </div>
-        <div class="p-6">
-            <div class="flex items-center justify-between">
+        <div class="px-6 py-8">
+            <div class="flex items-start justify-between">
                 <div>
                     <h2 class="font-bold text-xl mb-1">{{ formattedMonthYear }}</h2>
                     <p class="text-sm">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else-if="transactions.length === 0" class="py-8 text-center">
+            <div v-else-if="transactions.length === 0" class="py-32 text-center">
                 <p class="text-muted">No transactions found for this period.</p>
             </div>
             <div v-else class="py-4 space-y-2">
@@ -136,7 +136,7 @@
                             v-else
                             class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"
                         >
-                            <span class="text-xs text-gray-500">{{ transaction.sbu.charAt(0) }}</span>
+                            <span class="text-xs text-gray-500">{{ transaction.sbu?.charAt(0) }}</span>
                         </div>
                     </div>
                     <div class="flex-1">

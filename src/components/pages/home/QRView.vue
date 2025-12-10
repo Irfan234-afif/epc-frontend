@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center p-5 bg-[#f8f8f8] rounded-lg">
+  <div class="flex flex-col items-center p-14 bg-[#f8f8f8] rounded-lg">
     <!-- Success View -->
     <div v-if="isTransactionCompleted" class="w-full flex flex-col items-center">
       <!-- Success Icon -->
@@ -47,7 +47,7 @@
     <div v-else class="w-full flex flex-col items-center">
       <div class="text-center mb-4">
         <h2 class="text-2xl font-bold mb-2">{{ qrCodeData?.card_name || cardCode || 'Loading...' }}</h2>
-        <p class="text-sm">{{ qrCodeData?.employee_name || 'Loading...' }}</p>
+        <p class="text-sm">{{ qrCodeData?.epc_type || 'Loading...' }}</p>
       </div>
       <div class="p-5 bg-gray-50 rounded-3xl shadow-sm mb-3">
         <div v-if="isLoading" class="w-56 h-56 flex items-center justify-center">
@@ -67,10 +67,10 @@
         </div>
       </div>
       <div class="text-center text-gray-800 mb-5">
-        <p class="font-bold text-lg mb-2">Show Payment QR to Staff</p>
-        <p class="text-sm">Staff will scan this QR to apply your discount. Your balance will be updated after successful purchase.</p>
+        <p class="font-bold text-lg mb-2">Show QR to Pay</p>
+        <p class="text-sm">Staff will scan this QR to complete your payment. Your employee discount will be applied automatically.</p>
       </div>
-      <button @click="$emit('close')" class="bg-gray-800 text-white font-bold py-3 w-64 rounded-md cursor-pointer">Close</button>
+      <button @click="$emit('close')" class="border active:bg-gray-800 active:text-white hover:bg-gray-800 hover:text-white font-bold py-3 w-64 rounded-md cursor-pointer">Close</button>
     </div>
   </div>
 </template>
@@ -236,11 +236,11 @@ function formatDuration(seconds: number): string {
   }
   
   if (minutes > 0) {
-    parts.push(`${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`);
+    parts.push(`${minutes} ${secs > 0 ? ':' : 'minutes'}`);
   }
   
   if (secs > 0 || parts.length === 0) {
-    parts.push(`${secs} ${secs === 1 ? 'second' : 'seconds'}`);
+    parts.push(`${secs} ${secs === 1 ? '' : ''}`);
   }
   
   return parts.join(' ');

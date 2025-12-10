@@ -1,7 +1,19 @@
 <template>
-  <div class="relative h-[16.5rem]">
+  <div class="relative h-fit">
+    <!-- Spacer to give parent height (since all cards are absolutely positioned) -->
+    <div 
+      v-if="!isLoading && sortedCards.length > 0"
+      :style="{ height: containerHeight }"
+      class="w-full"
+    ></div>
+    <div 
+      v-else-if="isLoading"
+      class="w-full"
+      style="height: 14rem;"
+    ></div>
+    
     <!-- Loading Shimmer Skeleton -->
-    <div v-if="isLoading" class="relative h-full">
+    <div v-if="isLoading" class="absolute inset-0">
       <div 
         v-for="(_, index) in 1" 
         :key="`skeleton-${index}`"
@@ -51,7 +63,7 @@
     </div>
 
     <!-- Stacked Cards Container -->
-    <transition-group v-else name="card" tag="div" class="relative h-full">
+    <transition-group v-else name="card" tag="div" class="absolute inset-0">
       <div 
         v-for="(card, index) in sortedCards" 
         :key="card.code"
@@ -147,6 +159,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import IconQR from '@/components/icons/IconQR.vue';
 import IconTime from '@/components/icons/IconTime.vue';
 import IconCardSwap from '@/components/icons/IconCardSwap.vue';
@@ -173,6 +186,24 @@ const {
   getContentClasses,
   getCardStyle
 } = useCardStack(() => props.cards);
+
+// Calculate container height based on cards
+const containerHeight = computed(() => {
+  if (sortedCards.value.length === 0) return '14rem';
+  
+  const lastIndex = sortedCards.value.length - 1;
+  if (lastIndex === 0) {
+    // Only one card, use its height
+    return '14rem';
+  }
+  
+  // Calculate: top position of last card + height of last card
+  const topRem = 3.25 + (lastIndex - 1) * 0.375;
+  const heightRem = 13 - (lastIndex - 1) * 0.375;
+  const totalHeight = topRem + heightRem;
+  
+  return `${totalHeight}rem`;
+});
 
 // Skeleton loading styles
 const getSkeletonStyle = (index: number) => {

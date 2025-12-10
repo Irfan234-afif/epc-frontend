@@ -48,6 +48,15 @@ hr {
   color: var(--vt-c-white-mute);
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 
 @media (hover: hover) {
   /* a:hover, button:hover {

@@ -28,6 +28,7 @@ export type QRCodeResponse = {
 	success: boolean;
 	qr_code: string;
 	card_name: string;
+	epc_type: string;
 	employee_name: string;
 	expires_in: number;
 	message: string;
@@ -137,4 +138,15 @@ export type NewsResponse = {
 	short_description: string;
 	description: string;
 	thumbnail: string;
+};
+
+export type EPCType = {
+	name: string;
+	default_limit: number;
+	discount: []
+}
+
+export type EPCTypeDiscount = {
+	sbu: string;
+	discount_percentage: number;
 };

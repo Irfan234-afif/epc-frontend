@@ -16,15 +16,27 @@ const showPassword = ref(false);
 const rememberMe = ref(false);
 const viewIcon = 'http://localhost:3845/assets/3eecf9e9e51cb40cff9a7e704a12eeed3ab52a90.svg';
 const { state, login } = useAuth();
+const errorMessage = ref('');
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
+const clearError = () => {
+  errorMessage.value = '';
+};
+
 const handleSubmit = async () => {
-    const ok = await login(email.value, password.value);
-    if (ok) {
-        router.replace('/');
+    errorMessage.value = '';
+    try {
+        const ok = await login(email.value, password.value);
+        if (ok) {
+            router.replace('/');
+        } else {
+            errorMessage.value = 'Username atau password salah';
+        }
+    } catch (error: any) {
+        errorMessage.value = 'Username atau password salah';
     }
 };
 </script>
@@ -49,8 +61,10 @@ const handleSubmit = async () => {
             <div class="relative">
               <Input 
                 v-model="email" 
+                @input="clearError"
                 placeholder="example@sosco.id"
                 variant="dark"
+                type="text"
                 class="!bg-transparent !h-11 !text-white"
               />
             </div>
@@ -59,17 +73,58 @@ const handleSubmit = async () => {
               <Input 
                 :type="showPassword ? 'text' : 'password'"
                 v-model="password" 
-                placeholder="rsdcdcss74"
+                @input="clearError"
+                placeholder="password"
                 variant="dark"
                 class="!bg-transparent !h-11 !text-white"
               />
               <button 
                 type="button" 
-                class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 z-10"
+                class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 z-10 text-white"
                 @click="togglePassword"
               >
-                <img :src="viewIcon" alt="Toggle password visibility" class="w-full h-full" />
+              <svg
+                  v-if="!showPassword"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                  />
+                </svg>
               </button>
+            </div>
+
+            <!-- Error Message -->
+            <div v-if="errorMessage" class="bg-red-500/20 border border-red-500/50 text-red-200 px-4 py-3 rounded text-sm">
+              {{ errorMessage }}
             </div>
 
             <Button 
