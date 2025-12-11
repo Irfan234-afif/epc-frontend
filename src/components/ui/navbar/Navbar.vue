@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-start justify-between">
+    <div class="flex items-start justify-between" :class="$attrs.class">
         <slot/>
         <div class="flex items-center">
             <router-link to="/notifications" class="px-3 pt-1 h-full rounded">

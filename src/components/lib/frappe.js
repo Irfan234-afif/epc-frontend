@@ -4,10 +4,10 @@ import { FrappeApp } from "frappe-js-sdk";
 // Contoh: VITE_BACKEND_URL="" atau VITE_BACKEND_URL="/"
 // Ini memastikan request melewati proxy di vite.config.js agar cookies bekerja
 var backendUrl = import.meta.env.VITE_BACKEND_URL || '';
-if (import.meta.env.DEV) {
-    // Environment is development
-    backendUrl = '';
-}
+// if (import.meta.env.DEV) {
+//     // Environment is development
+//     backendUrl = '';
+// }
 
 export const frappe = new FrappeApp(backendUrl, {
     useToken: false,

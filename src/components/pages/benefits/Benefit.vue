@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-[#f8f8f8] min-h-screen">
+    <div class="bg-[#f8f8f8] min-h-screen pb-8">
         <div class="w-full px-6 py-8">
             <Navbar>
                 <h2 class="font-semibold text-[20px] text-[#151515]">
@@ -93,17 +93,16 @@
                             v-for="item in group.items" 
                             :key="item.sbu"
                             class="flex items-center justify-center"
-                            :style="{ minWidth: '60px', maxHeight: '50px' }"
                         >
                             <img 
                                 v-if="item.logo"
                                 :src="item.logo" 
                                 :alt="item.sbu"
-                                class="max-h-[50px] max-w-[120px] object-contain"
+                                class="h-[30px] w-[70px] object-contain"
                             />
                             <div 
                                 v-else
-                                class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"
+                                class="w-[50px] h-[50px] bg-gray-200 rounded flex items-center justify-center"
                             >
                                 <span class="text-xs text-gray-500 font-medium">{{ item.sbu?.charAt(0) || '?' }}</span>
                             </div>

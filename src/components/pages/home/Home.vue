@@ -1,10 +1,11 @@
 <template>
     <div class="p-6">
       <Navbar>
-        <div class="flex items-center w-full">
-            <!-- <img class="w-16 h-16 rounded-full" src="/avatar.png" alt="User Avatar"> -->
-            <div class="rounded-full bg-gray-200 p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 640 640">
+        <router-link to="/profile" class="flex items-center">
+          <div class="flex items-center w-full">
+            <img v-if="state.user?.user_image" class="w-14 h-14 rounded-full" :src="getImageUrl(state.user?.user_image)" alt="User Avatar">
+            <div v-else class="rounded-full bg-gray-200 p-2 w-14 h-14">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                   <path
                       d="M240 192C240 147.8 275.8 112 320 112C364.2 112 400 147.8 400 192C400 236.2 364.2 272 320 272C275.8 272 240 236.2 240 192zM448 192C448 121.3 390.7 64 320 64C249.3 64 192 121.3 192 192C192 262.7 249.3 320 320 320C390.7 320 448 262.7 448 192zM144 544C144 473.3 201.3 416 272 416L368 416C438.7 416 496 473.3 496 544L496 552C496 565.3 506.7 576 520 576C533.3 576 544 565.3 544 552L544 544C544 446.8 465.2 368 368 368L272 368C174.8 368 96 446.8 96 544L96 552C96 565.3 106.7 576 120 576C133.3 576 144 565.3 144 552L144 544z" />
               </svg>
@@ -13,7 +14,8 @@
             <p class="text-xl font-semibold text-gray-800">Hello, {{ state.user?.full_name?.split(' ')[0] }}</p>
             <p class="text-sm text-gray-600 mt-1">Employee</p>
             </div>
-        </div>
+          </div>
+        </router-link>
       </Navbar>
 
       <div class="mt-8">
@@ -52,7 +54,7 @@
               </g>
             </svg>
   
-            <p class="text-sm font-semibold mt-4">Coming Soon</p>
+            <p class="text-xs font-semibold mt-4">Coming Soon</p>
           </div>
         </router-link>
       </div>
@@ -65,13 +67,18 @@
           </svg>
         </div>
         <div class="flex space-x-4 overflow-x-auto gap-2 py-4 px-2 -mx-2 scrollbar-hide">
-          <div v-for="news in news" :key="news.name" class="bg-white rounded-lg shadow-lg w-64 flex-shrink-0">
-            <img :src="news.thumbnail" alt="News Thumbnail" class="w-full h-32 object-cover rounded-t-lg"></img>
+          <router-link 
+            v-for="newsItem in news" 
+            :key="newsItem.name" 
+            :to="`/news/${newsItem.name}`"
+            class="bg-white rounded-lg shadow-lg w-64 flex-shrink-0 cursor-pointer hover:shadow-xl transition-shadow"
+          >
+            <img :src="getImageUrl(newsItem.thumbnail)" alt="News Thumbnail" class="w-full h-32 object-cover rounded-t-lg"></img>
             <div class="p-4">
-              <p class="text-sm">{{ news.title }}</p>
-              <p class="text-sm">{{ news.short_description }}</p>
+              <p class="text-sm font-semibold">{{ newsItem.title }}</p>
+              <p class="text-sm text-gray-600 mt-1">{{ newsItem.short_description }}</p>
             </div>
-          </div>
+          </router-link>
         </div>
         <router-link to="/find-stores" class="flex justify-between items-center py-4">
           <p class="text-lg font-semibold">Find Stores Near You</p>
@@ -120,6 +127,7 @@ import { fetchUserCards } from '@/components/lib/card';
 import { Card } from '@/components/pages/home/useCardStack';
 import { getNews } from '@/components/lib/news';
 import { NewsResponse } from '@/components/lib/types';
+import { getImageUrl } from '@/components/lib/utils';
 
 const { state, logout } = useAuth();
 

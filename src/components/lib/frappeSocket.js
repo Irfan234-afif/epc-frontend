@@ -25,6 +25,12 @@ async function initSocket(){
 
 	socket.on('connect', () => {
 		console.log('✅ Socket connected');
+
+		// Send a ping to the socket server to check connectivity
+		console.log('🔔 Sending ping to socket server');
+		socket.emit('ping', { timestamp: Date.now() }, (response) => {
+			console.log('🔔 Ping response:', response);
+		});
 	});
 
 	socket.on('disconnect', (reason) => {

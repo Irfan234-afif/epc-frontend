@@ -2,6 +2,7 @@ export type Employee = Record<string, any>;
 
 export type LoggedInUser = {
 	showroom: Showroom;
+	user_image: string;
 	username: string;
 	full_name: string;
 	email: string;
@@ -138,6 +139,8 @@ export type NewsResponse = {
 	short_description: string;
 	description: string;
 	thumbnail: string;
+	potrait_image: string | null;
+	creation: string;
 };
 
 export type EPCType = {

@@ -19,7 +19,9 @@ import EmployeeTransactionResult from './components/pages/home/EmployeeTransacti
 import ForbiddenPage from './components/pages/default/ForbiddenPage.vue';
 import LoadingPage from './components/pages/default/LoadingPage.vue';
 import Settings from './components/pages/settings/Settings.vue';
+import ProfileSettings from './components/pages/profile/ProfileSettings.vue';
 import Benefits from './components/pages/benefits/Benefit.vue';
+import NewsDetail from './components/pages/news/NewsDetail.vue';
 
 const routes = [
     {
@@ -65,9 +67,21 @@ const routes = [
         meta: { requiresAuth: true, roles: ['Employee'] }
     },
     {
+        path: '/news/:name',
+        name: 'NewsDetail',
+        component: NewsDetail,
+        meta: { requiresAuth: true, roles: ['Employee'] }
+    },
+    {
         path: '/settings',
         name: 'Settings',
         component: Settings,
+        meta: { requiresAuth: true, roles: ['Employee'] }
+    },
+    {
+        path: '/profile',
+        name: 'ProfileSettings',
+        component: ProfileSettings,
         meta: { requiresAuth: true, roles: ['Employee'] }
     },
     {

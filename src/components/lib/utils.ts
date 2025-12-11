@@ -15,6 +15,26 @@ export function getCookie(name) {
     return null;
 }
 
+export function formatDate(date: string): string {
+    return new Date(date).toLocaleDateString('id-ID', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+}
+
+export function getImageUrl(image: string | null): string {
+    if (!image) {
+        return '/images/default-image.png';
+    }
+
+    if (image.startsWith('http://') || image.startsWith('https://')) {
+        return image;
+    }
+
+    return `${import.meta.env.VITE_BACKEND_URL}${image}`;
+}
+
 /**
  * Format currency based on the currency type
  * @param amount - The amount to format
