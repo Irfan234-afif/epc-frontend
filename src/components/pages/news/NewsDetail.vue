@@ -67,14 +67,14 @@
                     </div>
 
                     <!-- Back Button -->
-                    <div class="mt-8">
+                    <!-- <div class="mt-8">
                         <router-link 
                             to="/" 
                             class="flex items-center justify-center w-full border border-black text-black font-semibold text-base tracking-[0.32px] h-[45px] rounded-[5px]"
                         >
                             Back to Home
                         </router-link>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
