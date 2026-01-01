@@ -6,10 +6,11 @@
                     Purchase History
                 </h2>
             </Navbar>
-            
+
             <!-- Card Selector Loading Skeleton -->
             <div v-if="isLoadingCards" class="mt-6 mb-6 flex justify-center">
-                <div class="bg-[#f8f8f8] h-[45px] rounded-[10px] shadow-[0px_0px_8.5px_0px_rgba(0,0,0,0.1)] flex items-center justify-between w-full px-4">
+                <div
+                    class="bg-[#f8f8f8] h-[45px] rounded-[10px] shadow-[0px_0px_8.5px_0px_rgba(0,0,0,0.1)] flex items-center justify-between w-full px-4">
                     <div class="w-4 h-4 bg-gray-300 rounded skeleton-item"></div>
                     <div class="flex-1 mx-4">
                         <div class="h-4 bg-gray-300 rounded skeleton-item w-3/4 mx-auto"></div>
@@ -20,24 +21,19 @@
 
             <!-- Card Selector -->
             <div v-else-if="cards.length > 0" class="mt-6 mb-6 flex justify-center">
-                <div class="bg-[#f8f8f8] h-[45px] rounded-lg shadow-[0px_0px_8.5px_0px_rgba(0,0,0,0.1)] flex items-center justify-between w-full overflow-hidden">
-                    <button 
-                        @click="selectPreviousCard"
+                <div
+                    class="bg-[#f8f8f8] h-[45px] rounded-lg shadow-[0px_0px_8.5px_0px_rgba(0,0,0,0.1)] flex items-center justify-between w-full overflow-hidden">
+                    <button @click="selectPreviousCard"
                         class="flex items-center justify-center min-w-[44px] h-full px-4 active:opacity-70 transition-opacity"
-                        :disabled="cards.length <= 1"
-                        :class="{ 'opacity-30 cursor-not-allowed': cards.length <= 1 }"
-                    >
+                        :disabled="cards.length <= 1" :class="{ 'opacity-30 cursor-not-allowed': cards.length <= 1 }">
                         <IconArrowLeft class="w-5 h-5 mx-4" />
                     </button>
                     <p class="font-medium text-[14px] text-[#151515] tracking-[0.84px] text-center flex-1 px-2">
                         {{ selectedCard ? selectedCard.epcType.toUpperCase() : '' }}
                     </p>
-                    <button 
-                        @click="selectNextCard"
+                    <button @click="selectNextCard"
                         class="flex items-center justify-center min-w-[44px] h-full px-4 active:opacity-70 transition-opacity"
-                        :disabled="cards.length <= 1"
-                        :class="{ 'opacity-30 cursor-not-allowed': cards.length <= 1 }"
-                    >
+                        :disabled="cards.length <= 1" :class="{ 'opacity-30 cursor-not-allowed': cards.length <= 1 }">
                         <IconArrowRight class="w-5 h-5 mx-4" />
                     </button>
                 </div>
@@ -60,20 +56,19 @@
             <div v-else-if="selectedCard" class="mt-8 text-center">
                 <p class="text-[#151515] text-[14px] mb-2">Remaining Balance</p>
                 <h2 class="font-semibold text-[35px] text-primary">{{ animatedBalance }}</h2>
-                
+
                 <div class="h-[6px] mb-8 mt-6">
                     <div class="relative w-full">
                         <div class="absolute bg-[#EFEEEC] h-[6px] w-full"></div>
-                        <div 
-                            class="absolute bg-[#CB8A2E] h-[6px]"
-                            :style="{ width: `${animatedProgressPercentage}%` }"
-                        ></div>
+                        <div class="absolute bg-[#CB8A2E] h-[6px]" :style="{ width: `${animatedProgressPercentage}%` }">
+                        </div>
                     </div>
                 </div>
 
                 <div class="text-center">
                     <p class="text-[#212121] text-[12px]">
-                        The balance resets on the 1<span class="text-[7.74px]" style="vertical-align: top;">st</span> of every month.
+                        The balance resets on the 1<span class="text-[7.74px]" style="vertical-align: top;">st</span> of
+                        every year.
                     </p>
                 </div>
             </div>
@@ -88,21 +83,14 @@
                     </p>
                 </div>
                 <div>
-                    <button 
-                        @click="openMonthPicker"
-                        class="text-primary font-semibold text-base"
-                    >
+                    <button @click="openMonthPicker" class="text-primary font-semibold text-base">
                         Change
                     </button>
                 </div>
             </div>
             <div v-if="isLoadingTransactions" class="py-4 space-y-2">
                 <!-- Transaction Loading Skeletons -->
-                <div 
-                    v-for="i in 5" 
-                    :key="`skeleton-${i}`"
-                    class="flex items-center space-x-2 py-4"
-                >
+                <div v-for="i in 5" :key="`skeleton-${i}`" class="flex items-center space-x-2 py-4">
                     <div class="px-2">
                         <div class="w-12 h-12 bg-gray-300 rounded skeleton-item"></div>
                     </div>
@@ -120,22 +108,12 @@
                 <p class="text-muted">No transactions found for this period.</p>
             </div>
             <div v-else class="py-4 space-y-2">
-                <div 
-                    v-for="transaction in transactions" 
-                    :key="transaction.name"
-                    class="flex items-center space-x-2 py-4"
-                >
+                <div v-for="transaction in transactions" :key="transaction.name"
+                    class="flex items-center space-x-2 py-4">
                     <div class="px-2">
-                        <img 
-                            v-if="getLogoUrl(transaction.sbu_logo)"
-                            :src="getLogoUrl(transaction.sbu_logo)" 
-                            :alt="transaction.sbu" 
-                            class="max-w-12 max-h-12 object-contain"
-                        >
-                        <div 
-                            v-else
-                            class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"
-                        >
+                        <img v-if="getLogoUrl(transaction.sbu_logo)" :src="getLogoUrl(transaction.sbu_logo)"
+                            :alt="transaction.sbu" class="max-w-12 max-h-12 object-contain">
+                        <div v-else class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
                             <span class="text-xs text-gray-500">{{ transaction.sbu?.charAt(0) }}</span>
                         </div>
                     </div>
@@ -160,18 +138,11 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Month Picker Modal -->
-        <Modal
-            :show="showMonthPicker"
-            :maxWidth="'md'"
-            @close="closeMonthPicker"
-        >
+        <Modal :show="showMonthPicker" :maxWidth="'md'" @close="closeMonthPicker">
             <template v-slot="{ propertyModal }">
-                <MonthPicker
-                    v-model="selectedDate"
-                    @done="closeMonthPicker"
-                />
+                <MonthPicker v-model="selectedDate" @done="closeMonthPicker" />
             </template>
         </Modal>
     </div>
@@ -255,24 +226,24 @@ const animateBalance = (targetAmount: string) => {
     const startNumber = parseInt(animatedBalance.value.replace(/[^\d]/g, '')) || 0;
     const duration = 500; // 1.5 seconds
     const startTime = Date.now();
-    
+
     const animate = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing function (ease-out)
         const easeOut = 1 - Math.pow(1 - progress, 3);
-        
+
         const currentNumber = Math.floor(startNumber + (targetNumber - startNumber) * easeOut);
         animatedBalance.value = formatIDR(currentNumber);
-        
+
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
             animatedBalance.value = targetAmount; // Ensure final value is exact
         }
     };
-    
+
     requestAnimationFrame(animate);
 };
 
@@ -281,23 +252,23 @@ const animateProgress = (targetPercentage: number) => {
     const startPercentage = animatedProgressPercentage.value;
     const duration = 1000; // 1 second
     const startTime = Date.now();
-    
+
     const animate = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing function (ease-out)
         const easeOut = 1 - Math.pow(1 - progress, 3);
-        
+
         animatedProgressPercentage.value = startPercentage + (targetPercentage - startPercentage) * easeOut;
-        
+
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
             animatedProgressPercentage.value = targetPercentage; // Ensure final value is exact
         }
     };
-    
+
     requestAnimationFrame(animate);
 };
 
@@ -325,22 +296,22 @@ function formatTime(timeString: string): string {
 // Get logo URL (similar to card.ts)
 function getLogoUrl(logoPath: string | null | undefined): string | undefined {
     if (!logoPath) return undefined;
-    
+
     // @ts-ignore - import.meta.env is available in Vite
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     if (!backendUrl) return undefined;
-    
+
     const cleanBackendUrl = backendUrl.endsWith('/') ? backendUrl.slice(0, -1) : backendUrl;
     const cleanPath = logoPath.startsWith('/') ? logoPath : `/${logoPath}`;
-    
+
     return `${cleanBackendUrl}${cleanPath}`;
 }
 
 // Card navigation
 const selectPreviousCard = () => {
     if (cards.value.length <= 1) return;
-    selectedCardIndex.value = selectedCardIndex.value === 0 
-        ? cards.value.length - 1 
+    selectedCardIndex.value = selectedCardIndex.value === 0
+        ? cards.value.length - 1
         : selectedCardIndex.value - 1;
 };
 
@@ -380,7 +351,7 @@ const loadCards = async () => {
     try {
         const fetchedCards = await fetchUserCards();
         cards.value = fetchedCards;
-        
+
         // Also fetch raw card data for balance calculations
         // We need to get the raw data, but fetchUserCards only returns transformed cards
         // Fetch the raw data directly using frappe
@@ -391,7 +362,7 @@ const loadCards = async () => {
                 'employeediscount.api.card.get_user_card'
             );
         cardRawData.value = res?.message ?? [];
-        
+
         // Ensure selectedCardIndex is valid
         if (cards.value.length > 0) {
             if (selectedCardIndex.value >= cards.value.length || selectedCardIndex.value < 0) {
@@ -466,15 +437,18 @@ onMounted(async () => {
 
 <style scoped>
 @keyframes skeleton-pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .skeleton-item {
-  animation: skeleton-pulse 1.5s ease-in-out infinite;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
 }
 </style>

@@ -45,7 +45,7 @@
         </div>
 
         <div class="px-6">
-            <!-- Monthly Balance Section -->
+            <!-- Yearly Balance Section -->
             <div v-if="isLoadingCards" class="text-center mb-8">
                 <div class="h-4 bg-gray-300 rounded skeleton-item w-32 mx-auto mb-2"></div>
                 <div class="h-10 bg-gray-300 rounded skeleton-item w-48 mx-auto mb-6 mt-4"></div>
@@ -53,12 +53,12 @@
             </div>
 
             <div v-else-if="selectedEPCType" class="text-left mb-8">
-                <p class="text-[#151515] text-[14px] mb-2">Monthly Limit</p>
+                <p class="text-[#151515] text-[14px] mb-2">Yearly Limit</p>
                 <h2 class="font-semibold text-[35px] text-[#cb8a2e] mb-2">
                     {{ formatIDR(selectedEPCType.default_limit) }}
                 </h2>
                 <p class="text-[#212121] text-[12px]">
-                    The balance resets on the 1<span class="text-[7.74px]" style="vertical-align: top;">st</span> of every month.
+                    The balance resets on the 1<span class="text-[7.74px]" style="vertical-align: top;">st</span> of every year.
                 </p>
             </div>
 

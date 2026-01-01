@@ -7,26 +7,27 @@
         <div class="flex items-start gap-4 mb-6 lg:mb-8 pb-6 lg:pb-8 border-b border-gray-200">
           <!-- Profile Picture -->
           <div class="w-[114px] h-[113px] rounded-full flex-shrink-0 overflow-hidden">
-            <img 
-              v-if="employeeData?.employee_info && (employeeData.employee_info as any).profile_picture" 
-              :src="(employeeData.employee_info as any).profile_picture" 
-              :alt="employeeData.employee_info.name"
-              class="w-full h-full object-cover"
-            />
-            <div v-else class="w-full h-full bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+            <img v-if="employeeData?.employee_info && (employeeData.employee_info as any).profile_picture"
+              :src="(employeeData.employee_info as any).profile_picture" :alt="employeeData.employee_info.name"
+              class="w-full h-full object-cover" />
+            <div v-else
+              class="w-full h-full bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
               <svg class="w-12 h-12 lg:w-16 lg:h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd">
+                </path>
               </svg>
             </div>
           </div>
-          
+
           <!-- Employee Details -->
           <div class="flex-1 h-full flex flex-col justify-center">
             <h2 class="text-[20px] font-semibold text-[#151515] mb-1 leading-tight">
               <div>{{ employeeData?.employee_info.name }}</div>
             </h2>
-            <p class="text-[12px] font-normal text-[#151515] mb-1">{{ employeeData?.employee_info.designation || 'Staff' }}{{ employeeData?.employee_info.department ? ' - ' + employeeData.employee_info.department : '' }}</p>
-            <p class="text-[10px] font-normal text-[#151515] mb-3">Joined since {{ employeeData ? formatDate(employeeData.employee_info.date_of_joining) : '' }}</p>
+            <p class="text-[12px] font-normal text-[#151515] mb-1">{{ employeeData?.employee_info.designation || 'Staff'
+              }}{{ employeeData?.employee_info.department ? ' - ' + employeeData.employee_info.department : '' }}</p>
+            <p class="text-[10px] font-normal text-[#151515] mb-3">Joined since {{ employeeData ?
+              formatDate(employeeData.employee_info.date_of_joining) : '' }}</p>
           </div>
         </div>
 
@@ -37,18 +38,23 @@
           </div>
           <div class="h-[17px] w-[1px] bg-gray-300 mx-1"></div>
           <div class="w-full text-center">
-            <span class="text-[14px] font-semibold text-[#151515]">{{ employeeData?.card_info.discount_percentage }}% DISCOUNT</span>
+            <span class="text-[14px] font-semibold text-[#151515]">{{ employeeData?.card_info.discount_percentage }}%
+              DISCOUNT</span>
           </div>
         </div>
 
         <!-- Balance Section -->
         <div class="p-4 lg:p-6">
-          <p class="text-[14px] font-normal text-[#151515] mb-2">{{ transactionSuccess ? 'Updated Remaining Balance' : 'Current Remaining Balance' }}</p>
-          <p class="text-[35px] font-semibold mb-3 text-neutral-700" style="color: #cb8a2e;">{{ formatCurrency(updatedBalance) }}</p>
+          <p class="text-[14px] font-normal text-[#151515] mb-2">{{ transactionSuccess ? 'Updated Remaining Balance' :
+            'Current Remaining Balance' }}</p>
+          <p class="text-[35px] font-semibold mb-3 text-neutral-700" style="color: #cb8a2e;">{{
+            formatCurrency(updatedBalance) }}</p>
           <div class="h-[3px] bg-[#efeeec] rounded-full overflow-hidden mb-2">
-            <div class="h-full transition-all duration-300 bg-[#cb8a2e]" :style="{ width: balancePercentage + '%' }"></div>
+            <div class="h-full transition-all duration-300 bg-[#cb8a2e]" :style="{ width: balancePercentage + '%' }">
+            </div>
           </div>
-          <p class="text-[12px] font-normal text-[#212121]">The balance resets on the 1<sup class="text-[7.74px]">st</sup> of every month.</p>
+          <p class="text-[12px] font-normal text-[#212121]">The balance resets on the 1<sup
+              class="text-[7.74px]">st</sup> of every year.</p>
         </div>
       </div>
 
@@ -59,7 +65,7 @@
           <!-- Transaction Details Header -->
           <div class="mb-6">
             <h3 class="text-[14px] font-semibold text-[#151515] mb-6">Transaction Details</h3>
-            
+
             <!-- Transaction Date/Time -->
             <div class="flex justify-between items-center mb-4">
               <p class="text-[14px] font-normal text-[#151515]">Transaction Date/Time</p>
@@ -74,14 +80,16 @@
 
             <!-- Calculated Discount -->
             <div class="flex justify-between items-center mb-4">
-              <p class="text-[14px] font-normal text-[#151515]">Calculated Discount [ {{ employeeData?.card_info.discount_percentage }}% ]</p>
+              <p class="text-[14px] font-normal text-[#151515]">Calculated Discount [ {{
+                employeeData?.card_info.discount_percentage }}% ]</p>
               <p class="text-[14px] font-semibold text-[#151515]">{{ formatCurrency(transactionDiscountAmount) }}</p>
             </div>
 
             <!-- Net Amount Deducted -->
             <div class="flex justify-between items-center mb-4">
               <p class="text-[14px] font-normal text-[#151515]">Net Amount Deducted</p>
-              <p class="text-[14px] font-semibold text-[#151515]" style="color: #cb8a2e;">{{ formatCurrency(transactionNetAmount) }}</p>
+              <p class="text-[14px] font-semibold text-[#151515]" style="color: #cb8a2e;">{{
+                formatCurrency(transactionNetAmount) }}</p>
             </div>
           </div>
 
@@ -89,18 +97,19 @@
           <div class="mb-4">
             <div class="flex items-center gap-2 mb-2">
               <p class="text-[14px] font-normal text-[#151515]">Transaction ID</p>
-              <button
-                @click="copyTransactionId"
-                class="p-1 hover:bg-gray-200 rounded transition-colors"
-                :title="copiedTransactionId ? 'Copied!' : 'Copy Transaction ID'"
-              >
+              <button @click="copyTransactionId" class="p-1 hover:bg-gray-200 rounded transition-colors"
+                :title="copiedTransactionId ? 'Copied!' : 'Copy Transaction ID'">
                 <svg class="w-5 h-5 text-[#151515]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                  </path>
                 </svg>
               </button>
             </div>
-            <div class="bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] px-4 py-3 min-h-[50px] flex items-center">
-              <p class="text-[24px] font-semibold flex-1 text-center" style="color: #cb8a2e;">{{ transactionData.transaction_id }}</p>
+            <div
+              class="bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] px-4 py-3 min-h-[50px] flex items-center">
+              <p class="text-[24px] font-semibold flex-1 text-center" style="color: #cb8a2e;">{{
+                transactionData.transaction_id }}</p>
             </div>
           </div>
 
@@ -112,27 +121,24 @@
           <!-- Payment ID Input -->
           <div class="mb-6">
             <div class="bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] px-4 py-3 min-h-[50px]">
-              <input
-                v-model="paymentId"
-                type="text"
-                placeholder="Enter Payment ID"
-                class="w-full border-none bg-transparent text-[24px] font-semibold text-[#151515] outline-none placeholder:opacity-20 placeholder:text-black"
-              />
+              <input v-model="paymentId" type="text" placeholder="Enter Payment ID"
+                class="w-full border-none bg-transparent text-[24px] font-semibold text-[#151515] outline-none placeholder:opacity-20 placeholder:text-black" />
             </div>
           </div>
 
           <!-- Finish Button -->
-          <button
-            @click="handleFinish"
-            class="w-full py-3 bg-[#212121] border-[0.5px] border-black text-white text-[14px] font-medium rounded-[5px] transition-all hover:bg-black"
-          >
+          <button @click="handleFinish"
+            class="w-full py-3 bg-[#212121] border-[0.5px] border-black text-white text-[14px] font-medium rounded-[5px] transition-all hover:bg-black">
             Finish
           </button>
 
           <!-- Error Message -->
-          <div v-if="errorMessage" class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-600 text-sm">
+          <div v-if="errorMessage"
+            class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-600 text-sm">
             <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"></path>
             </svg>
             <span>{{ errorMessage }}</span>
           </div>
@@ -142,10 +148,12 @@
         <template v-else>
           <!-- Session Timer -->
           <div class="mb-6 lg:mb-8">
-            <div class="border-[0.5px] border-black rounded-[10px] p-4 lg:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 lg:gap-4 mb-2 min-h-[70px]">
+            <div
+              class="border-[0.5px] border-black rounded-[10px] p-4 lg:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 lg:gap-4 mb-2 min-h-[70px]">
               <div class="text-[35px] font-semibold text-neutral-700">{{ formattedTimer }}</div>
               <p class="text-[10px] font-normal text-[#151515] leading-[14px] max-w-xs">
-                Session expires in {{ Math.ceil(remainingSeconds / 60) }} minutes. Transaction will be cancelled automatically.
+                Session expires in {{ Math.ceil(remainingSeconds / 60) }} minutes. Transaction will be cancelled
+                automatically.
               </p>
             </div>
           </div>
@@ -154,68 +162,70 @@
           <div class="grid grid-cols-1 gap-4 lg:gap-6 mb-6 lg:mb-8">
             <!-- POS Amount Input -->
             <div>
-              <label class="block text-[14px] font-normal text-[#151515] mb-2">Input POS Final Transaction Amount</label>
-              <div class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] min-h-[50px] lg:min-h-[70px]">
+              <label class="block text-[14px] font-normal text-[#151515] mb-2">Input POS Final Transaction
+                Amount</label>
+              <div
+                class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] min-h-[50px] lg:min-h-[70px]">
                 <span class="text-[24px] font-semibold text-neutral-700 min-w-[50px] lg:min-w-[60px]">IDR</span>
-                <input 
-                  v-model="posAmountDisplay" 
-                  type="text" 
+                <input v-model="posAmountDisplay" type="text"
                   class="w-full flex-1 border-none bg-transparent text-[24px] font-semibold text-neutral-700 text-right outline-none placeholder-gray-300"
-                  placeholder="0"
-                  @input="handlePosAmountInput"
-                  @blur="handlePosAmountBlur"
-                />
+                  placeholder="0" @input="handlePosAmountInput" @blur="handlePosAmountBlur" />
               </div>
             </div>
 
             <!-- Calculated Discount -->
             <div>
               <label class="block text-[14px] font-normal text-[#151515] mb-2">Calculated Benefits Discount</label>
-              <div class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] min-h-[50px] lg:min-h-[70px]">
+              <div
+                class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] shadow-[0px_0px_7.6px_0px_rgba(0,0,0,0.1)] min-h-[50px] lg:min-h-[70px]">
                 <span class="text-[24px] font-semibold text-neutral-700 min-w-[50px] lg:min-w-[60px]">IDR</span>
-                <span class="flex-1 text-[24px] font-semibold text-neutral-700 text-right">{{ formatNumber(calculatedDiscount) }}</span>
+                <span class="flex-1 text-[24px] font-semibold text-neutral-700 text-right">{{
+                  formatNumber(calculatedDiscount) }}</span>
               </div>
             </div>
 
             <!-- Net Amount -->
             <div>
               <label class="block text-[14px] font-normal text-[#151515] mb-2">Net Amount Deducted from EPC</label>
-              <div class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] min-h-[50px] lg:min-h-[70px]" style="border: 1px solid #cb8a2e;">
+              <div
+                class="flex items-center gap-2 lg:gap-4 px-4 lg:px-6 py-3 lg:py-4 bg-[#f8f8f8] rounded-[10px] min-h-[50px] lg:min-h-[70px]"
+                style="border: 1px solid #cb8a2e;">
                 <span class="text-[24px] font-semibold min-w-[50px] lg:min-w-[60px]" style="color: #cb8a2e;">IDR</span>
-                <span class="flex-1 text-[24px] font-semibold text-right" style="color: #cb8a2e;">{{ formatNumber(netDeducted) }}</span>
+                <span class="flex-1 text-[24px] font-semibold text-right" style="color: #cb8a2e;">{{
+                  formatNumber(netDeducted) }}</span>
               </div>
             </div>
           </div>
 
           <!-- Action Buttons -->
           <div class="space-y-3 lg:space-y-4">
-            <button 
-              @click="handleProceed" 
-              :disabled="!posAmount || isProcessing"
-              class="w-full py-3 lg:py-4 bg-[#212121] text-white text-[14px] font-medium rounded-[5px] transition-all hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <button @click="handleProceed" :disabled="!posAmount || isProcessing"
+              class="w-full py-3 lg:py-4 bg-[#212121] text-white text-[14px] font-medium rounded-[5px] transition-all hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed">
               <span v-if="!isProcessing">Proceed</span>
               <span v-else class="flex items-center justify-center gap-2">
                 <svg class="w-5 h-5 animate-spin" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none">
+                  </circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                  </path>
                 </svg>
                 Processing...
               </span>
             </button>
-            <button 
-              @click="handleDismiss"
-              :disabled="isProcessing"
-              class="w-full py-3 lg:py-4 bg-transparent text-neutral-700 text-[14px] font-medium rounded-lg border border-transparent transition-colors hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <button @click="handleDismiss" :disabled="isProcessing"
+              class="w-full py-3 lg:py-4 bg-transparent text-neutral-700 text-[14px] font-medium rounded-lg border border-transparent transition-colors hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed">
               Dismiss Payment Process
             </button>
           </div>
 
           <!-- Error Message -->
-          <div v-if="errorMessage" class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-600 text-sm">
+          <div v-if="errorMessage"
+            class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-600 text-sm">
             <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"></path>
             </svg>
             <span>{{ errorMessage }}</span>
           </div>
@@ -224,20 +234,15 @@
     </div>
 
     <!-- Confirmation Modal -->
-    <Modal
-      :show="showConfirmModal"
-      :maxWidth="'md'"
-      :closeable="!isProcessing"
-      @close="showConfirmModal = false"
-    >
+    <Modal :show="showConfirmModal" :maxWidth="'md'" :closeable="!isProcessing" @close="showConfirmModal = false">
       <div class="bg-[#f8f8f8] p-8 rounded-lg min-h-[311px] ">
         <!-- Title -->
         <h3 class="text-[20px] font-semibold text-[#333333] text-center mb-4 leading-[28px]">
-          The Employee's limit will be deducted by 
-          <span style="color: #cb8a2e;">IDR {{ formatNumber(netDeducted) }}</span>. 
+          The Employee's limit will be deducted by
+          <span style="color: #cb8a2e;">IDR {{ formatNumber(netDeducted) }}</span>.
           Confirm transaction?
         </h3>
-        
+
         <!-- Subtitle -->
         <p class="text-[14px] font-normal text-black text-center mb-8 leading-[24px]">
           Please verify the amount. This action cannot be undone.
@@ -245,26 +250,23 @@
 
         <!-- Buttons -->
         <div class="flex flex-col gap-3">
-          <button
-            @click="confirmProceed"
-            :disabled="isProcessing"
-            class="w-full py-3 bg-[#212121] border-[0.5px] border-black text-white text-[14px] font-medium rounded-[5px] transition-all hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button @click="confirmProceed" :disabled="isProcessing"
+            class="w-full py-3 bg-[#212121] border-[0.5px] border-black text-white text-[14px] font-medium rounded-[5px] transition-all hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed">
             <span v-if="!isProcessing">Proceed</span>
             <span v-else class="flex items-center justify-center gap-2">
               <svg class="w-5 h-5 animate-spin" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none">
+                </circle>
+                <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
               </svg>
               Processing...
             </span>
           </button>
-          
-          <button
-            @click="showConfirmModal = false"
-            :disabled="isProcessing"
-            class="w-full py-3 bg-transparent border-[0.5px] border-black text-black text-[14px] font-medium rounded-[5px] transition-colors hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+
+          <button @click="showConfirmModal = false" :disabled="isProcessing"
+            class="w-full py-3 bg-transparent border-[0.5px] border-black text-black text-[14px] font-medium rounded-[5px] transition-colors hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
             Re-check
           </button>
         </div>
@@ -317,8 +319,8 @@ const balancePercentage = computed(() => {
   if (!employeeData.value) return 0;
   const { current_limit } = employeeData.value.card_info;
   // Use to_balance if transaction success, otherwise use current_balance
-  const balance = transactionSuccess.value && transactionData.value 
-    ? transactionData.value.current_balance 
+  const balance = transactionSuccess.value && transactionData.value
+    ? transactionData.value.current_balance
     : employeeData.value.card_info.current_balance;
   return (balance / current_limit) * 100;
 });
@@ -400,13 +402,13 @@ function loadFromSession() {
 
     const savedRemainingSeconds = sessionStorage.getItem(SESSION_KEYS.REMAINING_SECONDS);
     const timerStart = sessionStorage.getItem(SESSION_KEYS.TIMER_START);
-    
+
     if (savedRemainingSeconds && timerStart) {
       // Calculate elapsed time
       const elapsed = Math.floor((Date.now() - Number(timerStart)) / 1000);
       const savedSeconds = Number(savedRemainingSeconds);
       remainingSeconds.value = Math.max(0, savedSeconds - elapsed);
-      
+
       if (remainingSeconds.value > 0) {
         startTimer();
       } else {
@@ -437,11 +439,11 @@ function startTimer() {
   if (timerInterval) {
     clearInterval(timerInterval);
   }
-  
+
   timerInterval = window.setInterval(() => {
     remainingSeconds.value--;
     saveToSession();
-    
+
     if (remainingSeconds.value <= 0) {
       handleTimeout();
     }
@@ -463,7 +465,7 @@ function handlePosAmountInput(event: Event) {
   const target = event.target as HTMLInputElement;
   // Remove all non-digit characters
   const rawValue = target.value.replace(/\D/g, '');
-  
+
   if (rawValue === '') {
     posAmount.value = null;
     posAmountDisplay.value = '';
@@ -471,14 +473,14 @@ function handlePosAmountInput(event: Event) {
     netDeducted.value = 0;
     return;
   }
-  
+
   // Convert to number
   const numValue = Number(rawValue);
   posAmount.value = numValue;
-  
+
   // Update display with formatted value
   posAmountDisplay.value = formatNumber(numValue);
-  
+
   calculateAmounts();
 }
 
@@ -495,17 +497,17 @@ function calculateAmounts() {
     netDeducted.value = 0;
     return;
   }
-  
+
   const amount = Number(posAmount.value);
   const discountPercentage = employeeData.value.card_info.discount_percentage;
-  
+
   calculatedDiscount.value = Math.round(amount * (discountPercentage / 100));
   netDeducted.value = amount - calculatedDiscount.value;
 }
 
 function handleProceed() {
   if (!posAmount.value || !employeeData.value || !qrValue.value) return;
-  
+
   // Show confirmation modal
   showConfirmModal.value = true;
   errorMessage.value = '';
@@ -513,17 +515,17 @@ function handleProceed() {
 
 async function confirmProceed() {
   if (!posAmount.value || !employeeData.value || !qrValue.value) return;
-  
+
   const showroom = sessionStorage.getItem(SESSION_KEYS.SHOWROOM) || state.showroom?.name;
   if (!showroom) {
     errorMessage.value = 'Showroom not found. Please contact IT support.';
     showConfirmModal.value = false;
     return;
   }
-  
+
   isProcessing.value = true;
   errorMessage.value = '';
-  
+
   try {
     const result = await processTransaction({
       qr_value: qrValue.value,
@@ -531,17 +533,17 @@ async function confirmProceed() {
       showroom: showroom,
       title: `POS Transaction - ${employeeData.value.employee_info.name}`,
       description: `Discount: ${calculatedDiscount.value}, Net: ${netDeducted.value}`,
-      from_amount: Number(posAmount.value),   
+      from_amount: Number(posAmount.value),
       to_amount: Number(netDeducted.value),
     });
-    
+
     if (result && result.transaction_id) {
       // Set success state instead of navigating
       transactionData.value = result;
       transactionSuccess.value = true;
       showConfirmModal.value = false;
       isProcessing.value = false;
-      
+
       // Stop timer
       if (timerInterval) {
         clearInterval(timerInterval);
@@ -589,7 +591,7 @@ function formatDate(dateString: string): string {
 
 async function copyTransactionId() {
   if (!transactionData.value) return;
-  
+
   try {
     await navigator.clipboard.writeText(transactionData.value.transaction_id);
     copiedTransactionId.value = true;
@@ -615,7 +617,7 @@ async function handleFinish() {
       isProcessing.value = false;
     }
   }
-  
+
   // Clear session and navigate back to cashier portal
   // clearSession();
   // router.push({ name: 'Cashier' });
@@ -624,7 +626,7 @@ async function handleFinish() {
 // Load from session on mount
 onMounted(() => {
   loadFromSession();
-  
+
   // If no session data, redirect to landing page
   if (!employeeData.value) {
     router.push({ name: 'Cashier' });
@@ -638,4 +640,3 @@ onUnmounted(() => {
   }
 });
 </script>
-
