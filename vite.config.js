@@ -51,6 +51,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // Exclude file besar dari precaching (akan di-load on-demand)
         globIgnores: ['**/cashier-portal.png'],
